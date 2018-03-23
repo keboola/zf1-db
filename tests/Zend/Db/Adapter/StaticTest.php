@@ -117,8 +117,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
             $this->fail('Expected to catch Zend_Db_Exception');
         } catch (Zend_Exception $e) {
             set_include_path($ip);
-            $this->assertTrue($e instanceof Zend_Db_Exception,
-                'Expected exception of type Zend_Db_Exception, got '.get_class($e));
+            $this->assertInstanceOf(Zend_Db_Exception::class, $e);
             $this->assertEquals("Adapter class 'Zend_Version' does not extend Zend_Db_Adapter_Abstract", $e->getMessage());
         }
     }

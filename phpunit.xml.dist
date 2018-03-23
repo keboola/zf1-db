@@ -6,6 +6,47 @@
     backupGlobals="true"
     stderr="true"
     colors="true">
+    <php>
+        <includePath>./tests</includePath>
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_MYSQL_ENABLED" value="false" />
+        <const name="TESTS_ZEND_DB_ADAPTER_MYSQLI_ENABLED" value="false" />
+        <const name="TESTS_ZEND_DB_ADAPTER_MYSQL_HOSTNAME" value="127.0.0.1" />
+        <const name="TESTS_ZEND_DB_ADAPTER_MYSQL_USERNAME" value="null" />
+        <const name="TESTS_ZEND_DB_ADAPTER_MYSQL_PASSWORD" value="null" />
+        <const name="TESTS_ZEND_DB_ADAPTER_MYSQL_DATABASE" value="test" />
+        <const name="TESTS_ZEND_DB_ADAPTER_MYSQL_PORT" value="3306" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_SQLITE_ENABLED" value="false" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_SQLITE_DATABASE" value=":memory:" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_MSSQL_ENABLED" value="false" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_MSSQL_HOSTNAME" value="127.0.0.1" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_MSSQL_USERNAME" value="null" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_MSSQL_PASSWORD" value="null" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_MSSQL_DATABASE" value="test" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_MSSQL_PDOTYPE" value="dblib" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_PGSQL_ENABLED" value="false" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_PGSQL_HOSTNAME" value="127.0.0.1" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_PGSQL_USERNAME" value="null" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_PGSQL_PASSWORD" value="null" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_PGSQL_DATABASE" value="postgres" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_OCI_ENABLED" value="false" />
+        <const name="TESTS_ZEND_DB_ADAPTER_ORACLE_ENABLED" value="false" />
+        <const name="TESTS_ZEND_DB_ADAPTER_ORACLE_HOSTNAME" value="127.0.0.1" />
+        <const name="TESTS_ZEND_DB_ADAPTER_ORACLE_USERNAME" value="null" />
+        <const name="TESTS_ZEND_DB_ADAPTER_ORACLE_PASSWORD" value="null" />
+        <const name="TESTS_ZEND_DB_ADAPTER_ORACLE_SID" value="xe" />
+        <const name="TESTS_ZEND_DB_ADAPTER_PDO_IBM_ENABLED" value="false" />
+        <const name="TESTS_ZEND_DB_ADAPTER_DB2_ENABLED" value="false" />
+        <const name="TESTS_ZEND_DB_ADAPTER_DB2_HOSTNAME" value="127.0.0.1" />
+        <const name="TESTS_ZEND_DB_ADAPTER_DB2_PORT" value="50000" />
+        <const name="TESTS_ZEND_DB_ADAPTER_DB2_USERNAME" value="null" />
+        <const name="TESTS_ZEND_DB_ADAPTER_DB2_PASSWORD" value="null" />
+        <const name="TESTS_ZEND_DB_ADAPTER_DB2_DATABASE" value="sample" />
+        <const name="TESTS_ZEND_DB_ADAPTER_SQLSRV_ENABLED" value="false" />
+        <const name="TESTS_ZEND_DB_ADAPTER_SQLSRV_HOSTNAME" value="localhost\SQLEXPRESS" />
+        <const name="TESTS_ZEND_DB_ADAPTER_SQLSRV_USERNAME" value="null" />
+        <const name="TESTS_ZEND_DB_ADAPTER_SQLSRV_PASSWORD" value="null" />
+        <const name="TESTS_ZEND_DB_ADAPTER_SQLSRV_DATABASE" value="test" />
+    </php>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>

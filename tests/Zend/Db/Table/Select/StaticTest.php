@@ -609,6 +609,7 @@ class Zend_Db_Table_Select_StaticTest extends Zend_Db_Select_TestCommon
     /**
      * Not applicable in static test
      * @group ZF-5263
+     * @doesNotPerformAssertions
      */
     public function testSelectLimitFetchCol()
     {}
