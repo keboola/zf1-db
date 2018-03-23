@@ -20,15 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * @see Zend_Db_Adapter_TestCommon
- */
-require_once 'Zend/Db/Adapter/TestCommon.php';
-
-/**
- * @see Zend_Db_Adapter_Mysqli
- */
-require_once 'Zend/Db/Adapter/Mysqli.php';
 
 /**
  * @category   Zend

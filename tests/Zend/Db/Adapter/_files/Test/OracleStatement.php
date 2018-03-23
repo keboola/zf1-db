@@ -21,15 +21,6 @@
  */
 
 
-
-
-
-
-/**
- * @see Zend_Db_Statement_Oracle
- */
-require_once 'Zend/Db/Statement/Oracle.php';
-
 /**
  * Test Class for extending base Zend_Db_Statements
  *

@@ -29,9 +29,6 @@ require_once 'TableProducts.php';
 require_once 'TableBugsProductsCustom.php';
 
 
-
-
-
 /**
  * @category   Zend
  * @package    Zend_Db

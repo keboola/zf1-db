@@ -22,15 +22,6 @@
 
 
 /**
- * @see Zend_Db_Expr
- */
-require_once 'Zend/Db/Expr.php';
-
-
-
-
-
-/**
  * @category   Zend
  * @package    Zend_Db
  * @subpackage UnitTests
@@ -524,7 +515,6 @@ abstract class Zend_Db_TestUtil_Common
     protected function getAdapter()
     {
         if($this->_db == null) {
-            require_once "Zend/Db/Exception.php";
             throw new Zend_Db_Exception("No adapter was set in TestUtils.");
         }
         return $this->_db;
@@ -541,7 +531,6 @@ abstract class Zend_Db_TestUtil_Common
     protected function _tryRawQuery($sql)
     {
         if($this->_db == null) {
-            require_once "Zend/Db/Exception.php";
             throw new Zend_Db_Exception("No database adapter set.");
         }
         $this->_rawQuery($sql);

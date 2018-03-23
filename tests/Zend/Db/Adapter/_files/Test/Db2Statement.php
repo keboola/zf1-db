@@ -21,15 +21,6 @@
  */
 
 
-
-
-
-
-/**
- * @see Zend_Db_Statement_Db2
- */
-require_once 'Zend/Db/Statement/Db2.php';
-
 /**
  * Test Class for extending base Zend_Db_Statements
  *

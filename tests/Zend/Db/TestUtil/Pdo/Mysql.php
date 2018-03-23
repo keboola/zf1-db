@@ -20,13 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * @see Zend_Db_TestUtil_Mysqli
- */
-require_once 'Zend/Db/TestUtil/Mysqli.php';
-
-
-
 
 /**
  * @category   Zend
@@ -43,7 +36,6 @@ class Zend_Db_TestUtil_Pdo_Mysql extends Zend_Db_TestUtil_Mysqli
         $retval = $conn->exec($sql);
         if ($retval === false) {
             $e = $conn->error;
-            require_once 'Zend/Db/Exception.php';
             throw new Zend_Db_Exception("SQL error for \"$sql\": $e");
         }
     }

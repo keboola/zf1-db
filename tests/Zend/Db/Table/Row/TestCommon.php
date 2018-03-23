@@ -22,17 +22,6 @@
 
 
 /**
- * @see Zend_Db_Table_TestSetup
- */
-require_once 'Zend/Db/Table/TestSetup.php';
-
-
-
-
-require_once 'Zend/Db/Table/Row.php';
-
-
-/**
  * @category   Zend
  * @package    Zend_Db
  * @subpackage UnitTests
@@ -132,11 +121,6 @@ abstract class Zend_Db_Table_Row_TestCommon extends Zend_Db_Table_TestSetup
     public function testTableRowContructorWithTableNameSpecifiedInSubclass()
     {
         $this->_useMyIncludePath();
-
-        /**
-         * @see Zend_Db_Table_Row_TestStandaloneRow
-         */
-        require_once 'My/ZendDbTable/Row/TestStandaloneRow.php';
 
         Zend_Db_Table_Abstract::setDefaultAdapter($this->_db);
 

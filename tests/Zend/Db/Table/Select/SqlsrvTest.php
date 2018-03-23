@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-require_once 'Zend/Db/Table/Select/TestCommon.php';
-
-
-
 
 /**
  * @category   Zend

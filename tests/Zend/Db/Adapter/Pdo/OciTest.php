@@ -20,8 +20,6 @@
  * @version    $Id $
  */
 
-require_once 'Zend/Db/Adapter/Pdo/TestCommon.php';
-
 
 /**
  * @category   Zend

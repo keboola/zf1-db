@@ -20,10 +20,6 @@
  * @version    $Id $
  */
 
-require_once 'Zend/Db/Table/Rowset/TestCommon.php';
-
-
-
 
 /**
  * @category   Zend

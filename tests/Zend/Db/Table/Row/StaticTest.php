@@ -20,7 +20,6 @@
  * @version    $Id $
  */
 
-
 /**
  * @see Zend_Db_Table_Row_TestMockRow
  */

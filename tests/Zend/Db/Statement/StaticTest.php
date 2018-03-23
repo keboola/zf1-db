@@ -21,8 +21,6 @@
  */
 
 
-
-
 /**
  * @category   Zend
  * @package    Zend_Db

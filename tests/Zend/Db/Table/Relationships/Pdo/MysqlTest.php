@@ -20,11 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * @see Zend_Db_Table_Relationships_TestCommon
- */
-require_once 'Zend/Db/Table/Relationships/TestCommon.php';
-
 
 /**
  * @category   Zend
