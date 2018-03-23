@@ -259,7 +259,7 @@ abstract class Zend_Db_Table_Abstract
      * setOptions()
      *
      * @param array $options
-     * @return Zend_Db_Table_Abstract
+     * @return $this
      */
     public function setOptions(Array $options)
     {
@@ -339,7 +339,7 @@ abstract class Zend_Db_Table_Abstract
      * setDefinitionConfigName()
      *
      * @param string $definitionConfigName
-     * @return Zend_Db_Table_Abstract
+     * @return $this
      */
     public function setDefinitionConfigName($definitionConfigName)
     {
@@ -359,7 +359,7 @@ abstract class Zend_Db_Table_Abstract
 
     /**
      * @param  string $classname
-     * @return Zend_Db_Table_Abstract Provides a fluent interface
+     * @return $this Provides a fluent interface
      */
     public function setRowClass($classname)
     {
@@ -378,7 +378,7 @@ abstract class Zend_Db_Table_Abstract
 
     /**
      * @param  string $classname
-     * @return Zend_Db_Table_Abstract Provides a fluent interface
+     * @return $this Provides a fluent interface
      */
     public function setRowsetClass($classname)
     {
@@ -404,7 +404,7 @@ abstract class Zend_Db_Table_Abstract
      * @param string|array $refColumns
      * @param string $onDelete
      * @param string $onUpdate
-     * @return Zend_Db_Table_Abstract
+     * @return $this
      */
     public function addReference($ruleKey, $columns, $refTableClass, $refColumns,
                                  $onDelete = null, $onUpdate = null)
@@ -428,7 +428,7 @@ abstract class Zend_Db_Table_Abstract
 
     /**
      * @param array $referenceMap
-     * @return Zend_Db_Table_Abstract Provides a fluent interface
+     * @return $this Provides a fluent interface
      */
     public function setReferences(array $referenceMap)
     {
@@ -469,7 +469,7 @@ abstract class Zend_Db_Table_Abstract
 
     /**
      * @param  array $dependentTables
-     * @return Zend_Db_Table_Abstract Provides a fluent interface
+     * @return $this Provides a fluent interface
      */
     public function setDependentTables(array $dependentTables)
     {
@@ -490,7 +490,7 @@ abstract class Zend_Db_Table_Abstract
      * set the defaultSource property - this tells the table class where to find default values
      *
      * @param string $defaultSource
-     * @return Zend_Db_Table_Abstract
+     * @return $this
      */
     public function setDefaultSource($defaultSource = self::DEFAULT_NONE)
     {
@@ -516,7 +516,7 @@ abstract class Zend_Db_Table_Abstract
      * set the default values for the table class
      *
      * @param array $defaultValues
-     * @return Zend_Db_Table_Abstract
+     * @return $this
      */
     public function setDefaultValues(Array $defaultValues)
     {
@@ -557,7 +557,7 @@ abstract class Zend_Db_Table_Abstract
 
     /**
      * @param  mixed $db Either an Adapter object, or a string naming a Registry key
-     * @return Zend_Db_Table_Abstract Provides a fluent interface
+     * @return $this Provides a fluent interface
      */
     protected function _setAdapter($db)
     {
@@ -626,7 +626,7 @@ abstract class Zend_Db_Table_Abstract
      * option for the class constructor upon instantiation.
      *
      * @param  mixed $metadataCache Either a Cache object, or a string naming a Registry key
-     * @return Zend_Db_Table_Abstract Provides a fluent interface
+     * @return $this Provides a fluent interface
      */
     protected function _setMetadataCache($metadataCache)
     {
@@ -649,7 +649,7 @@ abstract class Zend_Db_Table_Abstract
      * of the instance
      *
      * @param  bool $flag
-     * @return Zend_Db_Table_Abstract
+     * @return $this
      */
     public function setMetadataCacheInClass($flag)
     {
@@ -1254,10 +1254,9 @@ abstract class Zend_Db_Table_Abstract
      * @return Zend_Db_Table_Rowset_Abstract Row(s) matching the criteria.
      * @throws Zend_Db_Table_Exception
      */
-    public function find()
+    public function find(...$args)
     {
         $this->_setupPrimaryKey();
-        $args = func_get_args();
         $keyNames = array_values((array) $this->_primary);
 
         if (count($args) < count($keyNames)) {

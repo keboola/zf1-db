@@ -195,7 +195,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess, IteratorAggreg
      * Unset row field value
      *
      * @param  string $columnName The column key.
-     * @return Zend_Db_Table_Row_Abstract
+     * @return $this
      * @throws Zend_Db_Table_Row_Exception
      */
     public function __unset($columnName)
@@ -644,7 +644,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess, IteratorAggreg
      * Sets all data in the row from an array.
      *
      * @param  array $data
-     * @return Zend_Db_Table_Row_Abstract Provides a fluent interface
+     * @return $this Provides a fluent interface
      */
     public function setFromArray(array $data)
     {
@@ -664,7 +664,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess, IteratorAggreg
      */
     public function refresh()
     {
-        return $this->_refresh();
+        $this->_refresh();
     }
 
     /**

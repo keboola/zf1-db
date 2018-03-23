@@ -80,7 +80,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
      * Sets the primary table name and retrieves the table schema.
      *
      * @param Zend_Db_Table_Abstract $table
-     * @return Zend_Db_Select This Zend_Db_Select object.
+     * @return $this This Zend_Db_Select object.
      */
     public function setTable(Zend_Db_Table_Abstract $table)
     {
@@ -98,7 +98,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
      * 'hybrid' table rows to be created.
      *
      * @param bool $flag
-     * @return Zend_Db_Select This Zend_Db_Select object.
+     * @return $this This Zend_Db_Select object.
      */
     public function setIntegrityCheck($flag = true)
     {
