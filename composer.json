@@ -12,12 +12,12 @@
     "prefer-stable": true,
     "require": {
         "php": ">=7.0.0",
-        "diablomedia/zendframework1-exception": "^1.0.0",
+        "diablomedia/zendframework1-exception": "^1.0.2",
         "diablomedia/zendframework1-config": "^1.0.0",
         "diablomedia/zendframework1-loader": "^1.0.0",
         "diablomedia/zendframework1-registry": "^1.0.0",
-        "diablomedia/zendframework1-wildfire": "dev-master",
-        "diablomedia/zendframework1-cache": "dev-master"
+        "diablomedia/zendframework1-wildfire": "*",
+        "diablomedia/zendframework1-cache": "*"
     },
     "autoload": {
         "psr-0": {

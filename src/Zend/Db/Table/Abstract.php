@@ -548,7 +548,7 @@ abstract class Zend_Db_Table_Abstract
     /**
      * Gets the default Zend_Db_Adapter_Abstract for all Zend_Db_Table objects.
      *
-     * @return Zend_Db_Adapter_Abstract or null
+     * @return Zend_Db_Adapter_Abstract|null
      */
     public static function getDefaultAdapter()
     {
@@ -610,7 +610,7 @@ abstract class Zend_Db_Table_Abstract
     /**
      * Gets the default metadata cache for information returned by Zend_Db_Adapter_Abstract::describeTable().
      *
-     * @return Zend_Cache_Core or null
+     * @return Zend_Cache_Core|null
      */
     public static function getDefaultMetadataCache()
     {
@@ -637,7 +637,7 @@ abstract class Zend_Db_Table_Abstract
     /**
      * Gets the metadata cache for information returned by Zend_Db_Adapter_Abstract::describeTable().
      *
-     * @return Zend_Cache_Core or null
+     * @return Zend_Cache_Core|null
      */
     public function getMetadataCache()
     {

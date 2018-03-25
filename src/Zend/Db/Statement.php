@@ -348,7 +348,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      *
      * @param string $class  OPTIONAL Name of the class to create.
      * @param array  $config OPTIONAL Constructor arguments for the class.
-     * @return mixed One object instance of the specified class, or false.
+     * @return object|false One object instance of the specified class, or false.
      */
     public function fetchObject($class = 'stdClass', array $config = array())
     {
