@@ -31,6 +31,9 @@
 abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
 {
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testTableConstructor()
     {
         $bugs = $this->_table['bugs'];
@@ -1782,6 +1785,7 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
     /**
      * @group ZF-7042
      * @group ZF-10778
+     * @doesNotPerformAssertions
      */
     public function testCacheIdGeneratedToMetadata()
     {

@@ -20,6 +20,11 @@
  * @version    $Id$
  */
 
+require_once __DIR__ . '/../_files/My/ZendDbTable/TableBugs.php';
+require_once __DIR__ . '/../_files/My/ZendDbTable/Row/TestTableRow.php';
+require_once __DIR__ . '/../_files/My/ZendDbTable/Row/TestStandaloneRow.php';
+require_once __DIR__ . '/../_files/My/ZendDbTable/TableProducts.php';
+require_once __DIR__ . '/../_files/My/ZendDbTable/TableBugsProducts.php';
 
 /**
  * @category   Zend

@@ -36,7 +36,6 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
      */
     public function testAdapterZendConfig()
     {
-        Zend_Loader::loadClass('Zend_Config');
         $params = new Zend_Config($this->_util->getParams());
 
         $db = Zend_Db::factory($this->getDriver(), $params);
@@ -49,7 +48,6 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
      */
     public function testAdapterZendConfigEmptyNamespace()
     {
-        Zend_Loader::loadClass('Zend_Config');
         $params = $this->_util->getParams();
         $params['adapterNamespace'] = '';
         $params = new Zend_Config($params);
@@ -64,7 +62,6 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
      */
     public function testAdapterZendConfigEmptyDriverOptions()
     {
-        Zend_Loader::loadClass('Zend_Config');
         $params = $this->_util->getParams();
         $params['driver_options'] = '';
         $params = new Zend_Config($params);
