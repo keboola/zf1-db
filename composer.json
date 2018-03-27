@@ -48,6 +48,9 @@
     "archive": {
         "exclude": ["/tests"]
     },
+    "config": {
+        "process-timeout": 600
+    },
     "scripts": {
         "test": "phpunit ./tests",
         "test-with-coverage": "phpunit --coverage-clover=clover.xml ./tests",
