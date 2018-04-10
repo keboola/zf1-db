@@ -385,6 +385,10 @@ abstract class Zend_Db_Table_Rowset_TestCommon extends Zend_Db_Table_TestSetup
       */
     public function testFixForRowsetContainsDisconnectedRowObjectsWhenDeserializedDoesNotBreakPaginator()
     {
+        if (!defined('TESTS_ZEND_DB_ZF1_FULL_SUITE') || TESTS_ZEND_DB_ZF1_FULL_SUITE === false)  {
+            $this->markTestSkipped('This test causes a circular dependency in broken out components, can only be run in full suite');
+        }
+        
         $table = $this->_table['bugs'];
         $tableClass = get_class($table);
 
