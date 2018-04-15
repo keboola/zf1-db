@@ -30,7 +30,6 @@
  */
 abstract class Zend_Db_Table_Select_TestCommon extends Zend_Db_Select_TestCommon
 {
-
     protected $_runtimeIncludePath = null;
 
     /**
@@ -209,7 +208,7 @@ abstract class Zend_Db_Table_Select_TestCommon extends Zend_Db_Select_TestCommon
      */
     public function testDbSelectHasTableInstance()
     {
-        $table = $this->_getSelectTable('products');
+        $table  = $this->_getSelectTable('products');
         $select = $table->select();
         $this->assertSame($table, $select->getTable());
     }
@@ -219,7 +218,7 @@ abstract class Zend_Db_Table_Select_TestCommon extends Zend_Db_Select_TestCommon
      */
     public function testTableWillReturnSelectObjectWithFromPart()
     {
-        $table = $this->_getSelectTable('accounts');
+        $table   = $this->_getSelectTable('accounts');
         $select1 = $table->select();
         $this->assertEquals(0, count($select1->getPart(Zend_Db_Table_Select::FROM)));
         $this->assertEquals(0, count($select1->getPart(Zend_Db_Table_Select::COLUMNS)));
@@ -250,11 +249,11 @@ abstract class Zend_Db_Table_Select_TestCommon extends Zend_Db_Select_TestCommon
      */
     public function testAssembleDbTableUnionSelect()
     {
-        $table = $this->_getSelectTable('accounts');
+        $table   = $this->_getSelectTable('accounts');
         $select1 = $table->select();
         $select2 = $table->select();
 
-        $selectUnion = $table->select()->union(array($select1, $select2));
+        $selectUnion    = $table->select()->union(array($select1, $select2));
         $selectUnionSql = $selectUnion->assemble();
     }
 
@@ -264,8 +263,8 @@ abstract class Zend_Db_Table_Select_TestCommon extends Zend_Db_Select_TestCommon
      */
     public function testAdapterFetchRowWithOffset()
     {
-        $table = $this->_getSelectTable('products');
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $table      = $this->_getSelectTable('products');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         // Grab the first two rows

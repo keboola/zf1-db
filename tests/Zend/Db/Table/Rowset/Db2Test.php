@@ -33,10 +33,8 @@
  */
 class Zend_Db_Table_Rowset_Db2Test extends Zend_Db_Table_Rowset_TestCommon
 {
-
     public function getDriver()
     {
         return 'Db2';
     }
-
 }

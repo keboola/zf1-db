@@ -415,9 +415,9 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
      */
     public function fetchAll($style = null, $col = null)
     {
-        $data = parent::fetchAll($style, $col);
+        $data    = parent::fetchAll($style, $col);
         $results = array();
-        $remove = $this->_adapter->foldCase('ZEND_DB_ROWNUM');
+        $remove  = $this->_adapter->foldCase('ZEND_DB_ROWNUM');
 
         foreach ($data as $row) {
             if (is_array($row) && array_key_exists($remove, $row)) {

@@ -49,9 +49,9 @@ class Zend_Db_Statement_Pdo_Oci extends Zend_Db_Statement_Pdo
     */
     public function fetchAll($style = null, $col = null)
     {
-        $data = parent::fetchAll($style, $col);
+        $data    = parent::fetchAll($style, $col);
         $results = array();
-        $remove = $this->_adapter->foldCase('zend_db_rownum');
+        $remove  = $this->_adapter->foldCase('zend_db_rownum');
 
         foreach ($data as $row) {
             if (is_array($row) && array_key_exists($remove, $row)) {

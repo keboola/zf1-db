@@ -96,7 +96,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
      */
     public function getQuoteIdentifierSymbol()
     {
-        return "`";
+        return '`';
     }
 
     /**
@@ -194,17 +194,17 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
                 $row['Unsigned'] = true;
             }
             if (preg_match('/^((?:var)?char)\((\d+)\)/', $row['Type'], $matches)) {
-                $row['Type'] = $matches[1];
+                $row['Type']   = $matches[1];
                 $row['Length'] = $matches[2];
-            } else if (preg_match('/^decimal\((\d+),(\d+)\)/', $row['Type'], $matches)) {
-                $row['Type'] = 'decimal';
+            } elseif (preg_match('/^decimal\((\d+),(\d+)\)/', $row['Type'], $matches)) {
+                $row['Type']      = 'decimal';
                 $row['Precision'] = $matches[1];
-                $row['Scale'] = $matches[2];
-            } else if (preg_match('/^float\((\d+),(\d+)\)/', $row['Type'], $matches)) {
-                $row['Type'] = 'float';
+                $row['Scale']     = $matches[2];
+            } elseif (preg_match('/^float\((\d+),(\d+)\)/', $row['Type'], $matches)) {
+                $row['Type']      = 'float';
                 $row['Precision'] = $matches[1];
-                $row['Scale'] = $matches[2];
-            } else if (preg_match('/^((?:big|medium|small|tiny)?int)\((\d+)\)/', $row['Type'], $matches)) {
+                $row['Scale']     = $matches[2];
+            } elseif (preg_match('/^((?:big|medium|small|tiny)?int)\((\d+)\)/', $row['Type'], $matches)) {
                 $row['Type'] = $matches[1];
                 /**
                  * The optional argument of a MySQL int type is not precision
@@ -212,7 +212,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
                  */
             }
             if (strtoupper($row['Key']) == 'PRI') {
-                $row['Primary'] = true;
+                $row['Primary']         = true;
                 $row['PrimaryPosition'] = $p;
                 if ($row['Extra'] == 'auto_increment') {
                     $row['Identity'] = true;
@@ -272,14 +272,15 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
 
         $this->_connection = mysqli_init();
 
-        if(!empty($this->_config['driver_options'])) {
-            foreach($this->_config['driver_options'] as $option=>$value) {
-                if(is_string($option)) {
+        if (!empty($this->_config['driver_options'])) {
+            foreach ($this->_config['driver_options'] as $option => $value) {
+                if (is_string($option)) {
                     // Suppress warnings here
                     // Ignore it if it's not a valid constant
                     $option = @constant(strtoupper($option));
-                    if($option === null)
+                    if ($option === null) {
                         continue;
+                    }
                 }
                 mysqli_options($this->_connection, $option, $value);
             }
@@ -298,7 +299,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         );
 
         if ($_isConnected === false || mysqli_connect_errno()) {
-
             $this->closeConnection();
             throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_error());
         }
@@ -493,9 +493,9 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
     public function getServerVersion()
     {
         $this->_connect();
-        $version = $this->_connection->server_version;
-        $major = (int) ($version / 10000);
-        $minor = (int) ($version % 10000 / 100);
+        $version  = $this->_connection->server_version;
+        $major    = (int) ($version / 10000);
+        $minor    = (int) ($version % 10000 / 100);
         $revision = (int) ($version % 100);
         return $major . '.' . $minor . '.' . $revision;
     }

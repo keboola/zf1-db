@@ -1,3 +1,5 @@
 <?php
 
-class Zend_Dbversion {}
+class Zend_Dbversion
+{
+}

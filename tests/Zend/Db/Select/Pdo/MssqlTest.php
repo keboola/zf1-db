@@ -32,7 +32,6 @@
  */
 class Zend_Db_Select_Pdo_MssqlTest extends Zend_Db_Select_TestCommon
 {
-
     public function testSelectFromQualified()
     {
         $this->markTestIncomplete($this->getDriver() . ' needs more syntax for qualified table names.');
@@ -47,5 +46,4 @@ class Zend_Db_Select_Pdo_MssqlTest extends Zend_Db_Select_TestCommon
     {
         return 'Pdo_Mssql';
     }
-
 }

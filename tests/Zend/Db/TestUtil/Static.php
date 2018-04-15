@@ -30,11 +30,10 @@
  */
 class Zend_Db_TestUtil_Static extends Zend_Db_TestUtil_Common
 {
-
     public function getParams(array $constants = array())
     {
         $constants = array(
-            'dbname'   => 'dummy',
+            'dbname' => 'dummy',
         );
         return $constants;
     }
@@ -43,5 +42,4 @@ class Zend_Db_TestUtil_Static extends Zend_Db_TestUtil_Common
     {
         // no-op
     }
-
 }

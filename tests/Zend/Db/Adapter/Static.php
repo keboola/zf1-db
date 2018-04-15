@@ -106,7 +106,7 @@ class Zend_Db_Adapter_Static extends Zend_Db_Adapter_Abstract
 
         // prepare and execute the statement with profiling
         $stmt = $this->prepare($sql);
-        $q = $this->_profiler->queryStart($sql);
+        $q    = $this->_profiler->queryStart($sql);
         if ($this->_onQuerySleep > 0) {
             sleep($this->_onQuerySleep);
         }
@@ -299,7 +299,8 @@ class Zend_Db_Adapter_Static extends Zend_Db_Adapter_Abstract
      *
      * @return string
      */
-    public function getServerVersion() {
-        return "5.6.7.8";
+    public function getServerVersion()
+    {
+        return '5.6.7.8';
     }
 }

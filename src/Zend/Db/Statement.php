@@ -127,8 +127,12 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         $sql = $this->_stripQuoted($sql);
 
         // split into text and params
-        $this->_sqlSplit = preg_split('/(\?|\:[a-zA-Z0-9_]+)/',
-            $sql, -1, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY);
+        $this->_sqlSplit = preg_split(
+            '/(\?|\:[a-zA-Z0-9_]+)/',
+            $sql,
+            -1,
+            PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY
+        );
 
         // map params
         $this->_sqlParam = array();
@@ -137,7 +141,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
                 if ($this->_adapter->supportsParameters('positional') === false) {
                     throw new Zend_Db_Statement_Exception("Invalid bind-variable position '$val'");
                 }
-            } else if ($val[0] == ':') {
+            } elseif ($val[0] == ':') {
                 if ($this->_adapter->supportsParameters('named') === false) {
                     throw new Zend_Db_Statement_Exception("Invalid bind-variable name '$val'");
                 }
@@ -165,10 +169,10 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         $q = $q[0];
         // get the value used as an escaped quote,
         // e.g. \' or ''
-        $qe = $this->_adapter->quote($q);
-        $qe = substr($qe, 1, 2);
-        $qe = preg_quote($qe);
-        $escapeChar = substr($qe,0,1);
+        $qe         = $this->_adapter->quote($q);
+        $qe         = substr($qe, 1, 2);
+        $qe         = preg_quote($qe);
+        $escapeChar = substr($qe, 0, 1);
         // remove 'foo\'bar'
         if (!empty($q)) {
             $escapeChar = preg_quote($escapeChar);
@@ -179,7 +183,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         // get a version of the SQL statement with all quoted
         // values and delimited identifiers stripped out
         // remove "foo\"bar"
-        $sql = preg_replace("/\"(\\\\\"|[^\"])*\"/Us", '', $sql);
+        $sql = preg_replace('/"(\\\\"|[^"])*"/Us', '', $sql);
 
         // get the character for delimited id quotes,
         // this is usually " but in MySQL is `
@@ -206,7 +210,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      */
     public function bindColumn($column, &$param, $type = null)
     {
-        $this->_bindColumn[$column] =& $param;
+        $this->_bindColumn[$column] = & $param;
         return true;
     }
 
@@ -231,7 +235,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
             if ($intval >= 1 || $intval <= count($this->_sqlParam)) {
                 $position = $intval;
             }
-        } else if ($this->_adapter->supportsParameters('named')) {
+        } elseif ($this->_adapter->supportsParameters('named')) {
             if ($parameter[0] != ':') {
                 $parameter = ':' . $parameter;
             }
@@ -245,7 +249,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         }
 
         // Finally we are assured that $position is valid
-        $this->_bindParam[$position] =& $variable;
+        $this->_bindParam[$position] = & $variable;
         return $this->_bindParam($position, $variable, $type, $length, $options);
     }
 
@@ -282,10 +286,10 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
          * management before and after the execute.
          */
         $prof = $this->_adapter->getProfiler();
-        $qp = $prof->getQueryProfile($this->_queryId);
+        $qp   = $prof->getQueryProfile($this->_queryId);
         if ($qp->hasEnded()) {
             $this->_queryId = $prof->queryClone($qp);
-            $qp = $prof->getQueryProfile($this->_queryId);
+            $qp             = $prof->getQueryProfile($this->_queryId);
         }
         if ($params !== null) {
             $qp->bindParams($params);
@@ -335,8 +339,8 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
     public function fetchColumn($col = 0)
     {
         $data = array();
-        $col = (int) $col;
-        $row = $this->fetch(Zend_Db::FETCH_NUM);
+        $col  = (int) $col;
+        $row  = $this->fetch(Zend_Db::FETCH_NUM);
         if (!is_array($row)) {
             return false;
         }

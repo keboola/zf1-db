@@ -32,7 +32,6 @@
  */
 class Zend_Db_Profiler_Pdo_PgsqlTest extends Zend_Db_Profiler_TestCommon
 {
-
     public function getDriver()
     {
         return 'Pdo_Pgsql';

@@ -107,11 +107,11 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
                         $this->_serverType = new Zend_Db_Adapter_Pdo_Ibm_Ids($this);
 
                         // Add IDS-specific numeric types
-                        $this->_numericDataTypes['SERIAL']       = Zend_Db::INT_TYPE;
-                        $this->_numericDataTypes['SERIAL8']      = Zend_Db::BIGINT_TYPE;
-                        $this->_numericDataTypes['INT8']         = Zend_Db::BIGINT_TYPE;
-                        $this->_numericDataTypes['SMALLFLOAT']   = Zend_Db::FLOAT_TYPE;
-                        $this->_numericDataTypes['MONEY']        = Zend_Db::FLOAT_TYPE;
+                        $this->_numericDataTypes['SERIAL']     = Zend_Db::INT_TYPE;
+                        $this->_numericDataTypes['SERIAL8']    = Zend_Db::BIGINT_TYPE;
+                        $this->_numericDataTypes['INT8']       = Zend_Db::BIGINT_TYPE;
+                        $this->_numericDataTypes['SMALLFLOAT'] = Zend_Db::FLOAT_TYPE;
+                        $this->_numericDataTypes['MONEY']      = Zend_Db::FLOAT_TYPE;
 
                         break;
                     }
@@ -119,7 +119,7 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
         } catch (PDOException $e) {
             $error = strpos($e->getMessage(), 'driver does not support that attribute');
             if ($error) {
-                throw new Zend_Db_Adapter_Exception("PDO_IBM driver extension is downlevel.  Please use driver release version 1.2.1 or later", 0, $e);
+                throw new Zend_Db_Adapter_Exception('PDO_IBM driver extension is downlevel.  Please use driver release version 1.2.1 or later', 0, $e);
             } else {
                 throw new Zend_Db_Adapter_Exception($e->getMessage(), $e->getCode(), $e);
             }
@@ -139,7 +139,7 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
         if (array_key_exists('host', $this->_config)) {
             $dsn = ';DATABASE=' . $this->_config['dbname']
             . ';HOSTNAME=' . $this->_config['host']
-            . ';PORT='     . $this->_config['port']
+            . ';PORT=' . $this->_config['port']
             // PDO_IBM supports only DB2 TCPIP protocol
             . ';PROTOCOL=' . 'TCPIP;';
         } else {
@@ -176,7 +176,7 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
     {
         $this->_connect();
         $stmtClass = $this->_defaultStmtClass;
-        $stmt = new $stmtClass($this, $sql);
+        $stmt      = new $stmtClass($this, $sql);
         $stmt->setFetchMode($this->_fetchMode);
         return $stmt;
     }
@@ -242,7 +242,7 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
         $newbind = array();
         if (is_array($bind)) {
             foreach ($bind as $name => $value) {
-                if($value !== null) {
+                if ($value !== null) {
                     $newbind[$name] = $value;
                 }
             }
@@ -261,8 +261,8 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
      */
     public function limit($sql, $count, $offset = 0)
     {
-       $this->_connect();
-       return $this->_serverType->limit($sql, $count, $offset);
+        $this->_connect();
+        return $this->_serverType->limit($sql, $count, $offset);
     }
 
     /**
@@ -277,7 +277,7 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
     {
         $this->_connect();
 
-         if ($tableName !== null) {
+        if ($tableName !== null) {
             $sequenceName = $tableName;
             if ($primaryKey) {
                 $sequenceName .= "_$primaryKey";
@@ -324,7 +324,7 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
     public function getServerVersion()
     {
         try {
-            $stmt = $this->query('SELECT service_level, fixpack_num FROM TABLE (sysproc.env_get_inst_info()) as INSTANCEINFO');
+            $stmt   = $this->query('SELECT service_level, fixpack_num FROM TABLE (sysproc.env_get_inst_info()) as INSTANCEINFO');
             $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
             if (count($result)) {
                 $matches = null;

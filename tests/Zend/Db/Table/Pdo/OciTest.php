@@ -32,15 +32,14 @@
  */
 class Zend_Db_Table_Pdo_OciTest extends Zend_Db_Table_TestCommon
 {
-
     public function testTableInsert()
     {
-        $this->markTestSkipped($this->getDriver().' does not support auto-increment keys.');
+        $this->markTestSkipped($this->getDriver() . ' does not support auto-increment keys.');
     }
 
     public function testIsIdentity()
     {
-        $this->markTestSkipped($this->getDriver().' does not support auto-increment columns.');
+        $this->markTestSkipped($this->getDriver() . ' does not support auto-increment columns.');
     }
 
     /**
@@ -49,13 +48,14 @@ class Zend_Db_Table_Pdo_OciTest extends Zend_Db_Table_TestCommon
     public function testTableInsertWithSchema()
     {
         $schemaName = $this->_util->getSchema();
-        $tableName = 'zfbugs';
+        $tableName  = 'zfbugs';
         $identifier = join('.', array_filter(array($schemaName, $tableName)));
-        $table = $this->_getTable('My_ZendDbTable_TableSpecial',
+        $table      = $this->_getTable(
+            'My_ZendDbTable_TableSpecial',
             array('name' => $tableName, 'schema' => $schemaName,Zend_Db_Table_Abstract::SEQUENCE => 'zfbugs_seq')
         );
 
-        $row = array (
+        $row = array(
             'bug_description' => 'New bug',
             'bug_status'      => 'NEW',
             'created_on'      => '2007-04-02',
@@ -70,28 +70,32 @@ class Zend_Db_Table_Pdo_OciTest extends Zend_Db_Table_TestCommon
         $insertResult = $table->insert($row);
         $this->_db->getProfiler()->setEnabled($profilerEnabled);
 
-        $qp = $this->_db->getProfiler()->getLastQueryProfile();
+        $qp        = $this->_db->getProfiler()->getLastQueryProfile();
         $tableSpec = $this->_db->quoteIdentifier($identifier, true);
         $this->assertContains("INSERT INTO $tableSpec ", $qp->getQuery());
     }
 
     public function testTableInsertSequence()
     {
-        $table = $this->_getTable('My_ZendDbTable_TableBugs',
-            array(Zend_Db_Table_Abstract::SEQUENCE => 'zfbugs_seq'));
-        $row = array (
+        $table = $this->_getTable(
+            'My_ZendDbTable_TableBugs',
+            array(Zend_Db_Table_Abstract::SEQUENCE => 'zfbugs_seq')
+        );
+        $row = array(
             'bug_description' => 'New bug',
             'bug_status'      => 'NEW',
             'created_on'      => new Zend_Db_Expr(
-                $this->_db->quoteInto('DATE ?', '2007-04-02')),
-            'updated_on'      => new Zend_Db_Expr(
-                $this->_db->quoteInto('DATE ?', '2007-04-02')),
-            'reported_by'     => 'micky',
-            'assigned_to'     => 'goofy'
+                $this->_db->quoteInto('DATE ?', '2007-04-02')
+            ),
+            'updated_on' => new Zend_Db_Expr(
+                $this->_db->quoteInto('DATE ?', '2007-04-02')
+            ),
+            'reported_by' => 'micky',
+            'assigned_to' => 'goofy'
         );
-        $insertResult         = $table->insert($row);
-        $lastInsertId         = $this->_db->lastInsertId('zfbugs');
-        $lastSequenceId       = $this->_db->lastSequenceId('zfbugs_seq');
+        $insertResult   = $table->insert($row);
+        $lastInsertId   = $this->_db->lastInsertId('zfbugs');
+        $lastSequenceId = $this->_db->lastSequenceId('zfbugs_seq');
         $this->assertEquals($insertResult, $lastInsertId);
         $this->assertEquals($insertResult, $lastSequenceId);
         $this->assertEquals(5, $insertResult);
@@ -106,5 +110,4 @@ class Zend_Db_Table_Pdo_OciTest extends Zend_Db_Table_TestCommon
     {
         return 'Pdo_Oci';
     }
-
 }

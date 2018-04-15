@@ -32,7 +32,6 @@
  */
 class Zend_Db_Profiler_Db2Test extends Zend_Db_Profiler_TestCommon
 {
-
     public function testProfilerPreparedStatementWithBoundParams()
     {
         $this->markTestIncomplete($this->getDriver() . ' is having trouble with binding params');

@@ -32,7 +32,6 @@
  */
 class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
 {
-
     protected $_numericDataTypes = array(
         Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
         Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
@@ -71,7 +70,7 @@ class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
 
         $select = $this->_db->select();
         $select->from('zfproducts');
-        $stmt = $this->_db->query($select);
+        $stmt    = $this->_db->query($select);
         $result1 = $stmt->fetchAll();
         $this->assertEquals(3, count($result1), 'Expected 3 rows in first query result');
 
@@ -80,7 +79,7 @@ class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
         $select = $this->_db->select();
         $select->from('zfproducts');
         try {
-            $stmt = $this->_db->query($select);
+            $stmt    = $this->_db->query($select);
             $result2 = $stmt->fetchAll();
             $this->assertEquals(3, count($result2), 'Expected 3 rows in second query result');
             $this->assertEquals($result1, $result2);
@@ -101,9 +100,9 @@ class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
      */
     public function testAdapterQuoteColumnAs()
     {
-        $string = "foo";
-        $alias = "bar";
-        $value = $this->_db->quoteColumnAs($string, $alias);
+        $string = 'foo';
+        $alias  = 'bar';
+        $value  = $this->_db->quoteColumnAs($string, $alias);
         $this->assertEquals('`foo` AS `bar`', $value);
     }
 
@@ -115,8 +114,8 @@ class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
     public function testAdapterQuoteColumnAsSameString()
     {
         $string = 'foo.bar';
-        $alias = 'bar';
-        $value = $this->_db->quoteColumnAs($string, $alias);
+        $alias  = 'bar';
+        $value  = $this->_db->quoteColumnAs($string, $alias);
         $this->assertEquals('`foo`.`bar`', $value);
     }
 
@@ -148,7 +147,7 @@ class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
      */
     public function testAdapterQuoteIdentifierArrayDbExpr()
     {
-        $expr = new Zend_Db_Expr('*');
+        $expr  = new Zend_Db_Expr('*');
         $array = array('foo', $expr);
         $value = $this->_db->quoteIdentifier($array);
         $this->assertEquals('`foo`.*', $value);
@@ -161,7 +160,7 @@ class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
     public function testAdapterQuoteIdentifierDoubleQuote()
     {
         $string = 'table_"_name';
-        $value = $this->_db->quoteIdentifier($string);
+        $value  = $this->_db->quoteIdentifier($string);
         $this->assertEquals('`table_"_name`', $value);
     }
 
@@ -171,7 +170,7 @@ class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
      */
     public function testAdapterQuoteIdentifierInteger()
     {
-        $int = 123;
+        $int   = 123;
         $value = $this->_db->quoteIdentifier($int);
         $this->assertEquals('`123`', $value);
     }
@@ -186,7 +185,7 @@ class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
     public function testAdapterQuoteIdentifierQualified()
     {
         $string = 'table.column';
-        $value = $this->_db->quoteIdentifier($string);
+        $value  = $this->_db->quoteIdentifier($string);
         $this->assertEquals('`table`.`column`', $value);
     }
 
@@ -197,7 +196,7 @@ class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
     public function testAdapterQuoteIdentifierSingleQuote()
     {
         $string = "table_'_name";
-        $value = $this->_db->quoteIdentifier($string);
+        $value  = $this->_db->quoteIdentifier($string);
         $this->assertEquals('`table_\'_name`', $value);
     }
 
@@ -208,9 +207,9 @@ class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
      */
     public function testAdapterQuoteTableAs()
     {
-        $string = "foo";
-        $alias = "bar";
-        $value = $this->_db->quoteTableAs($string, $alias);
+        $string = 'foo';
+        $alias  = 'bar';
+        $value  = $this->_db->quoteTableAs($string, $alias);
         $this->assertEquals('`foo` AS `bar`', $value);
     }
 
@@ -222,7 +221,7 @@ class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
     public function testAdapterDescribeTableAttributeColumnFloat()
     {
         $desc = $this->_db->describeTable('zfprice');
-        $this->assertEquals('zfprice',  $desc['price']['TABLE_NAME']);
+        $this->assertEquals('zfprice', $desc['price']['TABLE_NAME']);
         $this->assertRegExp('/float/i', $desc['price']['DATA_TYPE']);
     }
 
@@ -237,7 +236,7 @@ class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
     public function testAdapterToEnsurePdoBufferedQueryThrowsNoError()
     {
         $params = $this->_util->getParams();
-        $db = Zend_Db::factory($this->getDriver(), $params);
+        $db     = Zend_Db::factory($this->getDriver(), $params);
 
         // Set default bound value
         $customerId = 1;
@@ -266,7 +265,7 @@ class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
 
     public function testMySqliInitCommand()
     {
-        $params = $this->_util->getParams();
+        $params                   = $this->_util->getParams();
         $params['driver_options'] = array(
             'mysqli_init_command' => 'SET AUTOCOMMIT=0;'
         );
@@ -284,5 +283,4 @@ class Zend_Db_Adapter_MysqliTest extends Zend_Db_Adapter_TestCommon
     {
         return 'Mysqli';
     }
-
 }

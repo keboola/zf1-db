@@ -35,6 +35,6 @@ require_once 'TableBugs.php';
  */
 class My_ZendDbTable_TableAccounts extends Zend_Db_Table_Abstract
 {
-    protected $_name = 'zfaccounts';
+    protected $_name            = 'zfaccounts';
     protected $_dependentTables = array('My_ZendDbTable_TableBugs');
 }

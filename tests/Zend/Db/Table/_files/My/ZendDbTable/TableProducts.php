@@ -39,6 +39,6 @@ require_once 'TableBugsProducts.php';
  */
 class My_ZendDbTable_TableProducts extends Zend_Db_Table_Abstract
 {
-    protected $_name = 'zfproducts';
+    protected $_name            = 'zfproducts';
     protected $_dependentTables = array('My_ZendDbTable_TableBugsProducts');
 }

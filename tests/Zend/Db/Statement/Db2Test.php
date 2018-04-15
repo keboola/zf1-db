@@ -32,7 +32,6 @@
  */
 class Zend_Db_Statement_Db2Test extends Zend_Db_Statement_TestCommon
 {
-
     public function testStatementErrorCodeKeyViolation()
     {
         $this->markTestIncomplete($this->getDriver() . ' does not return error codes correctly.');
@@ -71,8 +70,8 @@ class Zend_Db_Statement_Db2Test extends Zend_Db_Statement_TestCommon
 
     public function testStatementBindParamByName()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
-        $product_id = $this->_db->quoteIdentifier('product_id');
+        $products     = $this->_db->quoteIdentifier('zfproducts');
+        $product_id   = $this->_db->quoteIdentifier('product_id');
         $product_name = $this->_db->quoteIdentifier('product_name');
 
         $productIdValue   = 4;
@@ -86,8 +85,10 @@ class Zend_Db_Statement_Db2Test extends Zend_Db_Statement_TestCommon
             $this->assertTrue($stmt->bindParam('name', $productNameValue), 'Expected bindParam(\'name\') to return true');
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Statement_Exception,
+                'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
+            );
             $this->assertEquals("Invalid bind-variable name ':id'", $e->getMessage());
         }
     }
@@ -99,8 +100,8 @@ class Zend_Db_Statement_Db2Test extends Zend_Db_Statement_TestCommon
 
     public function testStatementBindValueByName()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
-        $product_id = $this->_db->quoteIdentifier('product_id');
+        $products     = $this->_db->quoteIdentifier('zfproducts');
+        $product_id   = $this->_db->quoteIdentifier('product_id');
         $product_name = $this->_db->quoteIdentifier('product_name');
 
         $productIdValue   = 4;
@@ -114,8 +115,10 @@ class Zend_Db_Statement_Db2Test extends Zend_Db_Statement_TestCommon
             $this->assertTrue($stmt->bindParam('name', $productNameValue), 'Expected bindParam(\'name\') to return true');
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Statement_Exception,
+                'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
+            );
             $this->assertEquals("Invalid bind-variable name ':id'", $e->getMessage());
         }
     }
@@ -129,5 +132,4 @@ class Zend_Db_Statement_Db2Test extends Zend_Db_Statement_TestCommon
     {
         return 'Db2';
     }
-
 }

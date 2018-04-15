@@ -30,7 +30,6 @@
  */
 class Zend_Db_TestUtil_Pdo_Oci extends Zend_Db_TestUtil_Pdo_Common
 {
-
     public function setUp(Zend_Db_Adapter_Abstract $db)
     {
         $this->_db = $db;
@@ -41,7 +40,7 @@ class Zend_Db_TestUtil_Pdo_Oci extends Zend_Db_TestUtil_Pdo_Common
 
     public function getParams(array $constants = array())
     {
-        $constants = array (
+        $constants = array(
             'host'     => 'TESTS_ZEND_DB_ADAPTER_ORACLE_HOSTNAME',
             'username' => 'TESTS_ZEND_DB_ADAPTER_ORACLE_USERNAME',
             'password' => 'TESTS_ZEND_DB_ADAPTER_ORACLE_PASSWORD',
@@ -69,7 +68,8 @@ class Zend_Db_TestUtil_Pdo_Oci extends Zend_Db_TestUtil_Pdo_Common
 
     protected function _getSqlCreateTable($tableName)
     {
-        $tableList = $this->_db->fetchCol('SELECT UPPER(TABLE_NAME) FROM ALL_TABLES '
+        $tableList = $this->_db->fetchCol(
+            'SELECT UPPER(TABLE_NAME) FROM ALL_TABLES '
             . $this->_db->quoteInto(' WHERE UPPER(TABLE_NAME) = UPPER(?)', $tableName)
         );
         if (in_array(strtoupper($tableName), $tableList)) {
@@ -80,7 +80,8 @@ class Zend_Db_TestUtil_Pdo_Oci extends Zend_Db_TestUtil_Pdo_Common
 
     protected function _getSqlDropTable($tableName)
     {
-        $tableList = $this->_db->fetchCol('SELECT UPPER(TABLE_NAME) FROM ALL_TABLES '
+        $tableList = $this->_db->fetchCol(
+            'SELECT UPPER(TABLE_NAME) FROM ALL_TABLES '
             . $this->_db->quoteInto(' WHERE UPPER(TABLE_NAME) = UPPER(?)', $tableName)
         );
         if (in_array(strtoupper($tableName), $tableList)) {
@@ -91,7 +92,8 @@ class Zend_Db_TestUtil_Pdo_Oci extends Zend_Db_TestUtil_Pdo_Common
 
     protected function _getSqlCreateSequence($sequenceName)
     {
-        $seqList = $this->_db->fetchCol('SELECT UPPER(SEQUENCE_NAME) FROM ALL_SEQUENCES '
+        $seqList = $this->_db->fetchCol(
+            'SELECT UPPER(SEQUENCE_NAME) FROM ALL_SEQUENCES '
             . $this->_db->quoteInto(' WHERE UPPER(SEQUENCE_NAME) = UPPER(?)', $sequenceName)
         );
         if (in_array(strtoupper($sequenceName), $seqList)) {
@@ -102,7 +104,8 @@ class Zend_Db_TestUtil_Pdo_Oci extends Zend_Db_TestUtil_Pdo_Common
 
     protected function _getSqlDropSequence($sequenceName)
     {
-        $seqList = $this->_db->fetchCol('SELECT UPPER(SEQUENCE_NAME) FROM ALL_SEQUENCES '
+        $seqList = $this->_db->fetchCol(
+            'SELECT UPPER(SEQUENCE_NAME) FROM ALL_SEQUENCES '
             . $this->_db->quoteInto(' WHERE UPPER(SEQUENCE_NAME) = UPPER(?)', $sequenceName)
         );
         if (in_array(strtoupper($sequenceName), $seqList)) {
@@ -115,7 +118,7 @@ class Zend_Db_TestUtil_Pdo_Oci extends Zend_Db_TestUtil_Pdo_Common
     {
         $data = parent::_getDataBugs();
         foreach ($data as &$row) {
-            $row['bug_id'] = new Zend_Db_Expr($this->_db->quoteIdentifier('zfbugs_seq', true).'.NEXTVAL');
+            $row['bug_id']     = new Zend_Db_Expr($this->_db->quoteIdentifier('zfbugs_seq', true) . '.NEXTVAL');
             $row['created_on'] = new Zend_Db_Expr($this->_db->quoteInto('DATE ?', $row['created_on']));
             $row['updated_on'] = new Zend_Db_Expr($this->_db->quoteInto('DATE ?', $row['updated_on']));
         }
@@ -126,11 +129,10 @@ class Zend_Db_TestUtil_Pdo_Oci extends Zend_Db_TestUtil_Pdo_Common
     {
         $data = parent::_getDataDocuments();
         foreach ($data as &$row) {
-            $quoted = $this->_db->quote($row['doc_clob']);
-            $hex = bin2hex($row['doc_clob']);
+            $quoted          = $this->_db->quote($row['doc_clob']);
+            $hex             = bin2hex($row['doc_clob']);
             $row['doc_clob'] = new Zend_Db_Expr("TO_CLOB($quoted)");
             $row['doc_blob'] = new Zend_Db_Expr("TO_BLOB(HEXTORAW('$hex'))");
-
         }
         return $data;
     }
@@ -139,7 +141,7 @@ class Zend_Db_TestUtil_Pdo_Oci extends Zend_Db_TestUtil_Pdo_Common
     {
         $data = parent::_getDataProducts();
         foreach ($data as &$row) {
-            $row['product_id'] = new Zend_Db_Expr($this->_db->quoteIdentifier('zfproducts_seq', true).'.NEXTVAL');
+            $row['product_id'] = new Zend_Db_Expr($this->_db->quoteIdentifier('zfproducts_seq', true) . '.NEXTVAL');
         }
         return $data;
     }
@@ -160,5 +162,4 @@ class Zend_Db_TestUtil_Pdo_Oci extends Zend_Db_TestUtil_Pdo_Common
         $param = $this->getParams();
         return $param['username'];
     }
-
 }

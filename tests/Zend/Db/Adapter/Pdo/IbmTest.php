@@ -62,9 +62,9 @@ class Zend_Db_Adapter_Pdo_IbmTest extends Zend_Db_Adapter_Db2Test
     public function testAdapterLimitInvalidArgumentException()
     {
         $products = $this->_db->quoteIdentifier('zfproducts');
-        $sql = $this->_db->limit("SELECT * FROM $products", 0);
+        $sql      = $this->_db->limit("SELECT * FROM $products", 0);
 
-        $stmt = $this->_db->query($sql);
+        $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
 
         $this->assertEquals(0, count($result), 'Expecting to see 0 rows returned');
@@ -73,8 +73,10 @@ class Zend_Db_Adapter_Pdo_IbmTest extends Zend_Db_Adapter_Db2Test
             $sql = $this->_db->limit("SELECT * FROM $products", 1, -1);
             $this->fail('Expected to catch Zend_Db_Adapter_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Adapter_Exception,
-                'Expecting object of type Zend_Db_Adapter_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Adapter_Exception,
+                'Expecting object of type Zend_Db_Adapter_Exception, got ' . get_class($e)
+            );
         }
     }
 

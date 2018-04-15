@@ -87,12 +87,13 @@ class Zend_Db_Table_Row_StaticTest extends PHPUnit\Framework\TestCase
                 'column'         => 'another value 1',
                 'column_foo'     => 'another value 2',
                 'column_bar_baz' => 'another value 3'
-            ), $array);
+            ),
+            $array
+        );
     }
 
     public function getDriver()
     {
         return 'Static';
     }
-
 }

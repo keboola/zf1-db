@@ -69,7 +69,7 @@ class Zend_Db_Table_Definition
      * @param array $options
      * @return $this
      */
-    public function setOptions(Array $options)
+    public function setOptions(array $options)
     {
         foreach ($options as $optionName => $optionValue) {
             $this->setTableConfig($optionName, $optionValue);
@@ -86,7 +86,7 @@ class Zend_Db_Table_Definition
     {
         // @todo logic here
         $tableConfig[Zend_Db_Table::DEFINITION_CONFIG_NAME] = $tableName;
-        $tableConfig[Zend_Db_Table::DEFINITION] = $this;
+        $tableConfig[Zend_Db_Table::DEFINITION]             = $this;
 
         if (!isset($tableConfig[Zend_Db_Table::NAME])) {
             $tableConfig[Zend_Db_Table::NAME] = $tableName;
@@ -127,5 +127,4 @@ class Zend_Db_Table_Definition
     {
         return (isset($this->_tableConfigs[$tableName]));
     }
-
 }

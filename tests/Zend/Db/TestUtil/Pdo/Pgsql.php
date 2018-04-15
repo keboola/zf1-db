@@ -30,7 +30,6 @@
  */
 class Zend_Db_TestUtil_Pdo_Pgsql extends Zend_Db_TestUtil_Pdo_Common
 {
-
     public function setUp(Zend_Db_Adapter_Abstract $db)
     {
         $this->_db = $db;
@@ -40,7 +39,7 @@ class Zend_Db_TestUtil_Pdo_Pgsql extends Zend_Db_TestUtil_Pdo_Common
 
     public function getParams(array $constants = array())
     {
-        $constants = array (
+        $constants = array(
             'host'     => 'TESTS_ZEND_DB_ADAPTER_PDO_PGSQL_HOSTNAME',
             'username' => 'TESTS_ZEND_DB_ADAPTER_PDO_PGSQL_USERNAME',
             'password' => 'TESTS_ZEND_DB_ADAPTER_PDO_PGSQL_PASSWORD',
@@ -70,7 +69,7 @@ class Zend_Db_TestUtil_Pdo_Pgsql extends Zend_Db_TestUtil_Pdo_Common
     {
         $data = parent::_getDataProducts();
         foreach ($data as &$row) {
-            $row['product_id'] = new Zend_Db_Expr('NEXTVAL('.$this->_db->quote('zfproducts_seq').')');
+            $row['product_id'] = new Zend_Db_Expr('NEXTVAL(' . $this->_db->quote('zfproducts_seq') . ')');
         }
         return $data;
     }
@@ -94,7 +93,8 @@ class Zend_Db_TestUtil_Pdo_Pgsql extends Zend_Db_TestUtil_Pdo_Common
 
     protected function _getSqlCreateTable($tableName)
     {
-        $tableList = $this->_db->fetchCol('SELECT relname AS table_name FROM pg_class '
+        $tableList = $this->_db->fetchCol(
+            'SELECT relname AS table_name FROM pg_class '
             . $this->_db->quoteInto(' WHERE relkind = \'r\' AND relname = ?', $tableName)
         );
         if (in_array($tableName, $tableList)) {
@@ -105,7 +105,8 @@ class Zend_Db_TestUtil_Pdo_Pgsql extends Zend_Db_TestUtil_Pdo_Common
 
     protected function _getSqlDropTable($tableName)
     {
-        $tableList = $this->_db->fetchCol('SELECT relname AS table_name FROM pg_class '
+        $tableList = $this->_db->fetchCol(
+            'SELECT relname AS table_name FROM pg_class '
             . $this->_db->quoteInto(' WHERE relkind = \'r\' AND relname = ?', $tableName)
         );
         if (in_array($tableName, $tableList)) {
@@ -116,7 +117,8 @@ class Zend_Db_TestUtil_Pdo_Pgsql extends Zend_Db_TestUtil_Pdo_Common
 
     protected function _getSqlCreateSequence($sequenceName)
     {
-        $seqList = $this->_db->fetchCol('SELECT relname AS sequence_name FROM pg_class '
+        $seqList = $this->_db->fetchCol(
+            'SELECT relname AS sequence_name FROM pg_class '
             . $this->_db->quoteInto(' WHERE relkind = \'S\' AND relname = ?', $sequenceName)
         );
         if (in_array($sequenceName, $seqList)) {
@@ -127,7 +129,8 @@ class Zend_Db_TestUtil_Pdo_Pgsql extends Zend_Db_TestUtil_Pdo_Common
 
     protected function _getSqlDropSequence($sequenceName)
     {
-        $seqList = $this->_db->fetchCol('SELECT relname AS sequence_name FROM pg_class '
+        $seqList = $this->_db->fetchCol(
+            'SELECT relname AS sequence_name FROM pg_class '
             . $this->_db->quoteInto(' WHERE relkind = \'S\' AND relname = ?', $sequenceName)
         );
         if (in_array($sequenceName, $seqList)) {
@@ -135,5 +138,4 @@ class Zend_Db_TestUtil_Pdo_Pgsql extends Zend_Db_TestUtil_Pdo_Common
         }
         return null;
     }
-
 }

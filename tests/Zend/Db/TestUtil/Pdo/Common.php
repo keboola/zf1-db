@@ -32,7 +32,7 @@ abstract class Zend_Db_TestUtil_Pdo_Common extends Zend_Db_TestUtil_Common
 {
     protected function _rawQuery($sql)
     {
-        $conn = $this->_db->getConnection();
+        $conn   = $this->_db->getConnection();
         $retval = $conn->query($sql);
         if (!$retval) {
             $e = $conn->error;

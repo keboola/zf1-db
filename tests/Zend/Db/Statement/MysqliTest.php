@@ -49,7 +49,7 @@ class Zend_Db_Statement_MysqliTest extends Zend_Db_Statement_TestCommon
      */
     public function testStripQuoted()
     {
-        $this->_Zend_Db_Statement_Mysqli_Test_Class = new Zend_Db_Statement_Mysqli_Test_Class($this->_db, "SELECT 1");
+        $this->_Zend_Db_Statement_Mysqli_Test_Class = new Zend_Db_Statement_Mysqli_Test_Class($this->_db, 'SELECT 1');
 
         $input = <<<INPUT
 in: [SELECT * FROM `strange`table1`]
@@ -132,7 +132,7 @@ out: [INSERT INTO  () VALUES ();]
 INPUT;
         // parse the input
         $inputOutputLines = explode('in:', $input);
-        $count = 0;
+        $count            = 0;
 
         foreach ($inputOutputLines as $ioLine) {
             if (!trim($ioLine)) {
@@ -140,9 +140,9 @@ INPUT;
             }
 
             $count++;
-            $io = explode('out:', $ioLine);
-            $in = str_replace(array('[', ']'),'', trim($io[0]));
-            $out = str_replace(array('[', ']'),'', trim($io[1]));
+            $io     = explode('out:', $ioLine);
+            $in     = str_replace(array('[', ']'), '', trim($io[0]));
+            $out    = str_replace(array('[', ']'), '', trim($io[1]));
             $actual = $this->_Zend_Db_Statement_Mysqli_Test_Class->stripQuoted($in);
             $this->assertSame($out, $actual, $count . ' - unexpected output');
         }
@@ -150,7 +150,7 @@ INPUT;
 
     public function testStatementRowCount()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $stmt = $this->_db->prepare("DELETE FROM $products WHERE $product_id = 1");
@@ -170,8 +170,8 @@ INPUT;
 
     public function testStatementBindParamByName()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
-        $product_id = $this->_db->quoteIdentifier('product_id');
+        $products     = $this->_db->quoteIdentifier('zfproducts');
+        $product_id   = $this->_db->quoteIdentifier('product_id');
         $product_name = $this->_db->quoteIdentifier('product_name');
 
         $productIdValue   = 4;
@@ -185,16 +185,18 @@ INPUT;
             $this->assertTrue($stmt->bindParam('name', $productNameValue), 'Expected bindParam(\'name\') to return true');
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Statement_Exception,
+                'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
+            );
             $this->assertEquals("Invalid bind-variable name ':id'", $e->getMessage());
         }
     }
 
     public function testStatementBindValueByName()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
-        $product_id = $this->_db->quoteIdentifier('product_id');
+        $products     = $this->_db->quoteIdentifier('zfproducts');
+        $product_id   = $this->_db->quoteIdentifier('product_id');
         $product_name = $this->_db->quoteIdentifier('product_name');
 
         $productIdValue   = 4;
@@ -208,8 +210,10 @@ INPUT;
             $this->assertTrue($stmt->bindParam('name', $productNameValue), 'Expected bindParam(\'name\') to return true');
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Statement_Exception,
+                'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
+            );
             $this->assertEquals("Invalid bind-variable name ':id'", $e->getMessage());
         }
     }
@@ -226,7 +230,7 @@ INPUT;
      */
     public function testStatementExceptionShouldContainErrorCode()
     {
-        $sql = "SELECT * FROM *";
+        $sql = 'SELECT * FROM *';
         try {
             $stmt = $this->_db->query($sql);
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
@@ -251,34 +255,34 @@ INPUT;
     public function testStatementReturnsFalseOnEmpty()
     {
         $products = $this->_db->quoteIdentifier('zfproducts');
-        $sql = 'SELECT * FROM ' . $products . ' WHERE 1=2';
-        $stmt = $this->_db->query($sql);
-        $result = $stmt->fetch();
+        $sql      = 'SELECT * FROM ' . $products . ' WHERE 1=2';
+        $stmt     = $this->_db->query($sql);
+        $result   = $stmt->fetch();
         $this->assertFalse($result);
     }
 
-	/**
-	 * Test to verify valid report of issue
-	 *
+    /**
+     * Test to verify valid report of issue
+     *
      * @group ZF-8986
      */
     public function testNumberOfBoundParamsDoesNotMatchNumberOfTokens()
     {
-    	$this->_util->createTable('zf_objects', array(
-            'object_id'		=> 'INTEGER NOT NULL',
-    		'object_type'	=> 'INTEGER NOT NULL',
-    		'object_status' => 'INTEGER NOT NULL',
-    		'object_lati'   => 'REAL',
-    		'object_long'   => 'REAL',
+        $this->_util->createTable('zf_objects', array(
+            'object_id'     => 'INTEGER NOT NULL',
+            'object_type'   => 'INTEGER NOT NULL',
+            'object_status' => 'INTEGER NOT NULL',
+            'object_lati'   => 'REAL',
+            'object_long'   => 'REAL',
         ));
         $tableName = $this->_util->getTableName('zf_objects');
 
-        $numRows = $this->_db->insert($tableName, array (
-        	'object_id' => 1,
-        	'object_type' => 1,
-        	'object_status' => 1,
-        	'object_lati' => 1.12345,
-        	'object_long' => 1.54321,
+        $numRows = $this->_db->insert($tableName, array(
+            'object_id'     => 1,
+            'object_type'   => 1,
+            'object_status' => 1,
+            'object_lati'   => 1.12345,
+            'object_long'   => 1.54321,
         ));
 
         $sql = 'SELECT object_id, object_type, object_status,'
@@ -286,9 +290,9 @@ INPUT;
              . ' WHERE object_id = ?';
 
         try {
-        	$stmt = $this->_db->query($sql, 1);
+            $stmt = $this->_db->query($sql, 1);
         } catch (Exception $e) {
-        	$this->fail('Bounding params failed: ' . $e->getMessage());
+            $this->fail('Bounding params failed: ' . $e->getMessage());
         }
         $result = $stmt->fetch();
         $this->assertInternalType('array', $result);
@@ -305,5 +309,4 @@ INPUT;
     {
         return 'Mysqli';
     }
-
 }

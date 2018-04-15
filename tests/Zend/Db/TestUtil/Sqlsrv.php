@@ -55,10 +55,10 @@ class Zend_Db_TestUtil_Sqlsrv extends Zend_Db_TestUtil_Common
     protected function _getColumnsDocuments()
     {
         return array(
-            'doc_id'       => 'INTEGER NOT NULL',
-            'doc_clob'     => 'VARCHAR(8000)',
-            'doc_blob'     => 'VARCHAR(8000)',
-            'PRIMARY KEY'  => 'doc_id',
+            'doc_id'      => 'INTEGER NOT NULL',
+            'doc_clob'    => 'VARCHAR(8000)',
+            'doc_blob'    => 'VARCHAR(8000)',
+            'PRIMARY KEY' => 'doc_id',
         );
     }
 
@@ -78,7 +78,7 @@ class Zend_Db_TestUtil_Sqlsrv extends Zend_Db_TestUtil_Common
 
     protected function _getSqlCreateTable($tableName)
     {
-        $sql       = "exec sp_tables @table_name = " . $this->_db->quoteIdentifier($tableName, true);
+        $sql       = 'exec sp_tables @table_name = ' . $this->_db->quoteIdentifier($tableName, true);
         $stmt      = $this->_db->query($sql);
         $tableList = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
 
@@ -90,7 +90,7 @@ class Zend_Db_TestUtil_Sqlsrv extends Zend_Db_TestUtil_Common
 
     protected function _getSqlDropElement($elementName, $typeElement = 'TABLE')
     {
-        $sql         = "exec sp_tables @table_name = " . $this->_db->quoteIdentifier($elementName, true);
+        $sql         = 'exec sp_tables @table_name = ' . $this->_db->quoteIdentifier($elementName, true);
         $stmt        = $this->_db->query($sql);
         $elementList = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
 

@@ -32,7 +32,6 @@
  */
 class Zend_Db_Select_Pdo_IbmTest extends Zend_Db_Select_TestCommon
 {
-
     public function getDriver()
     {
         return 'Pdo_Ibm';
@@ -40,7 +39,7 @@ class Zend_Db_Select_Pdo_IbmTest extends Zend_Db_Select_TestCommon
 
     public function testSelectGroupByExpr()
     {
-       $server = $this->_util->getServer();
+        $server = $this->_util->getServer();
 
         if ($server == 'IDS') {
             $this->markTestIncomplete('IDS does not support this SQL syntax');
@@ -51,7 +50,7 @@ class Zend_Db_Select_Pdo_IbmTest extends Zend_Db_Select_TestCommon
 
     public function testSelectGroupByAutoExpr()
     {
-       $server = $this->_util->getServer();
+        $server = $this->_util->getServer();
 
         if ($server == 'IDS') {
             $this->markTestIncomplete('IDS does not support this SQL syntax');

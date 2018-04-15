@@ -40,7 +40,7 @@ class Zend_Db_Table_Pdo_PgsqlTest extends Zend_Db_Table_TestCommon
     public function testTableInsert()
     {
         $table = $this->_table['bugs'];
-        $row = array (
+        $row   = array(
             'bug_description' => 'New bug',
             'bug_status'      => 'NEW',
             'created_on'      => '2007-04-02',
@@ -48,8 +48,8 @@ class Zend_Db_Table_Pdo_PgsqlTest extends Zend_Db_Table_TestCommon
             'reported_by'     => 'micky',
             'assigned_to'     => 'goofy'
         );
-        $insertResult = $table->insert($row);
-        $lastInsertId = $this->_db->lastInsertId('zfbugs', 'bug_id');
+        $insertResult   = $table->insert($row);
+        $lastInsertId   = $this->_db->lastInsertId('zfbugs', 'bug_id');
         $lastSequenceId = $this->_db->lastSequenceId('zfbugs_bug_id_seq');
         $this->assertEquals($insertResult, $lastInsertId);
         $this->assertEquals($insertResult, $lastSequenceId);
@@ -59,7 +59,7 @@ class Zend_Db_Table_Pdo_PgsqlTest extends Zend_Db_Table_TestCommon
     public function testTableInsertPkNull()
     {
         $table = $this->_table['bugs'];
-        $row = array (
+        $row   = array(
             'bug_id'          => null,
             'bug_description' => 'New bug',
             'bug_status'      => 'NEW',
@@ -68,8 +68,8 @@ class Zend_Db_Table_Pdo_PgsqlTest extends Zend_Db_Table_TestCommon
             'reported_by'     => 'micky',
             'assigned_to'     => 'goofy'
         );
-        $insertResult = $table->insert($row);
-        $lastInsertId = $this->_db->lastInsertId('zfbugs', 'bug_id');
+        $insertResult   = $table->insert($row);
+        $lastInsertId   = $this->_db->lastInsertId('zfbugs', 'bug_id');
         $lastSequenceId = $this->_db->lastSequenceId('zfbugs_bug_id_seq');
         $this->assertEquals($insertResult, $lastInsertId);
         $this->assertEquals($insertResult, $lastSequenceId);
@@ -78,14 +78,16 @@ class Zend_Db_Table_Pdo_PgsqlTest extends Zend_Db_Table_TestCommon
 
     public function testTableInsertSequence()
     {
-        $table = $this->_getTable('My_ZendDbTable_TableProducts',
-            array(Zend_Db_Table_Abstract::SEQUENCE => 'zfproducts_seq'));
-        $row = array (
+        $table = $this->_getTable(
+            'My_ZendDbTable_TableProducts',
+            array(Zend_Db_Table_Abstract::SEQUENCE => 'zfproducts_seq')
+        );
+        $row = array(
             'product_name' => 'Solaris'
         );
-        $insertResult         = $table->insert($row);
-        $lastInsertId         = $this->_db->lastInsertId('zfproducts');
-        $lastSequenceId       = $this->_db->lastSequenceId('zfproducts_seq');
+        $insertResult   = $table->insert($row);
+        $lastInsertId   = $this->_db->lastInsertId('zfproducts');
+        $lastSequenceId = $this->_db->lastSequenceId('zfproducts_seq');
         $this->assertEquals($insertResult, $lastInsertId);
         $this->assertEquals($insertResult, $lastSequenceId);
         $this->assertEquals(4, $insertResult);
@@ -113,8 +115,8 @@ class Zend_Db_Table_Pdo_PgsqlTest extends Zend_Db_Table_TestCommon
         $schema = 'public';
 
         $config = array(
-            'db'        => $this->_db,
-            'schema'    => $schema
+            'db'     => $this->_db,
+            'schema' => $schema
             );
 
         $table = new My_ZendDbTable_TableBugs($config);
@@ -136,8 +138,8 @@ class Zend_Db_Table_Pdo_PgsqlTest extends Zend_Db_Table_TestCommon
         $tableName = "$schema.zfbugs";
 
         $config = array(
-            'db'        => $this->_db,
-            'name'      => $tableName
+            'db'   => $this->_db,
+            'name' => $tableName
             );
 
         $table = new My_ZendDbTable_TableBugs($config);
@@ -160,9 +162,9 @@ class Zend_Db_Table_Pdo_PgsqlTest extends Zend_Db_Table_TestCommon
         $tableName = "$schema.zfbugs";
 
         $config = array(
-            'db'        => $this->_db,
-            'schema'    => 'foo',
-            'name'      => $tableName
+            'db'     => $this->_db,
+            'schema' => 'foo',
+            'name'   => $tableName
             );
 
         $table = new My_ZendDbTable_TableBugs($config);
@@ -182,8 +184,8 @@ class Zend_Db_Table_Pdo_PgsqlTest extends Zend_Db_Table_TestCommon
         $schema = 'public';
 
         $config = array(
-            'db'        => $this->_db,
-            'schema'    => $schema,
+            'db'     => $this->_db,
+            'schema' => $schema,
             );
 
         $table = new My_ZendDbTable_TableBugs($config);

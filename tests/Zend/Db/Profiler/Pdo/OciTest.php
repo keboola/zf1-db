@@ -40,8 +40,8 @@ class Zend_Db_Profiler_Pdo_OciTest extends Zend_Db_Profiler_TestCommon
      */
     protected function _testProfilerSetFilterQueryTypeCommon($queryType)
     {
-        $bugs = $this->_db->quoteIdentifier('zfbugs', true);
-        $bug_id = $this->_db->quoteIdentifier('bug_id', true);
+        $bugs       = $this->_db->quoteIdentifier('zfbugs', true);
+        $bug_id     = $this->_db->quoteIdentifier('bug_id', true);
         $bug_status = $this->_db->quoteIdentifier('bug_status', true);
 
         $prof = $this->_db->getProfiler();
@@ -53,14 +53,17 @@ class Zend_Db_Profiler_Pdo_OciTest extends Zend_Db_Profiler_TestCommon
         $this->_db->query("SELECT * FROM $bugs");
         $this->_db->query("INSERT INTO $bugs ($bug_id, $bug_status) VALUES (:id, :status)", array(':id' => 100,':status' => 'NEW'));
         $this->_db->query("DELETE FROM $bugs");
-        $this->_db->query("UPDATE $bugs SET $bug_status = :status", array(':status'=>'FIXED'));
+        $this->_db->query("UPDATE $bugs SET $bug_status = :status", array(':status' => 'FIXED'));
 
         $qps = $prof->getQueryProfiles();
         $this->assertInternalType('array', $qps, 'Expecting some query profiles, got none');
         foreach ($qps as $qp) {
             $qtype = $qp->getQueryType();
-            $this->assertEquals($queryType, $qtype,
-                "Found query type $qtype, which should have been filtered out");
+            $this->assertEquals(
+                $queryType,
+                $qtype,
+                "Found query type $qtype, which should have been filtered out"
+            );
         }
 
         $prof->setEnabled(false);

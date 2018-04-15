@@ -32,7 +32,7 @@ class Zend_Db_TestUtil_Pdo_Mysql extends Zend_Db_TestUtil_Mysqli
 {
     protected function _rawQuery($sql)
     {
-        $conn = $this->_db->getConnection();
+        $conn   = $this->_db->getConnection();
         $retval = $conn->exec($sql);
         if ($retval === false) {
             $e = $conn->error;
@@ -55,4 +55,3 @@ class Zend_Db_TestUtil_Pdo_Mysql extends Zend_Db_TestUtil_Mysqli
         return $constants;
     }
 }
-

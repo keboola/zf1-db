@@ -31,4 +31,3 @@
 class Zend_Db_Select_Exception extends Zend_Db_Exception
 {
 }
-

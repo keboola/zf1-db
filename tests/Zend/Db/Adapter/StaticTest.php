@@ -32,12 +32,11 @@
  */
 class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
 {
-
     protected static $_isCaseSensitiveFileSystem = null;
 
     public function testDbConstructor()
     {
-        $db = new Zend_Db_Adapter_Static( array('dbname' => 'dummy') );
+        $db = new Zend_Db_Adapter_Static(array('dbname' => 'dummy'));
         $this->assertTrue($db instanceof Zend_Db_Adapter_Abstract);
         $this->assertEquals('dummy', $db->config['dbname']);
     }
@@ -61,19 +60,19 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
     {
         $configData1 = array(
             'adapter' => 'Static',
-            'params' => array(
+            'params'  => array(
                 'dbname' => 'dummy'
             )
         );
         $config1 = new Zend_Config($configData1);
-        $db = new Zend_Db_Adapter_Static($config1->params);
+        $db      = new Zend_Db_Adapter_Static($config1->params);
         $this->assertTrue($db instanceof Zend_Db_Adapter_Abstract);
         $this->assertEquals('dummy', $db->config['dbname']);
     }
 
     public function testDbFactory()
     {
-        $db = Zend_Db::factory('Static', array('dbname' => 'dummy') );
+        $db = Zend_Db::factory('Static', array('dbname' => 'dummy'));
         $this->assertTrue($db instanceof Zend_Db_Adapter_Abstract);
         $this->assertTrue(class_exists('Zend_Db_Adapter_Static'));
         $this->assertTrue($db instanceof Zend_Db_Adapter_Static);
@@ -82,8 +81,8 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
 
     public function testDbFactoryAlternateNamespace()
     {
-        $ip = get_include_path();
-        $dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files';
+        $ip    = get_include_path();
+        $dir   = dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files';
         $newIp = $dir . PATH_SEPARATOR . $ip;
         set_include_path($newIp);
 
@@ -92,7 +91,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
             $db = Zend_Db::factory('Static', array('dbname' => 'dummy', 'adapterNamespace' => 'Testnamespace'));
         } catch (Zend_Exception $e) {
             set_include_path($ip);
-            $this->fail('Caught exception of type '.get_class($e).' where none was expected: '.$e->getMessage());
+            $this->fail('Caught exception of type ' . get_class($e) . ' where none was expected: ' . $e->getMessage());
         }
 
         set_include_path($ip);
@@ -106,8 +105,8 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
 
     public function testDbFactoryAlternateNamespaceExceptionInvalidAdapter()
     {
-        $ip = get_include_path();
-        $dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files';
+        $ip    = get_include_path();
+        $dir   = dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files';
         $newIp = $dir . PATH_SEPARATOR . $ip;
         set_include_path($newIp);
 
@@ -128,8 +127,10 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
             $db = Zend_Db::factory(null);
             $this->fail('Expected to catch Zend_Db_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Exception,
-                'Expected exception of type Zend_Db_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Exception,
+                'Expected exception of type Zend_Db_Exception, got ' . get_class($e)
+            );
             $this->assertEquals($e->getMessage(), 'Adapter name must be specified in a string');
         }
     }
@@ -170,8 +171,10 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
             $db = Zend_Db::factory('Static', array());
             $this->fail('Expected to catch Zend_Db_Adapter_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Adapter_Exception,
-                'Expected exception of type Zend_Db_Adapter_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Adapter_Exception,
+                'Expected exception of type Zend_Db_Adapter_Exception, got ' . get_class($e)
+            );
             $this->assertEquals("Configuration must have a key for 'dbname' that names the database instance", $e->getMessage());
         }
     }
@@ -180,12 +183,12 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
     {
         $configData1 = array(
             'adapter' => 'Static',
-            'params' => array(
+            'params'  => array(
                 'dbname' => 'dummy'
             )
         );
         $config1 = new Zend_Config($configData1);
-        $db = Zend_Db::factory($config1);
+        $db      = Zend_Db::factory($config1);
         $this->assertTrue($db instanceof Zend_Db_Adapter_Static);
         $this->assertEquals('dummy', $db->config['dbname']);
     }
@@ -202,8 +205,10 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
             $db = Zend_Db::factory($config1);
             $this->fail('Expected to catch Zend_Db_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Exception,
-                'Expected exception of type Zend_Db_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Exception,
+                'Expected exception of type Zend_Db_Exception, got ' . get_class($e)
+            );
             $this->assertEquals($e->getMessage(), 'Adapter name must be specified in a string');
         }
     }
@@ -212,7 +217,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
     {
         $configData1 = array(
             'adapter' => 'Static',
-            'params' => array(
+            'params'  => array(
                 'dbname' => 'dummy'
             )
         );
@@ -220,7 +225,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
             'dbname' => 'vanilla'
         );
         $config1 = new Zend_Config($configData1);
-        $db = Zend_Db::factory($config1, $configData2);
+        $db      = Zend_Db::factory($config1, $configData2);
         $this->assertTrue($db instanceof Zend_Db_Adapter_Static);
         // second arg should be ignored
         $this->assertEquals('dummy', $db->config['dbname']);
@@ -230,7 +235,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
     {
         $configData1 = array(
             'adapter' => 'Static',
-            'params' => array(
+            'params'  => array(
                 'dbname' => 'dummy'
             )
         );
@@ -239,7 +244,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
         );
         $config1 = new Zend_Config($configData1);
         $config2 = new Zend_Config($configData2);
-        $db = Zend_Db::factory($config1, $config2);
+        $db      = Zend_Db::factory($config1, $config2);
         $this->assertTrue($db instanceof Zend_Db_Adapter_Static);
         // second arg should be ignored
         $this->assertEquals('dummy', $db->config['dbname']);
@@ -247,14 +252,14 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
 
     public function testDbGetConnection()
     {
-        $db = Zend_Db::factory('Static', array('dbname' => 'dummy'));
+        $db   = Zend_Db::factory('Static', array('dbname' => 'dummy'));
         $conn = $db->getConnection();
         $this->assertTrue($conn instanceof Zend_Db_Adapter_Static);
     }
 
     public function testDbGetFetchMode()
     {
-        $db = Zend_Db::factory('Static', array('dbname' => 'dummy'));
+        $db   = Zend_Db::factory('Static', array('dbname' => 'dummy'));
         $mode = $db->getFetchMode();
         $this->assertInternalType('int', $mode);
     }
@@ -264,7 +269,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
      */
     public function testDbGetServerVersion()
     {
-        $db = Zend_Db::factory('Static', array('dbname' => 'dummy'));
+        $db      = Zend_Db::factory('Static', array('dbname' => 'dummy'));
         $version = $db->getServerVersion();
         $this->assertEquals($version, '5.6.7.8');
         $this->assertTrue(version_compare($version, '1.0.0', '>'));
@@ -302,7 +307,6 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
         }
         $this->assertEquals('Test_MyCompany1_Dbadapter', get_class($adapter));
         set_include_path($oldIncludePath);
-
     }
 
     /**
@@ -354,7 +358,6 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
         }
         $this->assertEquals('Test_MyCompany1_Db_Adapter', get_class($adapter));
         set_include_path($oldIncludePath);
-
     }
 
     /**
@@ -366,7 +369,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($db->getFetchMode(), Zend_Db::FETCH_ASSOC);
 
         $params = array(
-            'dbname' => 'dummy',
+            'dbname'  => 'dummy',
             'options' => array(
                 Zend_Db::FETCH_MODE => 'obj'
              )
@@ -375,7 +378,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($db->getFetchMode(), Zend_Db::FETCH_OBJ);
 
         $params = array(
-            'dbname' => 'dummy',
+            'dbname'  => 'dummy',
             'options' => array(
                 Zend_Db::FETCH_MODE => Zend_Db::FETCH_OBJ
              )
@@ -397,5 +400,4 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
     {
         return 'Static';
     }
-
 }

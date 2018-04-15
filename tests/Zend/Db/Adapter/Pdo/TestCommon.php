@@ -30,7 +30,6 @@
  */
 abstract class Zend_Db_Adapter_Pdo_TestCommon extends Zend_Db_Adapter_TestCommon
 {
-
     public function testAdapterAlternateStatement()
     {
         $this->_testAdapterAlternateStatement('Test_PdoStatement');
@@ -47,8 +46,10 @@ abstract class Zend_Db_Adapter_Pdo_TestCommon extends Zend_Db_Adapter_TestCommon
             $this->_db->exec('Bogus query');
             $this->fail('Expected exception not thrown');
         } catch (Zend_Db_Adapter_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Adapter_Exception,
-                'Expecting object of type Zend_Db_Adapter_Exception, got ' . get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Adapter_Exception,
+                'Expecting object of type Zend_Db_Adapter_Exception, got ' . get_class($e)
+            );
         }
     }
 
@@ -63,8 +64,10 @@ abstract class Zend_Db_Adapter_Pdo_TestCommon extends Zend_Db_Adapter_TestCommon
             $this->_db->exec('DELETE FROM BogusTable');
             $this->fail('Expected exception not thrown');
         } catch (Zend_Db_Adapter_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Adapter_Exception,
-                'Expecting object of type Zend_Db_Adapter_Exception, got ' . get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Adapter_Exception,
+                'Expecting object of type Zend_Db_Adapter_Exception, got ' . get_class($e)
+            );
         }
     }
 
@@ -77,8 +80,11 @@ abstract class Zend_Db_Adapter_Pdo_TestCommon extends Zend_Db_Adapter_TestCommon
     {
         $affected = $this->_db->exec('DELETE FROM ' . $this->_db->quoteIdentifier('zfbugs') . ' WHERE 1 = -1');
 
-        $this->assertEquals(0, $affected,
-            "Expected exec() to return zero affected rows; got $affected");
+        $this->assertEquals(
+            0,
+            $affected,
+            "Expected exec() to return zero affected rows; got $affected"
+        );
     }
 
     /**

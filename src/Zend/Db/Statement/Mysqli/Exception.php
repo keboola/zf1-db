@@ -30,4 +30,3 @@
 class Zend_Db_Statement_Mysqli_Exception extends Zend_Db_Statement_Exception
 {
 }
-

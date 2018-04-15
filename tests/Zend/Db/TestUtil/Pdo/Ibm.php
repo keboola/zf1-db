@@ -43,7 +43,7 @@ class Zend_Db_TestUtil_Pdo_Ibm extends Zend_Db_TestUtil_Db2
         $server = $this->getServer();
         if ($server == 'IDS') {
             foreach ($data as &$row) {
-                $row['product_id'] = new Zend_Db_Expr($this->_db->quoteIdentifier('zfproducts_seq', true) . ".NEXTVAL");
+                $row['product_id'] = new Zend_Db_Expr($this->_db->quoteIdentifier('zfproducts_seq', true) . '.NEXTVAL');
             }
         }
         return $data;
@@ -54,14 +54,14 @@ class Zend_Db_TestUtil_Pdo_Ibm extends Zend_Db_TestUtil_Db2
         $server = $this->getServer();
 
         if ($server == 'IDS') {
-            return array (
+            return array(
             array(
-                'doc_id'    => 1,
-                'doc_clob'  => 'this is the clob that never ends...'.
-                               'this is the clob that never ends...'.
+                'doc_id'   => 1,
+                'doc_clob' => 'this is the clob that never ends...' .
+                               'this is the clob that never ends...' .
                                'this is the clob that never ends...',
-                'doc_blob'  => 'this is the blob that never ends...'.
-                               'this is the blob that never ends...'.
+                'doc_blob' => 'this is the blob that never ends...' .
+                               'this is the blob that never ends...' .
                                'this is the blob that never ends...'
                 )
             );
@@ -75,7 +75,6 @@ class Zend_Db_TestUtil_Pdo_Ibm extends Zend_Db_TestUtil_Db2
         $server = $this->getServer();
 
         if ($server == 'IDS') {
-
             if ($type == 'IDENTITY') {
                 return 'SERIAL(1) PRIMARY KEY';
             }
@@ -92,7 +91,8 @@ class Zend_Db_TestUtil_Pdo_Ibm extends Zend_Db_TestUtil_Db2
         $server = $this->getServer();
 
         if ($server == 'IDS') {
-            $tableList = $this->_db->fetchCol('SELECT T.TABNAME FROM SYSTABLES T '
+            $tableList = $this->_db->fetchCol(
+                'SELECT T.TABNAME FROM SYSTABLES T '
             . $this->_db->quoteInto(' WHERE T.TABNAME = ?', $tableName)
             );
             if (in_array($tableName, $tableList)) {
@@ -109,7 +109,8 @@ class Zend_Db_TestUtil_Pdo_Ibm extends Zend_Db_TestUtil_Db2
         $server = $this->getServer();
 
         if ($server == 'IDS') {
-            $tableList = $this->_db->fetchCol('SELECT T.TABNAME FROM SYSTABLES T '
+            $tableList = $this->_db->fetchCol(
+                'SELECT T.TABNAME FROM SYSTABLES T '
             . $this->_db->quoteInto(' WHERE T.TABNAME = ?', $tableName)
             );
             if (in_array($tableName, $tableList)) {
@@ -126,7 +127,8 @@ class Zend_Db_TestUtil_Pdo_Ibm extends Zend_Db_TestUtil_Db2
         $server = $this->getServer();
 
         if ($server == 'IDS') {
-            $seqList = $this->_db->fetchCol('SELECT S.TABNAME FROM SYSTABLES S '
+            $seqList = $this->_db->fetchCol(
+                'SELECT S.TABNAME FROM SYSTABLES S '
             . $this->_db->quoteInto(' WHERE S.TABNAME = ?', $sequenceName)
             . " AND S.TABTYPE = 'Q'"
             );
@@ -145,7 +147,8 @@ class Zend_Db_TestUtil_Pdo_Ibm extends Zend_Db_TestUtil_Db2
         $server = $this->getServer();
 
         if ($server == 'IDS') {
-            $seqList = $this->_db->fetchCol('SELECT S.TABNAME FROM SYSTABLES S '
+            $seqList = $this->_db->fetchCol(
+                'SELECT S.TABNAME FROM SYSTABLES S '
             . $this->_db->quoteInto(' WHERE S.TABNAME = ?', $sequenceName)
             . " AND S.TABTYPE = 'Q'"
             );
@@ -166,7 +169,7 @@ class Zend_Db_TestUtil_Pdo_Ibm extends Zend_Db_TestUtil_Db2
 
     protected function _rawQuery($sql)
     {
-        $conn = $this->_db->getConnection();
+        $conn   = $this->_db->getConnection();
         $retval = $conn->query($sql);
         if (!$retval) {
             $e = $conn->error;

@@ -31,4 +31,3 @@
 class Zend_Db_Profiler_Exception extends Zend_Db_Exception
 {
 }
-

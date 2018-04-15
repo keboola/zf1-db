@@ -164,7 +164,8 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
      * It is necessary to override the abstract PDO transaction functions here, as
      * the PDO driver for MSSQL does not support transactions.
      */
-    protected function _rollBack() {
+    protected function _rollBack()
+    {
         $this->_connect();
         $this->_connection->exec('ROLLBACK TRANSACTION');
         return true;
@@ -216,53 +217,53 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
     {
         if ($schemaName != null) {
             if (strpos($schemaName, '.') !== false) {
-                $result = explode('.', $schemaName);
+                $result     = explode('.', $schemaName);
                 $schemaName = $result[1];
             }
         }
         /**
          * Discover metadata information about this table.
          */
-        $sql = "exec sp_columns @table_name = " . $this->quoteIdentifier($tableName, true);
+        $sql = 'exec sp_columns @table_name = ' . $this->quoteIdentifier($tableName, true);
         if ($schemaName != null) {
-            $sql .= ", @table_owner = " . $this->quoteIdentifier($schemaName, true);
+            $sql .= ', @table_owner = ' . $this->quoteIdentifier($schemaName, true);
         }
 
-        $stmt = $this->query($sql);
+        $stmt   = $this->query($sql);
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
 
-        $table_name  = 2;
-        $column_name = 3;
-        $type_name   = 5;
-        $precision   = 6;
-        $length      = 7;
-        $scale       = 8;
-        $nullable    = 10;
-        $column_def  = 12;
+        $table_name      = 2;
+        $column_name     = 3;
+        $type_name       = 5;
+        $precision       = 6;
+        $length          = 7;
+        $scale           = 8;
+        $nullable        = 10;
+        $column_def      = 12;
         $column_position = 16;
 
         /**
          * Discover primary key column(s) for this table.
          */
-        $sql = "exec sp_pkeys @table_name = " . $this->quoteIdentifier($tableName, true);
+        $sql = 'exec sp_pkeys @table_name = ' . $this->quoteIdentifier($tableName, true);
         if ($schemaName != null) {
-            $sql .= ", @table_owner = " . $this->quoteIdentifier($schemaName, true);
+            $sql .= ', @table_owner = ' . $this->quoteIdentifier($schemaName, true);
         }
 
-        $stmt = $this->query($sql);
+        $stmt              = $this->query($sql);
         $primaryKeysResult = $stmt->fetchAll(Zend_Db::FETCH_NUM);
-        $primaryKeyColumn = array();
-        $pkey_column_name = 3;
-        $pkey_key_seq = 4;
+        $primaryKeyColumn  = array();
+        $pkey_column_name  = 3;
+        $pkey_key_seq      = 4;
         foreach ($primaryKeysResult as $pkeysRow) {
             $primaryKeyColumn[$pkeysRow[$pkey_column_name]] = $pkeysRow[$pkey_key_seq];
         }
 
         $desc = array();
-        $p = 1;
+        $p    = 1;
         foreach ($result as $key => $row) {
             $identity = false;
-            $words = explode(' ', $row[$type_name], 2);
+            $words    = explode(' ', $row[$type_name], 2);
             if (isset($words[0])) {
                 $type = $words[0];
                 if (isset($words[1])) {
@@ -308,8 +309,8 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
      * @throws Zend_Db_Adapter_Exception
      * @return string
      */
-     public function limit($sql, $count, $offset = 0)
-     {
+    public function limit($sql, $count, $offset = 0)
+    {
         $count = intval($count);
         if ($count <= 0) {
             throw new Zend_Db_Adapter_Exception("LIMIT argument count=$count is not valid");
@@ -322,7 +323,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
 
         $sql = preg_replace(
             '/^SELECT\s+(DISTINCT\s)?/i',
-            'SELECT $1TOP ' . ($count+$offset) . ' ',
+            'SELECT $1TOP ' . ($count + $offset) . ' ',
             $sql
             );
 
@@ -330,12 +331,12 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
             $orderby = stristr($sql, 'ORDER BY');
 
             if ($orderby !== false) {
-                $orderParts = explode(',', substr($orderby, 8));
-                $pregReplaceCount = null;
+                $orderParts          = explode(',', substr($orderby, 8));
+                $pregReplaceCount    = null;
                 $orderbyInverseParts = array();
                 foreach ($orderParts as $orderPart) {
                     $orderPart = rtrim($orderPart);
-                    $inv = preg_replace('/\s+desc$/i', ' ASC', $orderPart, 1, $pregReplaceCount);
+                    $inv       = preg_replace('/\s+desc$/i', ' ASC', $orderPart, 1, $pregReplaceCount);
                     if ($pregReplaceCount) {
                         $orderbyInverseParts[] = $inv;
                         continue;
@@ -400,7 +401,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
     public function getServerVersion()
     {
         try {
-            $stmt = $this->query("SELECT CAST(SERVERPROPERTY('productversion') AS VARCHAR)");
+            $stmt   = $this->query("SELECT CAST(SERVERPROPERTY('productversion') AS VARCHAR)");
             $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
             if (count($result)) {
                 return $result[0][0];

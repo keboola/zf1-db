@@ -32,7 +32,6 @@
  */
 class Zend_Db_Statement_Pdo_MysqlTest extends Zend_Db_Statement_Pdo_TestCommon
 {
-
     public function testStatementNextRowset()
     {
         $select = $this->_db->select()
@@ -45,7 +44,7 @@ class Zend_Db_Statement_Pdo_MysqlTest extends Zend_Db_Statement_Pdo_TestCommon
             $this->assertInstanceOf(
                 Zend_Db_Statement_Exception::class,
                 $e,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e)
+                'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
             );
             $this->assertEquals('SQLSTATE[HYC00]: Optional feature not implemented', $e->getMessage());
         }
@@ -60,7 +59,7 @@ class Zend_Db_Statement_Pdo_MysqlTest extends Zend_Db_Statement_Pdo_TestCommon
      */
     public function testZF2059()
     {
-        $sql = "SELECT bug_id FROM zfbugs WHERE bug_status != ':0'";
+        $sql     = "SELECT bug_id FROM zfbugs WHERE bug_status != ':0'";
         $results = $this->_db->fetchAll($sql);
         $this->assertEquals(4, count($results));
 
@@ -81,7 +80,7 @@ class Zend_Db_Statement_Pdo_MysqlTest extends Zend_Db_Statement_Pdo_TestCommon
 
     public function testStatementExceptionMessageContainsSqlQuery()
     {
-        $sql = "SELECT * FROM nonexistent";
+        $sql = 'SELECT * FROM nonexistent';
         try {
             $stmt = $this->_db->query($sql);
         } catch (Zend_Db_Statement_Exception $e) {
@@ -96,5 +95,4 @@ class Zend_Db_Statement_Pdo_MysqlTest extends Zend_Db_Statement_Pdo_TestCommon
     {
         return 'Pdo_Mysql';
     }
-
 }

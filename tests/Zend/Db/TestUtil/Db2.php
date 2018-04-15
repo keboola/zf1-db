@@ -30,7 +30,6 @@
  */
 class Zend_Db_TestUtil_Db2 extends Zend_Db_TestUtil_Common
 {
-
     public function setUp(Zend_Db_Adapter_Abstract $db)
     {
         $this->setAdapter($db);
@@ -79,21 +78,21 @@ class Zend_Db_TestUtil_Db2 extends Zend_Db_TestUtil_Common
     {
         $data = parent::_getDataProducts();
         foreach ($data as &$row) {
-            $row['product_id'] = new Zend_Db_Expr('NEXTVAL FOR '.$this->_db->quoteIdentifier('zfproducts_seq', true));
+            $row['product_id'] = new Zend_Db_Expr('NEXTVAL FOR ' . $this->_db->quoteIdentifier('zfproducts_seq', true));
         }
         return $data;
     }
 
     protected function _getDataDocuments()
     {
-        return array (
+        return array(
             array(
-                'doc_id'    => 1,
-                'doc_clob'  => 'this is the clob that never ends...'.
-                               'this is the clob that never ends...'.
+                'doc_id'   => 1,
+                'doc_clob' => 'this is the clob that never ends...' .
+                               'this is the clob that never ends...' .
                                'this is the clob that never ends...',
-                'doc_blob'  => new Zend_Db_Expr("BLOB('this is the blob that never ends...".
-                               "this is the blob that never ends...".
+                'doc_blob' => new Zend_Db_Expr("BLOB('this is the blob that never ends..." .
+                               'this is the blob that never ends...' .
                                "this is the blob that never ends...')")
             )
         );
@@ -113,11 +112,13 @@ class Zend_Db_TestUtil_Db2 extends Zend_Db_TestUtil_Common
     protected function _getSqlCreateTable($tableName)
     {
         if ($this->_db->isI5()) {
-            $tableList = $this->_db->fetchCol('SELECT UPPER(T.TABLE_NAME) FROM QSYS2.TABLES T '
+            $tableList = $this->_db->fetchCol(
+                'SELECT UPPER(T.TABLE_NAME) FROM QSYS2.TABLES T '
                 . $this->_db->quoteInto(' WHERE UPPER(T.TABLE_NAME) = UPPER(?)', $tableName)
             );
         } else {
-            $tableList = $this->_db->fetchCol('SELECT UPPER(T.TABLE_NAME) FROM SYSIBM.TABLES T '
+            $tableList = $this->_db->fetchCol(
+                'SELECT UPPER(T.TABLE_NAME) FROM SYSIBM.TABLES T '
                 . $this->_db->quoteInto(' WHERE UPPER(T.TABLE_NAME) = UPPER(?)', $tableName)
             );
         }
@@ -131,11 +132,13 @@ class Zend_Db_TestUtil_Db2 extends Zend_Db_TestUtil_Common
     protected function _getSqlDropTable($tableName)
     {
         if ($this->_db->isI5()) {
-            $tableList = $this->_db->fetchCol('SELECT UPPER(T.TABLE_NAME) FROM QSYS2.TABLES T '
+            $tableList = $this->_db->fetchCol(
+                'SELECT UPPER(T.TABLE_NAME) FROM QSYS2.TABLES T '
                 . $this->_db->quoteInto(' WHERE UPPER(T.TABLE_NAME) = UPPER(?)', $tableName)
             );
         } else {
-            $tableList = $this->_db->fetchCol('SELECT UPPER(T.TABLE_NAME) FROM SYSIBM.TABLES T '
+            $tableList = $this->_db->fetchCol(
+                'SELECT UPPER(T.TABLE_NAME) FROM SYSIBM.TABLES T '
                 . $this->_db->quoteInto(' WHERE UPPER(T.TABLE_NAME) = UPPER(?)', $tableName)
             );
         }
@@ -184,7 +187,7 @@ class Zend_Db_TestUtil_Db2 extends Zend_Db_TestUtil_Common
 
     protected function _rawQuery($sql)
     {
-        $conn = $this->_db->getConnection();
+        $conn   = $this->_db->getConnection();
         $result = @db2_exec($conn, $sql);
 
         if (!$result) {
@@ -192,5 +195,4 @@ class Zend_Db_TestUtil_Db2 extends Zend_Db_TestUtil_Common
             throw new Zend_Db_Exception("SQL error for \"$sql\": $e");
         }
     }
-
 }

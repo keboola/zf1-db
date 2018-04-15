@@ -33,10 +33,8 @@
  */
 class Zend_Db_Table_Row_Pdo_PgsqlTest extends Zend_Db_Table_Row_TestCommon
 {
-
     public function getDriver()
     {
         return 'Pdo_Pgsql';
     }
-
 }

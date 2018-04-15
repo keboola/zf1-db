@@ -123,7 +123,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
 
         foreach ($fields as $columnEntry) {
             $column = $columnEntry[1];
-            $alias = $columnEntry[2];
+            $alias  = $columnEntry[2];
 
             if ($alias !== null) {
                 $column = $alias;

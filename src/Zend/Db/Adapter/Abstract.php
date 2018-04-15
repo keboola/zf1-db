@@ -202,8 +202,8 @@ abstract class Zend_Db_Adapter_Abstract
             $config['persistent'] = false;
         }
 
-        $this->_config = array_merge($this->_config, $config);
-        $this->_config['options'] = $options;
+        $this->_config                   = array_merge($this->_config, $config);
+        $this->_config['options']        = $options;
         $this->_config['driver_options'] = $driverOptions;
 
 
@@ -225,7 +225,7 @@ abstract class Zend_Db_Adapter_Abstract
         if (array_key_exists(Zend_Db::FETCH_MODE, $options)) {
             if (is_string($options[Zend_Db::FETCH_MODE])) {
                 $constant = 'Zend_Db::FETCH_' . strtoupper($options[Zend_Db::FETCH_MODE]);
-                if(defined($constant)) {
+                if (defined($constant)) {
                     $options[Zend_Db::FETCH_MODE] = constant($constant);
                 }
             }
@@ -338,7 +338,7 @@ abstract class Zend_Db_Adapter_Abstract
         if ($profilerIsObject = is_object($profiler)) {
             if ($profiler instanceof Zend_Db_Profiler) {
                 $profilerInstance = $profiler;
-            } else if ($profiler instanceof Zend_Config) {
+            } elseif ($profiler instanceof Zend_Config) {
                 $profiler = $profiler->toArray();
             } else {
                 throw new Zend_Db_Profiler_Exception('Profiler argument must be an instance of either Zend_Db_Profiler'
@@ -356,7 +356,7 @@ abstract class Zend_Db_Adapter_Abstract
             if (isset($profiler['instance'])) {
                 $profilerInstance = $profiler['instance'];
             }
-        } else if (!$profilerIsObject) {
+        } elseif (!$profilerIsObject) {
             $enabled = (bool) $profiler;
         }
 
@@ -506,7 +506,7 @@ abstract class Zend_Db_Adapter_Abstract
         // extract and quote col names from the array keys
         $cols = array();
         $vals = array();
-        $i = 0;
+        $i    = 0;
         foreach ($bind as $col => $val) {
             $cols[] = $this->quoteIdentifier($col, true);
             if ($val instanceof Zend_Db_Expr) {
@@ -518,18 +518,18 @@ abstract class Zend_Db_Adapter_Abstract
                 } else {
                     if ($this->supportsParameters('named')) {
                         unset($bind[$col]);
-                        $bind[':col'.$i] = $val;
-                        $vals[] = ':col'.$i;
+                        $bind[':col' . $i] = $val;
+                        $vals[]            = ':col' . $i;
                         $i++;
                     } else {
-                        throw new Zend_Db_Adapter_Exception(get_class($this) ." doesn't support positional or named binding");
+                        throw new Zend_Db_Adapter_Exception(get_class($this) . " doesn't support positional or named binding");
                     }
                 }
             }
         }
 
         // build the statement
-        $sql = "INSERT INTO "
+        $sql = 'INSERT INTO '
              . $this->quoteIdentifier($table, true)
              . ' (' . implode(', ', $cols) . ') '
              . 'VALUES (' . implode(', ', $vals) . ')';
@@ -538,7 +538,7 @@ abstract class Zend_Db_Adapter_Abstract
         if ($this->supportsParameters('positional')) {
             $bind = array_values($bind);
         }
-        $stmt = $this->query($sql, $bind);
+        $stmt   = $this->query($sql, $bind);
         $result = $stmt->rowCount();
         return $result;
     }
@@ -559,7 +559,7 @@ abstract class Zend_Db_Adapter_Abstract
          * except for Zend_Db_Expr which is treated literally.
          */
         $set = array();
-        $i = 0;
+        $i   = 0;
         foreach ($bind as $col => $val) {
             if ($val instanceof Zend_Db_Expr) {
                 $val = $val->__toString();
@@ -570,11 +570,11 @@ abstract class Zend_Db_Adapter_Abstract
                 } else {
                     if ($this->supportsParameters('named')) {
                         unset($bind[$col]);
-                        $bind[':col'.$i] = $val;
-                        $val = ':col'.$i;
+                        $bind[':col' . $i] = $val;
+                        $val               = ':col' . $i;
                         $i++;
                     } else {
-                        throw new Zend_Db_Adapter_Exception(get_class($this) ." doesn't support positional or named binding");
+                        throw new Zend_Db_Adapter_Exception(get_class($this) . " doesn't support positional or named binding");
                     }
                 }
             }
@@ -586,7 +586,7 @@ abstract class Zend_Db_Adapter_Abstract
         /**
          * Build the UPDATE statement
          */
-        $sql = "UPDATE "
+        $sql = 'UPDATE '
              . $this->quoteIdentifier($table, true)
              . ' SET ' . implode(', ', $set)
              . (($where) ? " WHERE $where" : '');
@@ -617,14 +617,14 @@ abstract class Zend_Db_Adapter_Abstract
         /**
          * Build the DELETE statement
          */
-        $sql = "DELETE FROM "
+        $sql = 'DELETE FROM '
              . $this->quoteIdentifier($table, true)
              . (($where) ? " WHERE $where" : '');
 
         /**
          * Execute the statement and return the number of affected rows
          */
-        $stmt = $this->query($sql);
+        $stmt   = $this->query($sql);
         $result = $stmt->rowCount();
         return $result;
     }
@@ -697,7 +697,7 @@ abstract class Zend_Db_Adapter_Abstract
         if ($fetchMode === null) {
             $fetchMode = $this->_fetchMode;
         }
-        $stmt = $this->query($sql, $bind);
+        $stmt   = $this->query($sql, $bind);
         $result = $stmt->fetchAll($fetchMode);
         return $result;
     }
@@ -716,7 +716,7 @@ abstract class Zend_Db_Adapter_Abstract
         if ($fetchMode === null) {
             $fetchMode = $this->_fetchMode;
         }
-        $stmt = $this->query($sql, $bind);
+        $stmt   = $this->query($sql, $bind);
         $result = $stmt->fetch($fetchMode);
         return $result;
     }
@@ -739,7 +739,7 @@ abstract class Zend_Db_Adapter_Abstract
         $stmt = $this->query($sql, $bind);
         $data = array();
         while ($row = $stmt->fetch(Zend_Db::FETCH_ASSOC)) {
-            $tmp = array_values(array_slice($row, 0, 1));
+            $tmp           = array_values(array_slice($row, 0, 1));
             $data[$tmp[0]] = $row;
         }
         return $data;
@@ -754,7 +754,7 @@ abstract class Zend_Db_Adapter_Abstract
      */
     public function fetchCol($sql, $bind = array())
     {
-        $stmt = $this->query($sql, $bind);
+        $stmt   = $this->query($sql, $bind);
         $result = $stmt->fetchAll(Zend_Db::FETCH_COLUMN, 0);
         return $result;
     }
@@ -788,7 +788,7 @@ abstract class Zend_Db_Adapter_Abstract
      */
     public function fetchOne($sql, $bind = array())
     {
-        $stmt = $this->query($sql, $bind);
+        $stmt   = $this->query($sql, $bind);
         $result = $stmt->fetchColumn(0);
         return $result;
     }
@@ -848,7 +848,8 @@ abstract class Zend_Db_Adapter_Abstract
                     // ANSI SQL-style hex literals (e.g. x'[\dA-F]+')
                     // are not supported here, because these are string
                     // literals, not numeric literals.
-                    if (preg_match('/^(
+                    if (preg_match(
+                        '/^(
                           [+-]?                  # optional sign
                           (?:
                             0[Xx][\da-fA-F]+     # ODBC-style hexadecimal
@@ -856,7 +857,9 @@ abstract class Zend_Db_Adapter_Abstract
                             (?:[eE][+-]?\d+)?    # optional exponent on decimals or octals
                           )
                         )/x',
-                        (string) $value, $matches)) {
+                        (string) $value,
+                        $matches
+                    )) {
                         $quotedValue = $matches[1];
                     }
                     break;
@@ -919,7 +922,7 @@ abstract class Zend_Db_Adapter_Abstract
      * @param boolean $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier.
      */
-    public function quoteIdentifier($ident, $auto=false)
+    public function quoteIdentifier($ident, $auto = false)
     {
         return $this->_quoteIdentifierAs($ident, null, $auto);
     }
@@ -932,7 +935,7 @@ abstract class Zend_Db_Adapter_Abstract
      * @param boolean $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier and alias.
      */
-    public function quoteColumnAs($ident, $alias, $auto=false)
+    public function quoteColumnAs($ident, $alias, $auto = false)
     {
         return $this->_quoteIdentifierAs($ident, $alias, $auto);
     }
@@ -999,7 +1002,7 @@ abstract class Zend_Db_Adapter_Abstract
      * @param boolean $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string        The quoted identifier and alias.
      */
-    protected function _quoteIdentifier($value, $auto=false)
+    protected function _quoteIdentifier($value, $auto = false)
     {
         if ($auto === false || $this->_autoQuoteIdentifiers === true) {
             $q = $this->getQuoteIdentifierSymbol();

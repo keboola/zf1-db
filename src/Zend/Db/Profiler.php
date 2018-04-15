@@ -452,6 +452,4 @@ class Zend_Db_Profiler
 
         return current($this->_queryProfiles);
     }
-
 }
-

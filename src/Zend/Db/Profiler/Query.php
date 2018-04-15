@@ -78,7 +78,7 @@ class Zend_Db_Profiler_Query
      */
     public function __construct($query, $queryType)
     {
-        $this->_query = $query;
+        $this->_query     = $query;
         $this->_queryType = $queryType;
         // by default, and for backward-compatibility, start the click ticking
         $this->start();
@@ -90,7 +90,7 @@ class Zend_Db_Profiler_Query
      */
     public function __clone()
     {
-        $this->_boundParams = array();
+        $this->_boundParams    = array();
         $this->_endedMicrotime = null;
         $this->start();
     }
@@ -203,11 +203,10 @@ class Zend_Db_Profiler_Query
      */
     public function getStartedMicrotime()
     {
-        if(null === $this->_startedMicrotime) {
+        if (null === $this->_startedMicrotime) {
             return false;
         }
 
         return $this->_startedMicrotime;
     }
 }
-

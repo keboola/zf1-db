@@ -68,7 +68,7 @@ abstract class Zend_Db_TestUtil_Common
     public function createTable($tableId, array $columns = array())
     {
         if (!$columns) {
-            $columns = $this->{'_getColumns'.$tableId}();
+            $columns = $this->{'_getColumns' . $tableId}();
         }
         $tableName = $this->getTableName($tableId);
         $this->dropTable($tableName);
@@ -82,7 +82,7 @@ abstract class Zend_Db_TestUtil_Common
         }
         $sql .= " (\n\t";
 
-        $pKey = null;
+        $pKey  = null;
         $pKeys = array();
         if (isset($columns['PRIMARY KEY'])) {
             $pKey = $columns['PRIMARY KEY'];
@@ -200,15 +200,15 @@ abstract class Zend_Db_TestUtil_Common
     }
 
     protected $_tableName = array(
-        'Accounts'      => 'zfaccounts',
-        'Products'      => 'zfproducts',
-        'Bugs'          => 'zfbugs',
-        'BugsProducts'  => 'zfbugs_products',
-        'noquote'       => 'zfnoquote',
-        'noprimarykey'  => 'zfnoprimarykey',
-        'Documents'     => 'zfdocuments',
-        'Price'         => 'zfprice',
-        'AltBugsProducts' => 'zfalt_bugs_products',
+        'Accounts'         => 'zfaccounts',
+        'Products'         => 'zfproducts',
+        'Bugs'             => 'zfbugs',
+        'BugsProducts'     => 'zfbugs_products',
+        'noquote'          => 'zfnoquote',
+        'noprimarykey'     => 'zfnoprimarykey',
+        'Documents'        => 'zfdocuments',
+        'Price'            => 'zfprice',
+        'AltBugsProducts'  => 'zfalt_bugs_products',
         'CascadeRecursive' => 'zfalt_cascade_recursive'
     );
 
@@ -257,39 +257,39 @@ abstract class Zend_Db_TestUtil_Common
     protected function _getColumnsBugsProducts()
     {
         return array(
-            'bug_id'       => 'INTEGER NOT NULL',
-            'product_id'   => 'INTEGER NOT NULL',
-            'PRIMARY KEY'  => 'bug_id,product_id'
+            'bug_id'      => 'INTEGER NOT NULL',
+            'product_id'  => 'INTEGER NOT NULL',
+            'PRIMARY KEY' => 'bug_id,product_id'
         );
     }
 
     protected function _getColumnsDocuments()
     {
         return array(
-            'doc_id'       => 'INTEGER NOT NULL',
-            'doc_clob'     => 'CLOB',
-            'doc_blob'     => 'BLOB',
-            'PRIMARY KEY'  => 'doc_id'
+            'doc_id'      => 'INTEGER NOT NULL',
+            'doc_clob'    => 'CLOB',
+            'doc_blob'    => 'BLOB',
+            'PRIMARY KEY' => 'doc_id'
             );
     }
 
     protected function _getColumnsPrice()
     {
         return array(
-            'product_id'    => 'INTEGER NOT NULL',
-            'price_name'    => 'VARCHAR(100)',
-            'price_total'   => 'DECIMAL(10,2) NOT NULL',
-            'PRIMARY KEY'   => 'product_id'
+            'product_id'  => 'INTEGER NOT NULL',
+            'price_name'  => 'VARCHAR(100)',
+            'price_total' => 'DECIMAL(10,2) NOT NULL',
+            'PRIMARY KEY' => 'product_id'
             );
     }
 
     protected function _getColumnsCascadeRecursive()
     {
         return array(
-            'item_id'       => 'INTEGER NOT NULL',
-            'item_parent'   => 'INTEGER NULL',
-            'item_data'     => 'VARCHAR(100)',
-            'PRIMARY KEY'   => 'item_id'
+            'item_id'     => 'INTEGER NOT NULL',
+            'item_parent' => 'INTEGER NULL',
+            'item_data'   => 'VARCHAR(100)',
+            'PRIMARY KEY' => 'item_id'
         );
     }
 
@@ -357,42 +357,42 @@ abstract class Zend_Db_TestUtil_Common
     {
         return array(
             array(
-                'bug_id'       => 1,
-                'product_id'   => 1
+                'bug_id'     => 1,
+                'product_id' => 1
             ),
             array(
-                'bug_id'       => 1,
-                'product_id'   => 2
+                'bug_id'     => 1,
+                'product_id' => 2
             ),
             array(
-                'bug_id'       => 1,
-                'product_id'   => 3
+                'bug_id'     => 1,
+                'product_id' => 3
             ),
             array(
-                'bug_id'       => 2,
-                'product_id'   => 3
+                'bug_id'     => 2,
+                'product_id' => 3
             ),
             array(
-                'bug_id'       => 3,
-                'product_id'   => 2
+                'bug_id'     => 3,
+                'product_id' => 2
             ),
             array(
-                'bug_id'       => 3,
-                'product_id'   => 3
+                'bug_id'     => 3,
+                'product_id' => 3
             ),
         );
     }
 
     protected function _getDataDocuments()
     {
-        return array (
+        return array(
             array(
-                'doc_id'    => 1,
-                'doc_clob'  => 'this is the clob that never ends...'.
-                               'this is the clob that never ends...'.
+                'doc_id'   => 1,
+                'doc_clob' => 'this is the clob that never ends...' .
+                               'this is the clob that never ends...' .
                                'this is the clob that never ends...',
-                'doc_blob'  => 'this is the blob that never ends...'.
-                               'this is the blob that never ends...'.
+                'doc_blob' => 'this is the blob that never ends...' .
+                               'this is the blob that never ends...' .
                                'this is the blob that never ends...'
             )
         );
@@ -402,9 +402,9 @@ abstract class Zend_Db_TestUtil_Common
     {
         return array(
             array(
-                'product_id'   => 1,
-                'price_name'   => 'Price 1',
-                'price_total'  => 200.45
+                'product_id'  => 1,
+                'price_name'  => 'Price 1',
+                'price_total' => 200.45
             )
         );
     }
@@ -424,9 +424,9 @@ abstract class Zend_Db_TestUtil_Common
     public function populateTable($tableId)
     {
         $tableName = $this->getTableName($tableId);
-        $data = $this->{'_getData'.$tableId}();
+        $data      = $this->{'_getData' . $tableId}();
         foreach ($data as $row) {
-            $sql = 'INSERT INTO ' .  $this->getAdapter()->quoteIdentifier($tableName, true);
+            $sql  = 'INSERT INTO ' . $this->getAdapter()->quoteIdentifier($tableName, true);
             $cols = array();
             $vals = array();
             foreach ($row as $col => $val) {
@@ -437,7 +437,7 @@ abstract class Zend_Db_TestUtil_Common
                     $vals[] = $this->getAdapter()->quote($val);
                 }
             }
-            $sql .=        ' (' . implode(', ', $cols) . ')';
+            $sql .= ' (' . implode(', ', $cols) . ')';
             $sql .= ' VALUES (' . implode(', ', $vals) . ')';
             $result = $this->_tryRawQuery($sql);
             if ($result === false) {
@@ -514,8 +514,8 @@ abstract class Zend_Db_TestUtil_Common
 
     protected function getAdapter()
     {
-        if($this->_db == null) {
-            throw new Zend_Db_Exception("No adapter was set in TestUtils.");
+        if ($this->_db == null) {
+            throw new Zend_Db_Exception('No adapter was set in TestUtils.');
         }
         return $this->_db;
     }
@@ -530,12 +530,11 @@ abstract class Zend_Db_TestUtil_Common
 
     protected function _tryRawQuery($sql)
     {
-        if($this->_db == null) {
-            throw new Zend_Db_Exception("No database adapter set.");
+        if ($this->_db == null) {
+            throw new Zend_Db_Exception('No database adapter set.');
         }
         $this->_rawQuery($sql);
     }
 
-    protected abstract function _rawQuery($sql);
-
+    abstract protected function _rawQuery($sql);
 }

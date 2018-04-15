@@ -33,7 +33,6 @@
  */
 class Zend_Db_Table_Relationships_Pdo_MssqlTest extends Zend_Db_Table_Relationships_TestCommon
 {
-
     public function testTableRelationshipCascadingUpdateUsageBasicString()
     {
         $this->markTestSkipped($this->getDriver() . ' cannot update identity columns.');
@@ -48,5 +47,4 @@ class Zend_Db_Table_Relationships_Pdo_MssqlTest extends Zend_Db_Table_Relationsh
     {
         return 'Pdo_Mssql';
     }
-
 }

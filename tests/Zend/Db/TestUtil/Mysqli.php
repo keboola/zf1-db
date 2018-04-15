@@ -30,7 +30,6 @@
  */
 class Zend_Db_TestUtil_Mysqli extends Zend_Db_TestUtil_Common
 {
-
     public function getParams(array $constants = array())
     {
         $constants = array(
@@ -86,11 +85,11 @@ class Zend_Db_TestUtil_Mysqli extends Zend_Db_TestUtil_Common
     protected function _getColumnsPrice()
     {
         return array(
-            'product_id'    => 'INTEGER NOT NULL',
-            'price_name'    => 'VARCHAR(100)',
-            'price'         => 'FLOAT(10,8)',
-            'price_total'   => 'DECIMAL(10,2) NOT NULL',
-            'PRIMARY KEY'   => 'product_id'
+            'product_id'  => 'INTEGER NOT NULL',
+            'price_name'  => 'VARCHAR(100)',
+            'price'       => 'FLOAT(10,8)',
+            'price_total' => 'DECIMAL(10,2) NOT NULL',
+            'PRIMARY KEY' => 'product_id'
             );
     }
 
@@ -102,9 +101,9 @@ class Zend_Db_TestUtil_Mysqli extends Zend_Db_TestUtil_Common
     {
         return array(
             array(
-                'product_id'   => 1,
-                'price_name'   => 'Price 1',
-                'price_total'  => 200.45
+                'product_id'  => 1,
+                'price_name'  => 'Price 1',
+                'price_total' => 200.45
             )
         );
     }

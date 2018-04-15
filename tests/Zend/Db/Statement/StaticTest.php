@@ -32,7 +32,6 @@
  */
 class Zend_Db_Statement_StaticTest extends PHPUnit\Framework\TestCase
 {
-
     public function testStatic()
     {
         $this->assertTrue(true);
@@ -42,5 +41,4 @@ class Zend_Db_Statement_StaticTest extends PHPUnit\Framework\TestCase
     {
         return 'Static';
     }
-
 }

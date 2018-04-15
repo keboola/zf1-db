@@ -32,7 +32,6 @@
  */
 class Zend_Db_Statement_Pdo_IbmTest extends Zend_Db_Statement_Pdo_TestCommon
 {
-
     public function getDriver()
     {
         return 'Pdo_Ibm';
@@ -100,13 +99,13 @@ class Zend_Db_Statement_Pdo_IbmTest extends Zend_Db_Statement_Pdo_TestCommon
 
         $valueArray = array('value1', 'value2');
         $stmt->setAttribute(1235, $valueArray);
-        $this->assertEquals($valueArray, $stmt->getAttribute(1235), "Expected array #1");
+        $this->assertEquals($valueArray, $stmt->getAttribute(1235), 'Expected array #1');
         $this->assertEquals($value, $stmt->getAttribute(1234), "Expected '$value' #2");
 
         $valueObject = new stdClass();
         $stmt->setAttribute(1236, $valueObject);
-        $this->assertSame($valueObject, $stmt->getAttribute(1236), "Expected object");
-        $this->assertEquals($valueArray, $stmt->getAttribute(1235), "Expected array #2");
+        $this->assertSame($valueObject, $stmt->getAttribute(1236), 'Expected object');
+        $this->assertEquals($valueArray, $stmt->getAttribute(1235), 'Expected array #2');
         $this->assertEquals($value, $stmt->getAttribute(1234), "Expected '$value' #2");
     }
 }

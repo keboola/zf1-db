@@ -43,7 +43,7 @@ abstract class Zend_Db_TestSetup extends PHPUnit\Framework\TestCase
 
     protected $skipped;
 
-    public abstract function getDriver();
+    abstract public function getDriver();
 
     /**
      * Subclasses should call parent::setUp() before
@@ -57,8 +57,8 @@ abstract class Zend_Db_TestSetup extends PHPUnit\Framework\TestCase
             define('TESTS_ZEND_DB_ADAPTER_STATIC_ENABLED', true);
         }
 
-        $driver = $this->getDriver();
-        $DRIVER = strtoupper($driver);
+        $driver       = $this->getDriver();
+        $DRIVER       = strtoupper($driver);
         $enabledConst = "TESTS_ZEND_DB_ADAPTER_{$DRIVER}_ENABLED";
         if (!defined($enabledConst) || constant($enabledConst) != true) {
             $this->skipped = true;
@@ -109,7 +109,7 @@ abstract class Zend_Db_TestSetup extends PHPUnit\Framework\TestCase
      */
     protected function _setUpTestUtil()
     {
-        $driver = $this->getDriver();
+        $driver    = $this->getDriver();
         $utilClass = "Zend_Db_TestUtil_{$driver}";
         Zend_Loader::loadClass($utilClass);
         $this->_util = new $utilClass();
@@ -125,8 +125,10 @@ abstract class Zend_Db_TestSetup extends PHPUnit\Framework\TestCase
             $conn = $this->_db->getConnection();
         } catch (Zend_Exception $e) {
             $this->_db = null;
-            $this->assertTrue($e instanceof Zend_Db_Adapter_Exception,
-                'Expecting Zend_Db_Adapter_Exception, got ' . get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Adapter_Exception,
+                'Expecting Zend_Db_Adapter_Exception, got ' . get_class($e)
+            );
             $this->markTestSkipped($e->getMessage());
         }
     }
@@ -143,5 +145,4 @@ abstract class Zend_Db_TestSetup extends PHPUnit\Framework\TestCase
         }
         $this->_db = null;
     }
-
 }

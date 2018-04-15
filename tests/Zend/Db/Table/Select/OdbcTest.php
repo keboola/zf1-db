@@ -33,10 +33,8 @@
  */
 class Zend_Db_Table_Select_OdbcTest extends Zend_Db_Table_Select_TestCommon
 {
-
     public function getDriver()
     {
         return 'Odbc';
     }
-
 }

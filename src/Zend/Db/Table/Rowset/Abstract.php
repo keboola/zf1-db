@@ -109,19 +109,19 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
             $this->_tableClass = get_class($this->_table);
         }
         if (isset($config['rowClass'])) {
-            $this->_rowClass   = $config['rowClass'];
+            $this->_rowClass = $config['rowClass'];
         }
         if (!class_exists($this->_rowClass)) {
             Zend_Loader::loadClass($this->_rowClass);
         }
         if (isset($config['data'])) {
-            $this->_data       = $config['data'];
+            $this->_data = $config['data'];
         }
         if (isset($config['readOnly'])) {
-            $this->_readOnly   = $config['readOnly'];
+            $this->_readOnly = $config['readOnly'];
         }
         if (isset($config['stored'])) {
-            $this->_stored     = $config['stored'];
+            $this->_stored = $config['stored'];
         }
 
         // set the count of rows
@@ -194,7 +194,7 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
      */
     public function setTable(Zend_Db_Table_Abstract $table)
     {
-        $this->_table = $table;
+        $this->_table     = $table;
         $this->_connected = false;
         // @todo This works only if we have iterated through
         // the result set once to instantiate the rows.
@@ -409,7 +409,7 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
     protected function _loadAndReturnRow($position)
     {
         if (!isset($this->_data[$position])) {
-            throw new Zend_Db_Table_Rowset_Exception("Data for provided position does not exist");
+            throw new Zend_Db_Table_Rowset_Exception('Data for provided position does not exist');
         }
 
         // do we already have a row object for this position?
@@ -423,10 +423,10 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
                 )
             );
 
-            if ( $this->_table instanceof Zend_Db_Table_Abstract ) {
+            if ($this->_table instanceof Zend_Db_Table_Abstract) {
                 $info = $this->_table->info();
 
-                if ( $this->_rows[$position] instanceof Zend_Db_Table_Row_Abstract ) {
+                if ($this->_rows[$position] instanceof Zend_Db_Table_Row_Abstract) {
                     if ($info['cols'] == array_keys($this->_data[$position])) {
                         $this->_rows[$position]->setTable($this->getTable());
                     }
@@ -439,5 +439,4 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
         // return the row object
         return $this->_rows[$position];
     }
-
 }

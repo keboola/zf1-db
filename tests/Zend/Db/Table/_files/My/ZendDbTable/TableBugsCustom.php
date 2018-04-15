@@ -51,23 +51,23 @@ class My_ZendDbTable_TableBugsCustom extends My_ZendDbTable_TableBugs
 
     protected $_dependentTables = array('My_ZendDbTable_TableBugsProductsCustom');
 
-    protected $_referenceMap    = array(
+    protected $_referenceMap = array(
         'Reporter' => array(
-            'columns'           => array('reported_by'),
-            'refTableClass'     => 'My_ZendDbTable_TableAccountsCustom',
-            'refColumns'        => array('account_name'),
-            'onDelete'          => self::CASCADE,
-            'onUpdate'          => self::CASCADE
+            'columns'       => array('reported_by'),
+            'refTableClass' => 'My_ZendDbTable_TableAccountsCustom',
+            'refColumns'    => array('account_name'),
+            'onDelete'      => self::CASCADE,
+            'onUpdate'      => self::CASCADE
         ),
         'Engineer' => array(
-            'columns'           => 'assigned_to',
-            'refTableClass'     => 'My_ZendDbTable_TableAccountsCustom',
-            'refColumns'        => 'account_name'
+            'columns'       => 'assigned_to',
+            'refTableClass' => 'My_ZendDbTable_TableAccountsCustom',
+            'refColumns'    => 'account_name'
         ),
         'Verifier' => array(
-            'columns'           => 'verified_by',
-            'refTableClass'     => 'My_ZendDbTable_TableAccountsCustom',
-            'refColumns'        => 'account_name'
+            'columns'       => 'verified_by',
+            'refTableClass' => 'My_ZendDbTable_TableAccountsCustom',
+            'refColumns'    => 'account_name'
         )
     );
 

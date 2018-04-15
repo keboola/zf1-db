@@ -30,19 +30,17 @@
  */
 class My_ZendDbTable_TableCascadeRecursive extends Zend_Db_Table_Abstract
 {
-
-    protected $_name = 'zfalt_cascade_recursive';
+    protected $_name    = 'zfalt_cascade_recursive';
     protected $_primary = 'item_id'; // Deliberate non-array value
 
     protected $_dependentTables = array('My_ZendDbTable_TableCascadeRecursive');
 
-    protected $_referenceMap    = array(
+    protected $_referenceMap = array(
         'Children' => array(
-            'columns'           => array('item_parent'),
-            'refTableClass'     => 'My_ZendDbTable_TableCascadeRecursive',
-            'refColumns'        => array('item_id'),
-            'onDelete'          => self::CASCADE_RECURSE
+            'columns'       => array('item_parent'),
+            'refTableClass' => 'My_ZendDbTable_TableCascadeRecursive',
+            'refColumns'    => array('item_id'),
+            'onDelete'      => self::CASCADE_RECURSE
         )
     );
-
 }

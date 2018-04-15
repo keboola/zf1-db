@@ -29,4 +29,5 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class My_ZendDbTable_Rowset_TestMyRowset extends Zend_Db_Table_Rowset_Abstract
-{}
+{
+}

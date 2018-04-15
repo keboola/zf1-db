@@ -32,14 +32,13 @@
  */
 abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 {
-
     public function testStatementConstruct()
     {
         $statementClass = 'Zend_Db_Statement_' . $this->getDriver();
 
         $select = $this->_db->select()
             ->from('zfproducts');
-        $sql = $select->__toString();
+        $sql  = $select->__toString();
         $stmt = new $statementClass($this->_db, $sql);
         $this->assertTrue($stmt instanceof Zend_Db_Statement_Interface);
         $this->assertTrue($stmt instanceof Zend_Db_Statement_Interface);
@@ -86,19 +85,21 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementConstructExceptionBadSql()
     {
-        $sql = "SELECT * FROM *";
+        $sql = 'SELECT * FROM *';
         try {
             $stmt = $this->_db->query($sql);
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Statement_Exception,
+                'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
+            );
         }
     }
 
     public function testStatementRowCount()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $stmt = $this->_db->prepare("DELETE FROM $products WHERE $product_id = 1");
@@ -138,7 +139,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementColumnCountForDelete()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $stmt = $this->_db->prepare("DELETE FROM $products WHERE $product_id = 1");
@@ -154,8 +155,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementExecuteWithParams()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
-        $product_id = $this->_db->quoteIdentifier('product_id');
+        $products     = $this->_db->quoteIdentifier('zfproducts');
+        $product_id   = $this->_db->quoteIdentifier('product_id');
         $product_name = $this->_db->quoteIdentifier('product_name');
 
         $stmt = $this->_db->prepare("INSERT INTO $products ($product_id, $product_name) VALUES (?, ?)");
@@ -167,13 +168,13 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $result = $this->_db->fetchAll($select);
         $stmt->closeCursor();
 
-        $this->assertEquals(array(array('product_id'=>4, 'product_name'=>'Solaris')), $result);
+        $this->assertEquals(array(array('product_id' => 4, 'product_name' => 'Solaris')), $result);
     }
 
     public function testStatementErrorCodeKeyViolation()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
-        $product_id = $this->_db->quoteIdentifier('product_id');
+        $products     = $this->_db->quoteIdentifier('zfproducts');
+        $product_id   = $this->_db->quoteIdentifier('product_id');
         $product_name = $this->_db->quoteIdentifier('product_name');
 
         $stmt = $this->_db->prepare("INSERT INTO $products ($product_id, $product_name) VALUES (?, ?)");
@@ -185,8 +186,10 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
             }
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Statement_Exception,
+                'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
+            );
         }
         $code = $stmt->errorCode();
         // @todo  what to assert here?
@@ -194,8 +197,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementErrorInfoKeyViolation()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
-        $product_id = $this->_db->quoteIdentifier('product_id');
+        $products     = $this->_db->quoteIdentifier('zfproducts');
+        $product_id   = $this->_db->quoteIdentifier('product_id');
         $product_name = $this->_db->quoteIdentifier('product_name');
 
         $stmt = $this->_db->prepare("INSERT INTO $products ($product_id, $product_name) VALUES (?, ?)");
@@ -207,8 +210,10 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
             }
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Statement_Exception,
+                'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
+            );
         }
         $code = $stmt->errorCode();
         $info = $stmt->errorInfo();
@@ -218,7 +223,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementSetFetchModeAssoc()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         // set the adapter fetch mode to something different
@@ -242,7 +247,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementSetFetchModeNum()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         // set the adapter fetch mode to something different
@@ -266,7 +271,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementSetFetchModeBoth()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         // set the adapter fetch mode to something different
@@ -290,7 +295,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementSetFetchModeObj()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         // set the adapter fetch mode to something different
@@ -310,7 +315,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementSetFetchModeInvalidException()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
@@ -319,18 +324,20 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
             $stmt->setFetchMode(-999);
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Statement_Exception,
+                'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
+            );
             $this->assertRegExp('#invalid fetch mode#i', $e->getMessage());
         }
     }
 
     public function testStatementFetchAll()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
+        $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchAll();
 
         $this->assertEquals(2, count($result));
@@ -341,10 +348,10 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementFetchAllStyleNum()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
+        $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
 
         $this->assertEquals(2, count($result));
@@ -356,10 +363,10 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementFetchAllStyleAssoc()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
+        $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
 
         $this->assertEquals(2, count($result));
@@ -370,10 +377,10 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementFetchAllStyleBoth()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
+        $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchAll(Zend_Db::FETCH_BOTH);
 
         $this->assertEquals(2, count($result));
@@ -386,10 +393,10 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementFetchAllStyleObj()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
+        $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchAll(Zend_Db::FETCH_OBJ);
 
         $this->assertEquals(2, count($result));
@@ -399,10 +406,10 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementFetchAllStyleColumn()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
+        $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchAll(Zend_Db::FETCH_COLUMN);
 
         $this->assertEquals(2, count($result));
@@ -412,10 +419,10 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementFetchAllStyleColumnWithArg()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
+        $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchAll(Zend_Db::FETCH_COLUMN, 1);
 
         $this->assertEquals(2, count($result));
@@ -426,7 +433,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementFetchAllStyleException()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
@@ -434,15 +441,17 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
             $result = $stmt->fetchAll(-99);
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Statement_Exception,
+                'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
+            );
         }
         $stmt->closeCursor();
     }
 
     public function testStatementFetchColumn()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
@@ -457,7 +466,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementFetchColumnEmptyResult()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         // query that is known to return zero rows
@@ -471,7 +480,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementFetchColumnWithArg()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
@@ -486,25 +495,27 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementFetchObject()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
+        $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchObject();
         $stmt->closeCursor();
 
-        $this->assertTrue($result instanceof stdClass,
-            'Expecting object of type stdClass, got '.get_class($result));
+        $this->assertTrue(
+            $result instanceof stdClass,
+            'Expecting object of type stdClass, got ' . get_class($result)
+        );
         $this->assertEquals('Linux', $result->product_name);
     }
 
     public function testStatementFetchObjectEmptyResult()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         // query that is known to return zero rows
-        $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id < 1 ORDER BY $product_id ASC");
+        $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id < 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchObject();
         $stmt->closeCursor();
 
@@ -513,10 +524,10 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementFetchStyleNum()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
+        $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetch(Zend_Db::FETCH_NUM);
         $stmt->closeCursor();
 
@@ -527,10 +538,10 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementFetchStyleAssoc()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
+        $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetch(Zend_Db::FETCH_ASSOC);
         $stmt->closeCursor();
 
@@ -541,10 +552,10 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementFetchStyleBoth()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
+        $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetch(Zend_Db::FETCH_BOTH);
         $stmt->closeCursor();
 
@@ -555,21 +566,23 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementFetchStyleObj()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
+        $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetch(Zend_Db::FETCH_OBJ);
         $stmt->closeCursor();
 
-        $this->assertTrue($result instanceof stdClass,
-            'Expecting object of type stdClass, got '.get_class($result));
+        $this->assertTrue(
+            $result instanceof stdClass,
+            'Expecting object of type stdClass, got ' . get_class($result)
+        );
         $this->assertEquals('Linux', $result->product_name);
     }
 
     public function testStatementFetchStyleException()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
@@ -577,16 +590,18 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
             $result = $stmt->fetch(-99);
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Statement_Exception,
+                'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
+            );
         }
         $stmt->closeCursor();
     }
 
     public function testStatementBindParamByPosition()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
-        $product_id = $this->_db->quoteIdentifier('product_id');
+        $products     = $this->_db->quoteIdentifier('zfproducts');
+        $product_id   = $this->_db->quoteIdentifier('product_id');
         $product_name = $this->_db->quoteIdentifier('product_name');
 
         $productIdValue   = 4;
@@ -613,8 +628,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementBindParamByName()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
-        $product_id = $this->_db->quoteIdentifier('product_id');
+        $products     = $this->_db->quoteIdentifier('zfproducts');
+        $product_id   = $this->_db->quoteIdentifier('product_id');
         $product_name = $this->_db->quoteIdentifier('product_name');
 
         $productIdValue   = 4;
@@ -644,8 +659,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementBindValueByPosition()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
-        $product_id = $this->_db->quoteIdentifier('product_id');
+        $products     = $this->_db->quoteIdentifier('zfproducts');
+        $product_id   = $this->_db->quoteIdentifier('product_id');
         $product_name = $this->_db->quoteIdentifier('product_name');
 
         $productIdValue   = 4;
@@ -673,8 +688,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementBindValueByName()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
-        $product_id = $this->_db->quoteIdentifier('product_id');
+        $products     = $this->_db->quoteIdentifier('zfproducts');
+        $product_id   = $this->_db->quoteIdentifier('product_id');
         $product_name = $this->_db->quoteIdentifier('product_name');
 
         $productIdValue   = 4;
@@ -704,26 +719,34 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementBindColumnByPosition()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $prodIdValue = -99;
+        $prodIdValue   = -99;
         $prodNameValue = 'AmigaOS';
 
         $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
 
-        $this->assertTrue($stmt->bindColumn(1, $prodIdValue),
-            'Expected bindColumn(product_id) to return true');
-        $this->assertTrue($stmt->bindColumn(2, $prodNameValue),
-            'Expected bindColumn(product_name) to return true');
+        $this->assertTrue(
+            $stmt->bindColumn(1, $prodIdValue),
+            'Expected bindColumn(product_id) to return true'
+        );
+        $this->assertTrue(
+            $stmt->bindColumn(2, $prodNameValue),
+            'Expected bindColumn(product_name) to return true'
+        );
 
-        $this->assertTrue($stmt->fetch(Zend_Db::FETCH_BOUND),
-            'Expected fetch() call 1 to return true');
+        $this->assertTrue(
+            $stmt->fetch(Zend_Db::FETCH_BOUND),
+            'Expected fetch() call 1 to return true'
+        );
         $this->assertEquals(2, $prodIdValue);
         $this->assertEquals('Linux', $prodNameValue);
 
-        $this->assertTrue($stmt->fetch(Zend_Db::FETCH_BOUND),
-            'Expected fetch() call 2 to return true');
+        $this->assertTrue(
+            $stmt->fetch(Zend_Db::FETCH_BOUND),
+            'Expected fetch() call 2 to return true'
+        );
         $this->assertEquals(3, $prodIdValue);
         $this->assertEquals('OS X', $prodNameValue);
 
@@ -732,26 +755,34 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementBindColumnByName()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $prodIdValue = -99;
+        $prodIdValue   = -99;
         $prodNameValue = 'AmigaOS';
 
         $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
 
-        $this->assertTrue($stmt->bindColumn('product_id', $prodIdValue),
-            'Expected bindColumn(product_id) to return true');
-        $this->assertTrue($stmt->bindColumn('product_name', $prodNameValue),
-            'Expected bindColumn(product_name) to return true');
+        $this->assertTrue(
+            $stmt->bindColumn('product_id', $prodIdValue),
+            'Expected bindColumn(product_id) to return true'
+        );
+        $this->assertTrue(
+            $stmt->bindColumn('product_name', $prodNameValue),
+            'Expected bindColumn(product_name) to return true'
+        );
 
-        $this->assertTrue($stmt->fetch(Zend_Db::FETCH_BOUND),
-            'Expected fetch() call 1 to return true');
+        $this->assertTrue(
+            $stmt->fetch(Zend_Db::FETCH_BOUND),
+            'Expected fetch() call 1 to return true'
+        );
         $this->assertEquals(2, $prodIdValue);
         $this->assertEquals('Linux', $prodNameValue);
 
-        $this->assertTrue($stmt->fetch(Zend_Db::FETCH_BOUND),
-            'Expected fetch() call 2 to return true');
+        $this->assertTrue(
+            $stmt->fetch(Zend_Db::FETCH_BOUND),
+            'Expected fetch() call 2 to return true'
+        );
         $this->assertEquals(3, $prodIdValue);
         $this->assertEquals('OS X', $prodNameValue);
 
@@ -760,26 +791,34 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
     public function testStatementBindColumnByPositionAndName()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
-        $prodIdValue = -99;
+        $prodIdValue   = -99;
         $prodNameValue = 'AmigaOS';
 
         $stmt = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
 
-        $this->assertTrue($stmt->bindColumn(1, $prodIdValue),
-            'Expected bindColumn(1) to return true');
-        $this->assertTrue($stmt->bindColumn('product_name', $prodNameValue),
-            'Expected bindColumn(product_name) to return true');
+        $this->assertTrue(
+            $stmt->bindColumn(1, $prodIdValue),
+            'Expected bindColumn(1) to return true'
+        );
+        $this->assertTrue(
+            $stmt->bindColumn('product_name', $prodNameValue),
+            'Expected bindColumn(product_name) to return true'
+        );
 
-        $this->assertTrue($stmt->fetch(Zend_Db::FETCH_BOUND),
-            'Expected fetch() call 1 to return true');
+        $this->assertTrue(
+            $stmt->fetch(Zend_Db::FETCH_BOUND),
+            'Expected fetch() call 1 to return true'
+        );
         $this->assertEquals(2, $prodIdValue);
         $this->assertEquals('Linux', $prodNameValue);
 
-        $this->assertTrue($stmt->fetch(Zend_Db::FETCH_BOUND),
-            'Expected fetch() call 2 to return true');
+        $this->assertTrue(
+            $stmt->fetch(Zend_Db::FETCH_BOUND),
+            'Expected fetch() call 2 to return true'
+        );
         $this->assertEquals(3, $prodIdValue);
         $this->assertEquals('OS X', $prodNameValue);
 
@@ -817,8 +856,10 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
             $stmt->nextRowset();
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+            $this->assertTrue(
+                $e instanceof Zend_Db_Statement_Exception,
+                'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
+            );
             $this->assertEquals('nextRowset() is not implemented', $e->getMessage());
         }
         $stmt->closeCursor();
@@ -846,13 +887,13 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
 
         $valueArray = array('value1', 'value2');
         $stmt->setAttribute(1235, $valueArray);
-        $this->assertEquals($valueArray, $stmt->getAttribute(1235), "Expected array #1");
+        $this->assertEquals($valueArray, $stmt->getAttribute(1235), 'Expected array #1');
         $this->assertEquals($value, $stmt->getAttribute(1234), "Expected '$value' #2");
 
         $valueObject = new stdClass();
         $stmt->setAttribute(1236, $valueObject);
-        $this->assertSame($valueObject, $stmt->getAttribute(1236), "Expected object");
-        $this->assertEquals($valueArray, $stmt->getAttribute(1235), "Expected array #2");
+        $this->assertSame($valueObject, $stmt->getAttribute(1236), 'Expected object');
+        $this->assertEquals($valueArray, $stmt->getAttribute(1235), 'Expected array #2');
         $this->assertEquals($value, $stmt->getAttribute(1234), "Expected '$value' #2");
     }
 
@@ -861,7 +902,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
      */
     public function testStatementCanReturnDriverStatement()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products  = $this->_db->quoteIdentifier('zfproducts');
         $statement = $this->_db->query("SELECT * FROM $products");
         $this->assertNotNull($statement->getDriverStatement());
         return $statement;

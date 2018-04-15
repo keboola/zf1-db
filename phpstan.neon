@@ -1,4 +1,7 @@
 parameters:
+    excludes_analyse:
+        - %rootDir%/../../../tests/*
+        - %rootDir%/../../../vendor/*
     bootstrap: %rootDir%/../../../phpstan-bootstrap.php
     ignoreErrors:
         - '#Zend_Db_.+_Exception::__construct\(\) does not call parent constructor from Zend_.*Exception\.#'

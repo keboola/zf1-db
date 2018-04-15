@@ -120,7 +120,7 @@ class Zend_Db_Adapter_Skip_MysqliTest extends Zend_Db_Adapter_Skip_CommonTest
  */
 class Zend_Db_Adapter_Skip_Pdo_MssqlTest extends Zend_Db_Adapter_Skip_CommonTest
 {
-    function getDriver()
+    public function getDriver()
     {
         return 'Pdo_Mssql';
     }
@@ -205,4 +205,3 @@ class Zend_Db_Adapter_Skip_Pdo_SqliteTest extends Zend_Db_Adapter_Skip_CommonTes
         return 'Pdo_Sqlite';
     }
 }
-

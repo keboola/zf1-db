@@ -32,7 +32,6 @@
  */
 class Zend_Db_Adapter_Pdo_SqliteTest extends Zend_Db_Adapter_Pdo_TestCommon
 {
-
     protected $_numericDataTypes = array(
         Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
         Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
@@ -60,7 +59,7 @@ class Zend_Db_Adapter_Pdo_SqliteTest extends Zend_Db_Adapter_Pdo_TestCommon
 
         $select = $this->_db->select();
         $select->from('zfproducts');
-        $stmt = $this->_db->query($select);
+        $stmt    = $this->_db->query($select);
         $result1 = $stmt->fetchAll();
 
         $this->assertEquals(1, $result1[0]['product_id']);
@@ -68,12 +67,14 @@ class Zend_Db_Adapter_Pdo_SqliteTest extends Zend_Db_Adapter_Pdo_TestCommon
         $select = $this->_db->select();
         $select->from('ZFPRODUCTS');
         try {
-            $stmt = $this->_db->query($select);
+            $stmt    = $this->_db->query($select);
             $result2 = $stmt->fetchAll();
         } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
-            $this->fail('Unexpected exception '.get_class($e).' received: '.$e->getMessage());
+            $this->assertTrue(
+                $e instanceof Zend_Db_Statement_Exception,
+                'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
+            );
+            $this->fail('Unexpected exception ' . get_class($e) . ' received: ' . $e->getMessage());
         }
 
         $this->assertEquals($result1, $result2);
@@ -140,7 +141,7 @@ class Zend_Db_Adapter_Pdo_SqliteTest extends Zend_Db_Adapter_Pdo_TestCommon
     public function testAdapterQuoteSingleQuote()
     {
         $string = "St John's Wort";
-        $value = $this->_db->quote($string);
+        $value  = $this->_db->quote($string);
         $this->assertEquals("'St John''s Wort'", $value);
     }
 
@@ -208,14 +209,14 @@ class Zend_Db_Adapter_Pdo_SqliteTest extends Zend_Db_Adapter_Pdo_TestCommon
         $db->insert('zfproducts', array('id' => 1));
 
         $select = $db->select()->from('zfproducts');
-        $row = $db->fetchRow($select);
+        $row    = $db->fetchRow($select);
         $this->assertTrue($row instanceof stdClass);
     }
 
     protected function _testAdapterAlternateStatement($stmtClass)
     {
-        $ip = get_include_path();
-        $dir = dirname(__FILE__) . DIRECTORY_SEPARATOR .  '..' . DIRECTORY_SEPARATOR . '_files';
+        $ip    = get_include_path();
+        $dir   = dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '_files';
         $newIp = $dir . PATH_SEPARATOR . $ip;
         set_include_path($newIp);
 
@@ -238,8 +239,10 @@ class Zend_Db_Adapter_Pdo_SqliteTest extends Zend_Db_Adapter_Pdo_TestCommon
 
         $stmt = $db->prepare("SELECT COUNT(*) FROM $bugs");
 
-        $this->assertTrue($stmt instanceof $stmtClass,
-            'Expecting object of type ' . $stmtClass . ', got ' . get_class($stmt));
+        $this->assertTrue(
+            $stmt instanceof $stmtClass,
+            'Expecting object of type ' . $stmtClass . ', got ' . get_class($stmt)
+        );
     }
 
     /**

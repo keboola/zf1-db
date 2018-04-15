@@ -32,7 +32,6 @@
  */
 class Zend_Db_Adapter_Db2Test extends Zend_Db_Adapter_TestCommon
 {
-
     protected $_numericDataTypes = array(
         Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
         Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
@@ -57,36 +56,36 @@ class Zend_Db_Adapter_Db2Test extends Zend_Db_Adapter_TestCommon
     {
         $desc = $this->_db->describeTable('zfproducts');
 
-        $this->assertEquals('zfproducts',        $desc['product_name']['TABLE_NAME'], 'Expected table name to be zfproducts');
-        $this->assertEquals('product_name',      $desc['product_name']['COLUMN_NAME'], 'Expected column name to be product_name');
-        $this->assertEquals(2,                   $desc['product_name']['COLUMN_POSITION'], 'Expected column position to be 2');
-        $this->assertRegExp('/varchar/i',        $desc['product_name']['DATA_TYPE'], 'Expected data type to be VARCHAR');
-        $this->assertEquals('',                  $desc['product_name']['DEFAULT'], 'Expected default to be empty string');
-        $this->assertTrue(                       $desc['product_name']['NULLABLE'], 'Expected product_name to be nullable');
+        $this->assertEquals('zfproducts', $desc['product_name']['TABLE_NAME'], 'Expected table name to be zfproducts');
+        $this->assertEquals('product_name', $desc['product_name']['COLUMN_NAME'], 'Expected column name to be product_name');
+        $this->assertEquals(2, $desc['product_name']['COLUMN_POSITION'], 'Expected column position to be 2');
+        $this->assertRegExp('/varchar/i', $desc['product_name']['DATA_TYPE'], 'Expected data type to be VARCHAR');
+        $this->assertEquals('', $desc['product_name']['DEFAULT'], 'Expected default to be empty string');
+        $this->assertTrue($desc['product_name']['NULLABLE'], 'Expected product_name to be nullable');
         if (!$this->_db->isI5()) {
-            $this->assertEquals(0,                   $desc['product_name']['SCALE'], 'Expected scale to be 0');
+            $this->assertEquals(0, $desc['product_name']['SCALE'], 'Expected scale to be 0');
         } else {
-            $this->assertNull(                   $desc['product_name']['SCALE'], 'Expected scale to be 0');
+            $this->assertNull($desc['product_name']['SCALE'], 'Expected scale to be 0');
         }
-        $this->assertEquals(0,                   $desc['product_name']['PRECISION'], 'Expected precision to be 0');
-        $this->assertFalse(                      $desc['product_name']['PRIMARY'], 'Expected product_name not to be a primary key');
-        $this->assertNull(                       $desc['product_name']['PRIMARY_POSITION'], 'Expected product_name to return null for PRIMARY_POSITION');
-        $this->assertFalse(                      $desc['product_name']['IDENTITY'], 'Expected product_name to return false for IDENTITY');
+        $this->assertEquals(0, $desc['product_name']['PRECISION'], 'Expected precision to be 0');
+        $this->assertFalse($desc['product_name']['PRIMARY'], 'Expected product_name not to be a primary key');
+        $this->assertNull($desc['product_name']['PRIMARY_POSITION'], 'Expected product_name to return null for PRIMARY_POSITION');
+        $this->assertFalse($desc['product_name']['IDENTITY'], 'Expected product_name to return false for IDENTITY');
     }
 
     public function testAdapterDescribeTablePrimaryKeyColumn()
     {
         $desc = $this->_db->describeTable('zfproducts');
 
-        $this->assertEquals('zfproducts',        $desc['product_id']['TABLE_NAME'], 'Expected table name to be zfproducts');
-        $this->assertEquals('product_id',        $desc['product_id']['COLUMN_NAME'], 'Expected column name to be product_id');
-        $this->assertEquals(1,                   $desc['product_id']['COLUMN_POSITION'], 'Expected column position to be 1');
-        $this->assertEquals('',                  $desc['product_id']['DEFAULT'], 'Expected default to be empty string');
-        $this->assertFalse(                      $desc['product_id']['NULLABLE'], 'Expected product_id not to be nullable');
-        $this->assertEquals(0,                   $desc['product_id']['SCALE'], 'Expected scale to be 0');
-        $this->assertEquals(0,                   $desc['product_id']['PRECISION'], 'Expected precision to be 0');
-        $this->assertTrue(                       $desc['product_id']['PRIMARY'], 'Expected product_id to be a primary key');
-        $this->assertEquals(1,                   $desc['product_id']['PRIMARY_POSITION']);
+        $this->assertEquals('zfproducts', $desc['product_id']['TABLE_NAME'], 'Expected table name to be zfproducts');
+        $this->assertEquals('product_id', $desc['product_id']['COLUMN_NAME'], 'Expected column name to be product_id');
+        $this->assertEquals(1, $desc['product_id']['COLUMN_POSITION'], 'Expected column position to be 1');
+        $this->assertEquals('', $desc['product_id']['DEFAULT'], 'Expected default to be empty string');
+        $this->assertFalse($desc['product_id']['NULLABLE'], 'Expected product_id not to be nullable');
+        $this->assertEquals(0, $desc['product_id']['SCALE'], 'Expected scale to be 0');
+        $this->assertEquals(0, $desc['product_id']['PRECISION'], 'Expected precision to be 0');
+        $this->assertTrue($desc['product_id']['PRIMARY'], 'Expected product_id to be a primary key');
+        $this->assertEquals(1, $desc['product_id']['PRIMARY_POSITION']);
     }
 
     /**
@@ -101,7 +100,7 @@ class Zend_Db_Adapter_Db2Test extends Zend_Db_Adapter_TestCommon
 
     public function testAdapterTransactionCommit()
     {
-        $bugs = $this->_db->quoteIdentifier('zfbugs');
+        $bugs   = $this->_db->quoteIdentifier('zfbugs');
         $bug_id = $this->_db->quoteIdentifier('bug_id');
 
         // use our default connection as the Connection1
@@ -157,7 +156,7 @@ class Zend_Db_Adapter_Db2Test extends Zend_Db_Adapter_TestCommon
 
     public function testAdapterTransactionRollback()
     {
-        $bugs = $this->_db->quoteIdentifier('zfbugs');
+        $bugs   = $this->_db->quoteIdentifier('zfbugs');
         $bug_id = $this->_db->quoteIdentifier('bug_id');
 
         // use our default connection as the Connection1
@@ -227,9 +226,9 @@ class Zend_Db_Adapter_Db2Test extends Zend_Db_Adapter_TestCommon
     public function testAdapterZendConfigEmptyDriverOptions()
     {
         Zend_Loader::loadClass('Zend_Config');
-        $params = $this->_util->getParams();
+        $params                   = $this->_util->getParams();
         $params['driver_options'] = '';
-        $params = new Zend_Config($params);
+        $params                   = new Zend_Config($params);
 
         $db = Zend_Db::factory($this->getDriver(), $params);
         $db->getConnection();
@@ -237,7 +236,7 @@ class Zend_Db_Adapter_Db2Test extends Zend_Db_Adapter_TestCommon
         $config = $db->getConfig();
 
         $expectedValue = array(
-            'autocommit' => 1,
+            'autocommit'    => 1,
             'DB2_ATTR_CASE' => 0
             );
         $this->assertEquals($expectedValue, $config['driver_options']);
@@ -265,7 +264,7 @@ class Zend_Db_Adapter_Db2Test extends Zend_Db_Adapter_TestCommon
     public function testAdapterQuoteDoubleQuote()
     {
         $string = 'St John"s Wort';
-        $value = $this->_db->quote($string);
+        $value  = $this->_db->quote($string);
         $this->assertEquals("'St John\"s Wort'", $value);
     }
 
@@ -278,7 +277,7 @@ class Zend_Db_Adapter_Db2Test extends Zend_Db_Adapter_TestCommon
     public function testAdapterQuoteSingleQuote()
     {
         $string = "St John's Wort";
-        $value = $this->_db->quote($string);
+        $value  = $this->_db->quote($string);
         $this->assertEquals("'St John''s Wort'", $value);
     }
 
@@ -291,8 +290,8 @@ class Zend_Db_Adapter_Db2Test extends Zend_Db_Adapter_TestCommon
     public function testAdapterQuoteIntoDoubleQuote()
     {
         $string = 'id=?';
-        $param = 'St John"s Wort';
-        $value = $this->_db->quoteInto($string, $param);
+        $param  = 'St John"s Wort';
+        $value  = $this->_db->quoteInto($string, $param);
         $this->assertEquals("id='St John\"s Wort'", $value);
     }
 
@@ -305,8 +304,8 @@ class Zend_Db_Adapter_Db2Test extends Zend_Db_Adapter_TestCommon
     public function testAdapterQuoteIntoSingleQuote()
     {
         $string = 'id = ?';
-        $param = 'St John\'s Wort';
-        $value = $this->_db->quoteInto($string, $param);
+        $param  = 'St John\'s Wort';
+        $value  = $this->_db->quoteInto($string, $param);
         $this->assertEquals("id = 'St John''s Wort'", $value);
     }
 
@@ -322,7 +321,7 @@ class Zend_Db_Adapter_Db2Test extends Zend_Db_Adapter_TestCommon
     {
         $params = $this->_util->getParams();
         unset($params['schema']);
-        $connection = Zend_Db::factory($this->getDriver(), $params);
+        $connection         = Zend_Db::factory($this->getDriver(), $params);
         $tableCountNoSchema = count($connection->listTables());
 
         $dbConfig = $this->_db->getConfig();
@@ -337,9 +336,9 @@ class Zend_Db_Adapter_Db2Test extends Zend_Db_Adapter_TestCommon
             return;
         }
 
-        $params = $this->_util->getParams();
+        $params           = $this->_util->getParams();
         $params['schema'] = $schema;
-        $connection = Zend_Db::factory($this->getDriver(), $params);
+        $connection       = Zend_Db::factory($this->getDriver(), $params);
         $tableCountSchema = count($connection->listTables());
 
         $this->assertGreaterThan(0, $tableCountNoSchema, 'Adapter without schema should produce large result');
@@ -360,5 +359,4 @@ class Zend_Db_Adapter_Db2Test extends Zend_Db_Adapter_TestCommon
     {
         return 'Db2';
     }
-
 }

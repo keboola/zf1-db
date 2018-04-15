@@ -32,7 +32,6 @@
  */
 class Zend_Db_Statement_Pdo_PgsqlTest extends Zend_Db_Statement_Pdo_TestCommon
 {
-
     protected $_getColumnMetaKeys = array(
         'pgsql:oid', 'native_type', 'name', 'len', 'precision', 'pdo_type'
     );
@@ -41,5 +40,4 @@ class Zend_Db_Statement_Pdo_PgsqlTest extends Zend_Db_Statement_Pdo_TestCommon
     {
         return 'Pdo_Pgsql';
     }
-
 }

@@ -98,7 +98,7 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
         if (!empty($this->_config['charset'])
             && version_compare(PHP_VERSION, '5.3.6', '<')
         ) {
-            $initCommand = "SET NAMES '" . $this->_config['charset'] . "'";
+            $initCommand                           = "SET NAMES '" . $this->_config['charset'] . "'";
             $this->_config['driver_options'][1002] = $initCommand; // 1002 = PDO::MYSQL_ATTR_INIT_COMMAND
         }
 
@@ -110,7 +110,7 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
      */
     public function getQuoteIdentifierSymbol()
     {
-        return "`";
+        return '`';
     }
 
     /**
@@ -175,8 +175,8 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
         $extra   = 5;
 
         $desc = array();
-        $i = 1;
-        $p = 1;
+        $i    = 1;
+        $p    = 1;
         foreach ($result as $row) {
             list($length, $scale, $precision, $unsigned, $primary, $primaryPosition, $identity)
                 = array(null, null, null, null, false, null, false);
@@ -185,22 +185,22 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
             }
             if (preg_match('/^((?:var)?char)\((\d+)\)/', $row[$type], $matches)) {
                 $row[$type] = $matches[1];
-                $length = $matches[2];
-            } else if (preg_match('/^decimal\((\d+),(\d+)\)/', $row[$type], $matches)) {
+                $length     = $matches[2];
+            } elseif (preg_match('/^decimal\((\d+),(\d+)\)/', $row[$type], $matches)) {
                 $row[$type] = 'decimal';
-                $precision = $matches[1];
-                $scale = $matches[2];
-            } else if (preg_match('/^float\((\d+),(\d+)\)/', $row[$type], $matches)) {
+                $precision  = $matches[1];
+                $scale      = $matches[2];
+            } elseif (preg_match('/^float\((\d+),(\d+)\)/', $row[$type], $matches)) {
                 $row[$type] = 'float';
-                $precision = $matches[1];
-                $scale = $matches[2];
-            } else if (preg_match('/^((?:big|medium|small|tiny)?int)\((\d+)\)/', $row[$type], $matches)) {
+                $precision  = $matches[1];
+                $scale      = $matches[2];
+            } elseif (preg_match('/^((?:big|medium|small|tiny)?int)\((\d+)\)/', $row[$type], $matches)) {
                 $row[$type] = $matches[1];
                 // The optional argument of a MySQL int type is not precision
                 // or length; it is only a hint for display width.
             }
             if (strtoupper($row[$key]) == 'PRI') {
-                $primary = true;
+                $primary         = true;
                 $primaryPosition = $p;
                 if ($row[$extra] == 'auto_increment') {
                     $identity = true;
@@ -239,8 +239,8 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
      * @throws Zend_Db_Adapter_Exception
      * @return string
      */
-     public function limit($sql, $count, $offset = 0)
-     {
+    public function limit($sql, $count, $offset = 0)
+    {
         $count = intval($count);
         if ($count <= 0) {
             throw new Zend_Db_Adapter_Exception("LIMIT argument count=$count is not valid");
@@ -258,5 +258,4 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
 
         return $sql;
     }
-
 }

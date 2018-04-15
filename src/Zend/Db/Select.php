@@ -32,25 +32,24 @@
  */
 class Zend_Db_Select
 {
+    const DISTINCT     = 'distinct';
+    const COLUMNS      = 'columns';
+    const FROM         = 'from';
+    const UNION        = 'union';
+    const WHERE        = 'where';
+    const GROUP        = 'group';
+    const HAVING       = 'having';
+    const ORDER        = 'order';
+    const LIMIT_COUNT  = 'limitcount';
+    const LIMIT_OFFSET = 'limitoffset';
+    const FOR_UPDATE   = 'forupdate';
 
-    const DISTINCT       = 'distinct';
-    const COLUMNS        = 'columns';
-    const FROM           = 'from';
-    const UNION          = 'union';
-    const WHERE          = 'where';
-    const GROUP          = 'group';
-    const HAVING         = 'having';
-    const ORDER          = 'order';
-    const LIMIT_COUNT    = 'limitcount';
-    const LIMIT_OFFSET   = 'limitoffset';
-    const FOR_UPDATE     = 'forupdate';
-
-    const INNER_JOIN     = 'inner join';
-    const LEFT_JOIN      = 'left join';
-    const RIGHT_JOIN     = 'right join';
-    const FULL_JOIN      = 'full join';
-    const CROSS_JOIN     = 'cross join';
-    const NATURAL_JOIN   = 'natural join';
+    const INNER_JOIN   = 'inner join';
+    const LEFT_JOIN    = 'left join';
+    const RIGHT_JOIN   = 'right join';
+    const FULL_JOIN    = 'full join';
+    const CROSS_JOIN   = 'cross join';
+    const NATURAL_JOIN = 'natural join';
 
     const SQL_WILDCARD   = '*';
     const SQL_SELECT     = 'SELECT';
@@ -75,7 +74,7 @@ class Zend_Db_Select
     const REGEX_COLUMN_EXPR_GROUP = '/^([\w]+\s*\(([^\(\)]|(?1))*\))$/';
 
     // @see http://stackoverflow.com/a/13823184/2028814
-    const REGEX_SQL_COMMENTS      = '@
+    const REGEX_SQL_COMMENTS = '@
     (([\'"]).*?[^\\\]\2) # $1 : Skip single & double quoted expressions
     |(                   # $3 : Match comments
         (?:\#|--).*?$    # - Single line comments
@@ -173,7 +172,7 @@ class Zend_Db_Select
     public function __construct(Zend_Db_Adapter_Abstract $adapter)
     {
         $this->_adapter = $adapter;
-        $this->_parts = self::$_partsInit;
+        $this->_parts   = self::$_partsInit;
     }
 
     /**
@@ -254,11 +253,11 @@ class Zend_Db_Select
     {
         if ($correlationName === null && count($this->_parts[self::FROM])) {
             $correlationNameKeys = array_keys($this->_parts[self::FROM]);
-            $correlationName = current($correlationNameKeys);
+            $correlationName     = current($correlationNameKeys);
         }
 
         if (!array_key_exists($correlationName, $this->_parts[self::FROM])) {
-            throw new Zend_Db_Select_Exception("No table has been specified for the FROM clause");
+            throw new Zend_Db_Select_Exception('No table has been specified for the FROM clause');
         }
 
         $this->_tableCols($correlationName, $cols);
@@ -287,7 +286,7 @@ class Zend_Db_Select
     {
         if (!is_array($select)) {
             throw new Zend_Db_Select_Exception(
-                "union() only accepts an array of Zend_Db_Select instances of sql query strings."
+                'union() only accepts an array of Zend_Db_Select instances of sql query strings.'
             );
         }
 
@@ -604,7 +603,7 @@ class Zend_Db_Select
                 }
                 $direction = self::SQL_ASC;
                 if (preg_match('/(.*\W)(' . self::SQL_ASC . '|' . self::SQL_DESC . ')\b/si', $val, $matches)) {
-                    $val = trim($matches[1]);
+                    $val       = trim($matches[1]);
                     $direction = $matches[2];
                 }
                 // Remove comments from SQL statement
@@ -642,8 +641,8 @@ class Zend_Db_Select
      */
     public function limitPage($page, $rowCount)
     {
-        $page     = ($page > 0)     ? $page     : 1;
-        $rowCount = ($rowCount > 0) ? $rowCount : 1;
+        $page                             = ($page > 0)     ? $page     : 1;
+        $rowCount                         = ($rowCount > 0) ? $rowCount : 1;
         $this->_parts[self::LIMIT_COUNT]  = (int) $rowCount;
         $this->_parts[self::LIMIT_OFFSET] = (int) $rowCount * ($page - 1);
         return $this;
@@ -765,7 +764,7 @@ class Zend_Db_Select
         }
 
         if (count($this->_parts[self::UNION])) {
-            throw new Zend_Db_Select_Exception("Invalid use of table with " . self::SQL_UNION);
+            throw new Zend_Db_Select_Exception('Invalid use of table with ' . self::SQL_UNION);
         }
 
         if (empty($name)) {
@@ -775,23 +774,23 @@ class Zend_Db_Select
             foreach ($name as $_correlationName => $_tableName) {
                 if (is_string($_correlationName)) {
                     // We assume the key is the correlation name and value is the table name
-                    $tableName = $_tableName;
+                    $tableName       = $_tableName;
                     $correlationName = $_correlationName;
                 } else {
                     // We assume just an array of identifiers, with no correlation name
-                    $tableName = $_tableName;
+                    $tableName       = $_tableName;
                     $correlationName = $this->_uniqueCorrelation($tableName);
                 }
                 break;
             }
-        } elseif ($name instanceof Zend_Db_Expr|| $name instanceof Zend_Db_Select) {
-            $tableName = $name;
+        } elseif ($name instanceof Zend_Db_Expr || $name instanceof Zend_Db_Select) {
+            $tableName       = $name;
             $correlationName = $this->_uniqueCorrelation('t');
         } elseif (preg_match('/^(.+)\s+AS\s+(.+)$/i', $name, $m)) {
-            $tableName = $m[1];
+            $tableName       = $m[1];
             $correlationName = $m[2];
         } else {
-            $tableName = $name;
+            $tableName       = $name;
             $correlationName = $this->_uniqueCorrelation($tableName);
         }
 
@@ -808,7 +807,7 @@ class Zend_Db_Select
 
             if ($type == self::FROM) {
                 // append this from after the last from joinType
-                $tmpFromParts = $this->_parts[self::FROM];
+                $tmpFromParts             = $this->_parts[self::FROM];
                 $this->_parts[self::FROM] = array();
                 // move all the froms onto the stack
                 while ($tmpFromParts) {
@@ -816,7 +815,7 @@ class Zend_Db_Select
                     if ($tmpFromParts[$currentCorrelationName]['joinType'] != self::FROM) {
                         break;
                     }
-                    $lastFromCorrelationName = $currentCorrelationName;
+                    $lastFromCorrelationName                           = $currentCorrelationName;
                     $this->_parts[self::FROM][$currentCorrelationName] = array_shift($tmpFromParts);
                 }
             } else {
@@ -829,7 +828,7 @@ class Zend_Db_Select
                 'joinCondition' => $cond
                 );
             while ($tmpFromParts) {
-                $currentCorrelationName = key($tmpFromParts);
+                $currentCorrelationName                            = key($tmpFromParts);
                 $this->_parts[self::FROM][$currentCorrelationName] = array_shift($tmpFromParts);
             }
         }
@@ -871,19 +870,19 @@ class Zend_Db_Select
     public function _joinUsing($type, $name, $cond, $cols = '*', $schema = null)
     {
         if (empty($this->_parts[self::FROM])) {
-            throw new Zend_Db_Select_Exception("You can only perform a joinUsing after specifying a FROM table");
+            throw new Zend_Db_Select_Exception('You can only perform a joinUsing after specifying a FROM table');
         }
 
-        $join  = $this->_adapter->quoteIdentifier(key($this->_parts[self::FROM]), true);
-        $from  = $this->_adapter->quoteIdentifier($this->_uniqueCorrelation($name), true);
+        $join = $this->_adapter->quoteIdentifier(key($this->_parts[self::FROM]), true);
+        $from = $this->_adapter->quoteIdentifier($this->_uniqueCorrelation($name), true);
 
         $joinCond = array();
         foreach ((array)$cond as $fieldName) {
-            $cond1 = $from . '.' . $fieldName;
-            $cond2 = $join . '.' . $fieldName;
-            $joinCond[]  = $cond1 . ' = ' . $cond2;
+            $cond1      = $from . '.' . $fieldName;
+            $cond2      = $join . '.' . $fieldName;
+            $joinCond[] = $cond1 . ' = ' . $cond2;
         }
-        $cond = implode(' '.self::SQL_AND.' ', $joinCond);
+        $cond = implode(' ' . self::SQL_AND . ' ', $joinCond);
 
         return $this->_join($type, $name, $cond, $cols, $schema);
     }
@@ -901,8 +900,8 @@ class Zend_Db_Select
             $c = is_string($k) ? $k : end($name);
         } else {
             // Extract just the last name of a qualified table name
-            $dot = strrpos($name,'.');
-            $c = ($dot === false) ? $name : substr($name, $dot+1);
+            $dot = strrpos($name, '.');
+            $c   = ($dot === false) ? $name : substr($name, $dot + 1);
         }
         for ($i = 2; array_key_exists($c, $this->_parts[self::FROM]); ++$i) {
             $c = $name . '_' . (string) $i;
@@ -937,7 +936,7 @@ class Zend_Db_Select
                 // Check for a column matching "<column> AS <alias>" and extract the alias name
                 $col = trim(str_replace("\n", ' ', $col));
                 if (preg_match('/^(.+)\s+' . self::SQL_AS . '\s+(.+)$/i', $col, $m)) {
-                    $col = $m[1];
+                    $col   = $m[1];
                     $alias = $m[2];
                 }
                 // Check for columns that look like functions and convert to Zend_Db_Expr
@@ -945,7 +944,7 @@ class Zend_Db_Select
                     $col = new Zend_Db_Expr($col);
                 } elseif (preg_match('/(.+)\.(.+)/', $col, $m)) {
                     $currentCorrelationName = $m[1];
-                    $col = $m[2];
+                    $col                    = $m[2];
                 }
             }
             $columnValues[] = array($currentCorrelationName, $col, is_string($alias) ? $alias : null);
@@ -955,7 +954,7 @@ class Zend_Db_Select
 
             // should we attempt to prepend or insert these values?
             if ($afterCorrelationName === true || is_string($afterCorrelationName)) {
-                $tmpColumns = $this->_parts[self::COLUMNS];
+                $tmpColumns                  = $this->_parts[self::COLUMNS];
                 $this->_parts[self::COLUMNS] = array();
             } else {
                 $tmpColumns = array();
@@ -995,14 +994,14 @@ class Zend_Db_Select
     protected function _where($condition, $value = null, $type = null, $bool = true)
     {
         if (count($this->_parts[self::UNION])) {
-            throw new Zend_Db_Select_Exception("Invalid use of where clause with " . self::SQL_UNION);
+            throw new Zend_Db_Select_Exception('Invalid use of where clause with ' . self::SQL_UNION);
         }
 
         if ($value !== null) {
             $condition = $this->_adapter->quoteInto($condition, $value, $type);
         }
 
-        $cond = "";
+        $cond = '';
         if ($this->_parts[self::WHERE]) {
             if ($bool === true) {
                 $cond = self::SQL_AND . ' ';
@@ -1083,7 +1082,7 @@ class Zend_Db_Select
             } else {
                 if ($column == self::SQL_WILDCARD) {
                     $column = new Zend_Db_Expr(self::SQL_WILDCARD);
-                    $alias = null;
+                    $alias  = null;
                 }
                 if (empty($correlationName)) {
                     $columns[] = $this->_adapter->quoteColumnAs($column, $alias, true);
@@ -1178,7 +1177,7 @@ class Zend_Db_Select
     protected function _renderWhere($sql)
     {
         if ($this->_parts[self::FROM] && $this->_parts[self::WHERE]) {
-            $sql .= ' ' . self::SQL_WHERE . ' ' .  implode(' ', $this->_parts[self::WHERE]);
+            $sql .= ' ' . self::SQL_WHERE . ' ' . implode(' ', $this->_parts[self::WHERE]);
         }
 
         return $sql;
@@ -1230,7 +1229,7 @@ class Zend_Db_Select
             $order = array();
             foreach ($this->_parts[self::ORDER] as $term) {
                 if (is_array($term)) {
-                    if(is_numeric($term[0]) && strval(intval($term[0])) == $term[0]) {
+                    if (is_numeric($term[0]) && strval(intval($term[0])) == $term[0]) {
                         $order[] = (int)trim($term[0]) . ' ' . $term[1];
                     } else {
                         $order[] = $this->_adapter->quoteIdentifier($term[0], true) . ' ' . $term[1];
@@ -1255,12 +1254,12 @@ class Zend_Db_Select
      */
     protected function _renderLimitoffset($sql)
     {
-        $count = 0;
+        $count  = 0;
         $offset = 0;
 
         if (!empty($this->_parts[self::LIMIT_OFFSET])) {
             $offset = (int) $this->_parts[self::LIMIT_OFFSET];
-            $count = PHP_INT_MAX;
+            $count  = PHP_INT_MAX;
         }
 
         if (!empty($this->_parts[self::LIMIT_COUNT])) {
@@ -1346,5 +1345,4 @@ class Zend_Db_Select
         }
         return (string)$sql;
     }
-
 }

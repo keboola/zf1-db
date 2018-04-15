@@ -83,5 +83,4 @@ abstract class Zend_Db_Table_TestSetup extends Zend_Db_TestSetup
         set_include_path($this->_runtimeIncludePath);
         $this->_runtimeIncludePath = null;
     }
-
 }

@@ -33,10 +33,8 @@
  */
 class Zend_Db_Table_Rowset_Pdo_OciTest extends Zend_Db_Table_Rowset_TestCommon
 {
-
     public function getDriver()
     {
         return 'Pdo_Oci';
     }
-
 }

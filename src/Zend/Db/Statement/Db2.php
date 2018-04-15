@@ -89,7 +89,7 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
             $datatype = DB2_CHAR;
         }
 
-        if (!db2_bind_param($this->_stmt, $parameter, "variable", $type, $datatype)) {
+        if (!db2_bind_param($this->_stmt, $parameter, 'variable', $type, $datatype)) {
             throw new Zend_Db_Statement_Db2_Exception(
                 db2_stmt_errormsg(),
                 db2_stmt_error()
@@ -158,7 +158,7 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
     public function errorInfo()
     {
         $error = $this->errorCode();
-        if ($error === false){
+        if ($error === false) {
             return false;
         }
 
@@ -196,13 +196,14 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         if ($retval === false) {
             throw new Zend_Db_Statement_Db2_Exception(
                 db2_stmt_errormsg(),
-                db2_stmt_error());
+                db2_stmt_error()
+            );
         }
 
         $this->_keys = array();
         if ($field_num = $this->columnCount()) {
             for ($i = 0; $i < $field_num; $i++) {
-                $name = db2_field_name($this->_stmt, $i);
+                $name          = db2_field_name($this->_stmt, $i);
                 $this->_keys[] = $name;
             }
         }
@@ -235,16 +236,16 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         }
 
         switch ($style) {
-            case Zend_Db::FETCH_NUM :
+            case Zend_Db::FETCH_NUM:
                 $row = db2_fetch_array($this->_stmt);
                 break;
-            case Zend_Db::FETCH_ASSOC :
+            case Zend_Db::FETCH_ASSOC:
                 $row = db2_fetch_assoc($this->_stmt);
                 break;
-            case Zend_Db::FETCH_BOTH :
+            case Zend_Db::FETCH_BOTH:
                 $row = db2_fetch_both($this->_stmt);
                 break;
-            case Zend_Db::FETCH_OBJ :
+            case Zend_Db::FETCH_OBJ:
                 $row = db2_fetch_object($this->_stmt);
                 break;
             case Zend_Db::FETCH_BOUND:
@@ -309,22 +310,22 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         return $num;
     }
 
-     /**
-     * Returns an array containing all of the result set rows.
-     *
-     * @param int $style OPTIONAL Fetch mode.
-     * @param int $col   OPTIONAL Column number, if fetch mode is by column.
-     * @return array Collection of rows, each in a format by the fetch mode.
-     *
-     * Behaves like parent, but if limit()
-     * is used, the final result removes the extra column
-     * 'zend_db_rownum'
-     */
+    /**
+    * Returns an array containing all of the result set rows.
+    *
+    * @param int $style OPTIONAL Fetch mode.
+    * @param int $col   OPTIONAL Column number, if fetch mode is by column.
+    * @return array Collection of rows, each in a format by the fetch mode.
+    *
+    * Behaves like parent, but if limit()
+    * is used, the final result removes the extra column
+    * 'zend_db_rownum'
+    */
     public function fetchAll($style = null, $col = null)
     {
-        $data = parent::fetchAll($style, $col);
+        $data    = parent::fetchAll($style, $col);
         $results = array();
-        $remove = $this->_adapter->foldCase('ZEND_DB_ROWNUM');
+        $remove  = $this->_adapter->foldCase('ZEND_DB_ROWNUM');
 
         foreach ($data as $row) {
             if (is_array($row) && array_key_exists($remove, $row)) {

@@ -62,7 +62,7 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
 
         $select = $this->_db->select();
         $select->from('zfproducts');
-        $stmt = $this->_db->query($select);
+        $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
         $this->assertEquals(3, count($result), 'Expected 3 rows in first query result');
 
@@ -75,7 +75,7 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
      */
     public function testAdapterInsert()
     {
-        $row = array (
+        $row = array(
             'bug_description' => 'New bug',
             'bug_status'      => 'NEW',
             'created_on'      => '2007-04-02',
@@ -90,12 +90,18 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
 
         $lastInsertId = $this->_db->lastInsertId();
         $this->assertInternalType('string', $lastInsertId);
-        $this->assertEquals('5', (string) $lastInsertId,
-            'Expected new id to be 5');
+        $this->assertEquals(
+            '5',
+            (string) $lastInsertId,
+            'Expected new id to be 5'
+        );
 
         $lastInsertId = $this->_db->lastInsertId('zfbugs');
-        $this->assertEquals('5', (string) $lastInsertId,
-            'Expected new id to be 5, selecting by table');
+        $this->assertEquals(
+            '5',
+            (string) $lastInsertId,
+            'Expected new id to be 5, selecting by table'
+        );
     }
 
     /**
@@ -105,7 +111,7 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
      */
     public function testAdapterMultipleInsert()
     {
-        $row = array (
+        $row = array(
             'bug_description' => 'New bug',
             'bug_status'      => 'NEW',
             'created_on'      => '2007-04-02',
@@ -129,7 +135,7 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
             }
         }
 
-        $stmt = $this->_db->query($query, $data);
+        $stmt         = $this->_db->query($query, $data);
         $rowsAffected = $stmt->rowCount();
         $this->assertEquals(3, $rowsAffected);
     }
@@ -138,11 +144,11 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
     {
         $desc = $this->_db->describeTable('zfproducts');
 
-        $this->assertEquals('zfproducts',   $desc['product_name']['TABLE_NAME']);
+        $this->assertEquals('zfproducts', $desc['product_name']['TABLE_NAME']);
         $this->assertEquals('product_name', $desc['product_name']['COLUMN_NAME']);
-        $this->assertEquals(2,              $desc['product_name']['COLUMN_POSITION']);
-        $this->assertRegExp('/varchar/i',   $desc['product_name']['DATA_TYPE']);
-        $this->assertEquals('',             $desc['product_name']['DEFAULT']);
+        $this->assertEquals(2, $desc['product_name']['COLUMN_POSITION']);
+        $this->assertRegExp('/varchar/i', $desc['product_name']['DATA_TYPE']);
+        $this->assertEquals('', $desc['product_name']['DEFAULT']);
         $this->assertTrue($desc['product_name']['NULLABLE'], 'Expected product_name to be nullable');
         $this->assertNull($desc['product_name']['SCALE'], 'scale is not 0');
 
@@ -170,13 +176,13 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
 
         $this->assertEquals('zfproducts', $desc['product_id']['TABLE_NAME']);
         $this->assertEquals('product_id', $desc['product_id']['COLUMN_NAME']);
-        $this->assertEquals(1,            $desc['product_id']['COLUMN_POSITION']);
-        $this->assertEquals('',           $desc['product_id']['DEFAULT']);
+        $this->assertEquals(1, $desc['product_id']['COLUMN_POSITION']);
+        $this->assertEquals('', $desc['product_id']['DEFAULT']);
         $this->assertFalse($desc['product_id']['NULLABLE'], 'Expected product_id not to be nullable');
-        $this->assertEquals(0,            $desc['product_id']['SCALE'], 'scale is not 0');
-        $this->assertEquals(10,           $desc['product_id']['PRECISION'], 'precision is not 10');
+        $this->assertEquals(0, $desc['product_id']['SCALE'], 'scale is not 0');
+        $this->assertEquals(10, $desc['product_id']['PRECISION'], 'precision is not 10');
         $this->assertTrue($desc['product_id']['PRIMARY'], 'Expected product_id to be a primary key');
-        $this->assertEquals(1,            $desc['product_id']['PRIMARY_POSITION']);
+        $this->assertEquals(1, $desc['product_id']['PRIMARY_POSITION']);
     }
 
     /**
@@ -247,7 +253,7 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
         $bug_id = $this->_db->quoteIdentifier('bug_id');
         $expr   = new Zend_Db_Expr('2+3');
 
-        $row = array (
+        $row = array(
             'bug_id'          => $expr,
             'bug_description' => 'New bug',
             'bug_status'      => 'NEW',
@@ -281,7 +287,7 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
 
         $db = Zend_Db::factory($this->getDriver(), $params);
 
-         // create a new util object, with the new db adapter
+        // create a new util object, with the new db adapter
         $driver    = $this->getDriver();
         $utilClass = "Zend_Db_TestUtil_{$driver}";
         $util      = new $utilClass();
@@ -307,13 +313,16 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
         // check if the row was inserted as expected
         $select = $db->select()->from($tableName, array('id', 'stuff'));
 
-        $stmt = $db->query($select);
+        $stmt    = $db->query($select);
         $fetched = $stmt->fetchAll(Zend_Db::FETCH_NUM);
-        $a = array(
+        $a       = array(
             0 => array(0 => 1, 1 => 'äöüß')
         );
-        $this->assertEquals($a, $fetched,
-            'result of query not as expected');
+        $this->assertEquals(
+            $a,
+            $fetched,
+            'result of query not as expected'
+        );
 
         $db->query("SET IDENTITY_INSERT $table OFF");
 
@@ -424,11 +433,11 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
 
         try {
             $db->setTransactionIsolationLevel('not existing isolation level');
-            $this->fail("Not existing isolation types are allowed to set");
+            $this->fail('Not existing isolation types are allowed to set');
         } catch (Zend_Db_Adapter_Sqlsrv_Exception $e) {
         }
 
-        $this->assertTrue($db->setTransactionIsolationLevel(), "Setting to default should work by passsing null or nothing");
+        $this->assertTrue($db->setTransactionIsolationLevel(), 'Setting to default should work by passsing null or nothing');
     }
 
     /**
@@ -439,18 +448,23 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
     {
         parent::testAdapterLimit();
 
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $sql = $this->_db->limit("SELECT * FROM $products ORDER BY $products.$product_id", 1);
 
-        $stmt = $this->_db->query($sql);
+        $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result),
-            'Expecting row count to be 1');
-        $this->assertEquals(1, $result[0]['product_id'],
-            'Expecting to get product_id 1');
-
+        $this->assertEquals(
+            1,
+            count($result),
+            'Expecting row count to be 1'
+        );
+        $this->assertEquals(
+            1,
+            $result[0]['product_id'],
+            'Expecting to get product_id 1'
+        );
     }
 
     /**
@@ -461,17 +475,23 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
     {
         parent::testAdapterLimitOffset();
 
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $sql = $this->_db->limit("SELECT * FROM $products ORDER BY $products.$product_id", 1, 1);
 
-        $stmt = $this->_db->query($sql);
+        $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result),
-            'Expecting row count to be 1');
-        $this->assertEquals(2, $result[0]['product_id'],
-            'Expecting to get product_id 2');
+        $this->assertEquals(
+            1,
+            count($result),
+            'Expecting row count to be 1'
+        );
+        $this->assertEquals(
+            2,
+            $result[0]['product_id'],
+            'Expecting to get product_id 2'
+        );
     }
 
     /**
@@ -479,15 +499,18 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
      */
     public function testAdapterLimitOffsetWithOffsetExceedingRowCount()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $sql = $this->_db->limit("SELECT * FROM $products ORDER BY $products.$product_id", 2, 2);
 
-        $stmt = $this->_db->query($sql);
+        $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result),
-            'Expecting row count to be 1');
+        $this->assertEquals(
+            1,
+            count($result),
+            'Expecting row count to be 1'
+        );
     }
 
     /**
@@ -495,17 +518,23 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
      */
     public function testAdapterLimitWithoutOrder()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $sql = $this->_db->limit("SELECT * FROM $products", 1);
 
-        $stmt = $this->_db->query($sql);
+        $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result),
-            'Expecting row count to be 1');
-        $this->assertEquals(1, $result[0]['product_id'],
-            'Expecting to get product_id 1');
+        $this->assertEquals(
+            1,
+            count($result),
+            'Expecting row count to be 1'
+        );
+        $this->assertEquals(
+            1,
+            $result[0]['product_id'],
+            'Expecting to get product_id 1'
+        );
     }
 
     /**
@@ -513,17 +542,23 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
      */
     public function testAdapterLimitOffsetWithoutOrder()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
+        $products   = $this->_db->quoteIdentifier('zfproducts');
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $sql = $this->_db->limit("SELECT * FROM $products", 1, 1);
 
-        $stmt = $this->_db->query($sql);
+        $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result),
-            'Expecting row count to be 1');
-        $this->assertEquals(2, $result[0]['product_id'],
-            'Expecting to get product_id 2');
+        $this->assertEquals(
+            1,
+            count($result),
+            'Expecting row count to be 1'
+        );
+        $this->assertEquals(
+            2,
+            $result[0]['product_id'],
+            'Expecting to get product_id 2'
+        );
     }
 
     /**
@@ -531,18 +566,24 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
      */
     public function testAdapterLimitOffsetWithMultipleOrderColumns()
     {
-        $products = $this->_db->quoteIdentifier('zfproducts');
-        $product_id = $this->_db->quoteIdentifier('product_id');
+        $products     = $this->_db->quoteIdentifier('zfproducts');
+        $product_id   = $this->_db->quoteIdentifier('product_id');
         $product_name = $this->_db->quoteIdentifier('product_name');
 
         $sql = $this->_db->limit("SELECT * FROM $products ORDER BY $products.$product_id ASC, $products.$product_name DESC", 1, 1);
 
-        $stmt = $this->_db->query($sql);
+        $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result),
-            'Expecting row count to be 1');
-        $this->assertEquals(2, $result[0]['product_id'],
-            'Expecting to get product_id 2');
+        $this->assertEquals(
+            1,
+            count($result),
+            'Expecting row count to be 1'
+        );
+        $this->assertEquals(
+            2,
+            $result[0]['product_id'],
+            'Expecting to get product_id 2'
+        );
     }
 
     public function getDriver()

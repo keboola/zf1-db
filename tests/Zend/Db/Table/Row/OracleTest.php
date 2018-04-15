@@ -33,7 +33,6 @@
  */
 class Zend_Db_Table_Row_OracleTest extends Zend_Db_Table_Row_TestCommon
 {
-
     public function testTableRowSaveInsert()
     {
         $this->markTestSkipped($this->getDriver() . ' does not support auto-increment keys.');
@@ -44,13 +43,14 @@ class Zend_Db_Table_Row_OracleTest extends Zend_Db_Table_Row_TestCommon
      */
     protected function _testTableRowSetReadOnlyGetTableBugs()
     {
-        return $this->_getTable('My_ZendDbTable_TableBugs',
-                                array(Zend_Db_Table_Abstract::SEQUENCE => 'zfbugs_seq'));
+        return $this->_getTable(
+            'My_ZendDbTable_TableBugs',
+                                array(Zend_Db_Table_Abstract::SEQUENCE => 'zfbugs_seq')
+        );
     }
 
     public function getDriver()
     {
         return 'Oracle';
     }
-
 }

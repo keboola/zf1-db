@@ -48,9 +48,9 @@ class Zend_Db_Statement_Pdo_Ibm extends Zend_Db_Statement_Pdo
     */
     public function fetchAll($style = null, $col = null)
     {
-        $data = parent::fetchAll($style, $col);
+        $data    = parent::fetchAll($style, $col);
         $results = array();
-        $remove = $this->_adapter->foldCase('ZEND_DB_ROWNUM');
+        $remove  = $this->_adapter->foldCase('ZEND_DB_ROWNUM');
 
         foreach ($data as $row) {
             if (is_array($row) && array_key_exists($remove, $row)) {
@@ -84,5 +84,4 @@ class Zend_Db_Statement_Pdo_Ibm extends Zend_Db_Statement_Pdo
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-
 }
