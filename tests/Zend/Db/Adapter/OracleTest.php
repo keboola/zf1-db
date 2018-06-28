@@ -72,7 +72,7 @@ class Zend_Db_Adapter_OracleTest extends Zend_Db_Adapter_TestCommon
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $result = $this->_db->fetchAll("SELECT * FROM $products WHERE $product_id > :id ORDER BY $product_id ASC", array(':id' => 1));
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertThat($result[0], $this->arrayHasKey('product_id'));
         $this->assertEquals('2', $result[0]['product_id']);
     }
@@ -92,9 +92,9 @@ class Zend_Db_Adapter_OracleTest extends Zend_Db_Adapter_TestCommon
 
         // Test associative array
         $result = $this->_db->fetchAll("SELECT * FROM $products WHERE $product_id > :id ORDER BY $product_id ASC", array(':id' => 1), Zend_Db::FETCH_ASSOC);
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertInternalType('array', $result[0]);
-        $this->assertEquals(2, count($result[0])); // count columns
+        $this->assertCount(2, $result[0]); // count columns
         $this->assertEquals(2, $result[0][$col_name]);
 
         // Test numeric and associative array
@@ -102,7 +102,7 @@ class Zend_Db_Adapter_OracleTest extends Zend_Db_Adapter_TestCommon
 
         // Ensure original fetch mode has been retained
         $result = $this->_db->fetchAll("SELECT * FROM $products WHERE $product_id > :id ORDER BY $product_id", array(':id' => 1));
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertInternalType('object', $result[0]);
         $this->assertEquals(2, $result[0]->$col_name);
     }
@@ -147,7 +147,7 @@ class Zend_Db_Adapter_OracleTest extends Zend_Db_Adapter_TestCommon
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $result = $this->_db->fetchCol("SELECT * FROM $products WHERE $product_id > :id ORDER BY $product_id ASC", array(':id' => 1));
-        $this->assertEquals(2, count($result)); // count rows
+        $this->assertCount(2, $result); // count rows
         $this->assertEquals(2, $result[0]);
         $this->assertEquals(3, $result[1]);
     }
@@ -165,7 +165,7 @@ class Zend_Db_Adapter_OracleTest extends Zend_Db_Adapter_TestCommon
         $this->_db->setFetchMode(Zend_Db::FETCH_OBJ);
         $result = $this->_db->fetchCol("SELECT * FROM $products WHERE $product_id > :id ORDER BY $product_id ASC", array(':id' => 1));
         $this->assertInternalType('array', $result);
-        $this->assertEquals(2, count($result)); // count rows
+        $this->assertCount(2, $result); // count rows
         $this->assertEquals(2, $result[0]);
         $this->assertEquals(3, $result[1]);
     }
@@ -214,7 +214,7 @@ class Zend_Db_Adapter_OracleTest extends Zend_Db_Adapter_TestCommon
 
         $prod   = 'Linux';
         $result = $this->_db->fetchPairs("SELECT $product_id, $product_name FROM $products WHERE $product_id > :id ORDER BY $product_id ASC", array(':id' => 1));
-        $this->assertEquals(2, count($result)); // count rows
+        $this->assertCount(2, $result); // count rows
         $this->assertEquals($prod, $result[2]);
     }
 
@@ -232,7 +232,7 @@ class Zend_Db_Adapter_OracleTest extends Zend_Db_Adapter_TestCommon
         $prod   = 'Linux';
         $result = $this->_db->fetchPairs("SELECT $product_id, $product_name FROM $products WHERE $product_id > :id ORDER BY $product_id ASC", array(':id' => 1));
         $this->assertInternalType('array', $result);
-        $this->assertEquals(2, count($result)); // count rows
+        $this->assertCount(2, $result); // count rows
         $this->assertEquals($prod, $result[2]);
     }
 
@@ -245,7 +245,7 @@ class Zend_Db_Adapter_OracleTest extends Zend_Db_Adapter_TestCommon
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $result = $this->_db->fetchRow("SELECT * FROM $products WHERE $product_id > :id ORDER BY $product_id", array(':id' => 1));
-        $this->assertEquals(2, count($result)); // count columns
+        $this->assertCount(2, $result); // count columns
         $this->assertEquals(2, $result['product_id']);
     }
 
@@ -265,7 +265,7 @@ class Zend_Db_Adapter_OracleTest extends Zend_Db_Adapter_TestCommon
         // Test associative array
         $result = $this->_db->fetchRow("SELECT * FROM $products WHERE $product_id > :id ORDER BY $product_id", array(':id' => 1), Zend_Db::FETCH_ASSOC);
         $this->assertInternalType('array', $result);
-        $this->assertEquals(2, count($result)); // count columns
+        $this->assertCount(2, $result); // count columns
         $this->assertEquals(2, $result['product_id']);
 
         // Test numeric and associative array

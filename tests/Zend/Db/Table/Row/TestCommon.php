@@ -83,7 +83,7 @@ abstract class Zend_Db_Table_Row_TestCommon extends Zend_Db_Table_TestSetup
             $rowset instanceof Zend_Db_Table_Rowset_Abstract,
             'Expecting object of type Zend_Db_Table_Rowset_Abstract, got ' . get_class($rowset)
         );
-        $this->assertEquals(1, count($rowset));
+        $this->assertCount(1, $rowset);
     }
 
     public function testTableRowConstructor()

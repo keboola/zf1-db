@@ -155,7 +155,7 @@ abstract class Zend_Db_Table_Rowset_TestCommon extends Zend_Db_Table_TestSetup
         $table = $this->_table['bugs'];
 
         $rows = $table->fetchAll("$bug_id = -1");
-        $this->assertEquals(0, count($rows));
+        $this->assertCount(0, $rows);
         $this->assertNull($rows->current());
     }
 
@@ -165,7 +165,7 @@ abstract class Zend_Db_Table_Rowset_TestCommon extends Zend_Db_Table_TestSetup
         $bug_description = $this->_db->foldCase('bug_description');
 
         $rows = $table->find(array(1, 2));
-        $this->assertEquals(2, count($rows));
+        $this->assertCount(2, $rows);
 
         // iterate through the rowset, because that's the only way
         // to force it to instantiate the individual Rows
@@ -178,7 +178,7 @@ abstract class Zend_Db_Table_Rowset_TestCommon extends Zend_Db_Table_TestSetup
         $this->assertInternalType('array', $a);
         $this->assertEquals(count($a), count($rows));
         $this->assertInternalType('array', $a[0]);
-        $this->assertEquals(8, count($a[0]));
+        $this->assertCount(8, $a[0]);
         $this->assertEquals('foo', $a[0][$bug_description]);
     }
 

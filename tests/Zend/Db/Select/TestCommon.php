@@ -52,7 +52,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $stmt = $this->_db->query($select);
         $row  = $stmt->fetch();
         $stmt->closeCursor();
-        $this->assertEquals(2, count($row)); // correct number of fields
+        $this->assertCount(2, $row); // correct number of fields
         $this->assertEquals(1, $row['product_id']); // correct data
     }
 
@@ -75,7 +75,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $stmt = $select->query();
         $row  = $stmt->fetch();
         $stmt->closeCursor();
-        $this->assertEquals(2, count($row)); // correct number of fields
+        $this->assertCount(2, $row); // correct number of fields
         $this->assertEquals(1, $row['product_id']); // correct data
     }
 
@@ -97,7 +97,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $stmt = $select->query();
         $row  = $stmt->fetch();
         $stmt->closeCursor();
-        $this->assertEquals(2, count($row)); // correct number of fields
+        $this->assertCount(2, $row); // correct number of fields
         $this->assertEquals(1, $row['product_id']); // correct data
     }
 
@@ -116,8 +116,8 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectColumnsScalar();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result), 'Expected count of result set to be 2');
-        $this->assertEquals(1, count($result[0]), 'Expected column count of result set to be 1');
+        $this->assertCount(3, $result, 'Expected count of result set to be 2');
+        $this->assertCount(1, $result[0], 'Expected column count of result set to be 1');
         $this->assertThat($result[0], $this->arrayHasKey('product_name'));
     }
 
@@ -133,8 +133,8 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectColumnsArray();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result), 'Expected count of result set to be 2');
-        $this->assertEquals(2, count($result[0]), 'Expected column count of result set to be 2');
+        $this->assertCount(3, $result, 'Expected count of result set to be 2');
+        $this->assertCount(2, $result[0], 'Expected column count of result set to be 2');
         $this->assertThat($result[0], $this->arrayHasKey('product_id'));
         $this->assertThat($result[0], $this->arrayHasKey('product_name'));
     }
@@ -155,7 +155,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectColumnsAliases();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result), 'Expected count of result set to be 2');
+        $this->assertCount(3, $result, 'Expected count of result set to be 2');
         $this->assertThat($result[0], $this->arrayHasKey('alias'));
         $this->assertThat($result[0], $this->logicalNot($this->arrayHasKey('product_name')));
     }
@@ -238,7 +238,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectDistinctModifier();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result));
+        $this->assertCount(1, $result);
     }
 
     /**
@@ -266,7 +266,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectFromQualified();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result));
+        $this->assertCount(3, $result);
     }
 
     /**
@@ -364,7 +364,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $result = $stmt->fetchAll();
 
         if (is_array($result)) {
-            $this->assertEquals(0, count($result));
+            $this->assertCount(0, $result);
         } else {
             $this->assertNull($result);
         }
@@ -381,7 +381,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
             ->forUpdate();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result));
+        $this->assertCount(3, $result);
     }
 
     /**
@@ -404,8 +404,8 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectJoin();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(6, count($result));
-        $this->assertEquals(3, count($result[0]));
+        $this->assertCount(6, $result);
+        $this->assertCount(3, $result[0]);
     }
 
     /**
@@ -430,8 +430,8 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectJoinWithCorrelationName();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result));
-        $this->assertEquals(3, count($result[0]));
+        $this->assertCount(1, $result);
+        $this->assertCount(3, $result[0]);
     }
 
     /**
@@ -455,8 +455,8 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectJoinInner();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(6, count($result));
-        $this->assertEquals(3, count($result[0]));
+        $this->assertCount(6, $result);
+        $this->assertCount(3, $result[0]);
     }
 
     /**
@@ -482,8 +482,8 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectJoinWithNocolumns();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result));
-        $this->assertEquals(2, count($result[0]));
+        $this->assertCount(3, $result);
+        $this->assertCount(2, $result[0]);
     }
 
     /**
@@ -506,8 +506,8 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectJoinLeft();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(7, count($result));
-        $this->assertEquals(9, count($result[0]));
+        $this->assertCount(7, $result);
+        $this->assertCount(9, $result[0]);
         $this->assertEquals(3, $result[3]['product_id']);
         $this->assertNull($result[6]['product_id']);
     }
@@ -562,8 +562,8 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectJoinRight();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(7, count($result));
-        $this->assertEquals(9, count($result[0]));
+        $this->assertCount(7, $result);
+        $this->assertCount(9, $result[0]);
         $this->assertEquals(3, $result[3]['product_id']);
         $this->assertNull($result[6]['product_id']);
     }
@@ -584,8 +584,8 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectJoinCross();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(18, count($result));
-        $this->assertEquals(3, count($result[0]));
+        $this->assertCount(18, $result);
+        $this->assertCount(3, $result[0]);
     }
 
     /**
@@ -610,8 +610,8 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectJoinQualified();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(6, count($result));
-        $this->assertEquals(3, count($result[0]));
+        $this->assertCount(6, $result);
+        $this->assertCount(3, $result[0]);
     }
 
     protected function _selectJoinUsing()
@@ -648,7 +648,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $sql    = preg_replace('/\\s+/', ' ', $select->assemble());
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result));
+        $this->assertCount(3, $result);
         $this->assertEquals(1, $result[0]['product_id']);
     }
 
@@ -671,7 +671,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $sql    = preg_replace('/\\s+/', ' ', $select->assemble());
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result));
+        $this->assertCount(3, $result);
         $this->assertEquals(1, $result[0]['product_id']);
     }
 
@@ -736,7 +736,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectWhere();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result));
+        $this->assertCount(1, $result);
         $this->assertEquals(2, $result[0]['product_id']);
     }
 
@@ -780,7 +780,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectWhereArray();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result));
+        $this->assertCount(3, $result);
     }
 
     /**
@@ -803,7 +803,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectWhereAnd();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(0, count($result));
+        $this->assertCount(0, $result);
     }
 
     /**
@@ -825,7 +825,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectWhereWithParameter();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result));
+        $this->assertCount(1, $result);
         $this->assertEquals(2, $result[0]['product_id']);
     }
 
@@ -848,7 +848,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectWhereWithType();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result));
+        $this->assertCount(1, $result);
         $this->assertEquals(2, $result[0]['product_id']);
     }
 
@@ -873,7 +873,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectWhereWithTypeFloat();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result));
+        $this->assertCount(1, $result);
         $this->assertEquals(200.45, $result[0]['price_total']);
 
         try {
@@ -881,7 +881,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
             $select = $this->_selectWhereWithTypeFloat();
             $stmt   = $this->_db->query($select);
             $result = $stmt->fetchAll();
-            $this->assertEquals(1, count($result));
+            $this->assertCount(1, $result);
             $this->assertEquals(200.45, $result[0]['price_total']);
         } catch (Zend_Exception $e) {
             setlocale(LC_ALL, $locale);
@@ -910,7 +910,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectWhereOr();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertEquals(1, $result[0]['product_id']);
         $this->assertEquals(2, $result[1]['product_id']);
     }
@@ -935,7 +935,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectWhereOrWithParameter();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertEquals(1, $result[0]['product_id']);
         $this->assertEquals(2, $result[1]['product_id']);
     }
@@ -959,9 +959,9 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectGroupBy();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(
+        $this->assertCount(
             3,
-            count($result),
+            $result,
             'Expected count of first result set to be 2'
         );
         $this->assertEquals(1, $result[0]['bug_id']);
@@ -994,9 +994,9 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectGroupByQualified();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(
+        $this->assertCount(
             3,
-            count($result),
+            $result,
             'Expected count of first result set to be 2'
         );
         $this->assertEquals(1, $result[0]['bug_id']);
@@ -1030,9 +1030,9 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectGroupByExpr();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(
+        $this->assertCount(
             3,
-            count($result),
+            $result,
             'Expected count of first result set to be 2'
         );
         $this->assertEquals(
@@ -1082,7 +1082,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectGroupByAutoExpr();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result), 'Expected count of first result set to be 2');
+        $this->assertCount(3, $result, 'Expected count of first result set to be 2');
         $this->assertEquals(1, $result[0]['bug_id']);
         $this->assertEquals(3, $result[0]['thecount'], 'Expected count(*) of first result set to be 2');
         $this->assertEquals(2, $result[1]['bug_id']);
@@ -1107,7 +1107,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectHaving();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertEquals(1, $result[0]['bug_id']);
         $this->assertEquals(3, $result[0]['thecount']);
     }
@@ -1128,7 +1128,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectHavingAnd();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(0, count($result));
+        $this->assertCount(0, $result);
     }
 
     /**
@@ -1151,7 +1151,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectHavingWithParameter();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertEquals(1, $result[0]['bug_id']);
         $this->assertEquals(3, $result[0]['thecount']);
     }
@@ -1176,7 +1176,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectHavingOr();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result));
+        $this->assertCount(3, $result);
         $this->assertEquals(1, $result[0]['bug_id']);
         $this->assertEquals(3, $result[0]['thecount']);
         $this->assertEquals(2, $result[1]['bug_id']);
@@ -1203,7 +1203,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectHavingOrWithParameter();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result));
+        $this->assertCount(3, $result);
         $this->assertEquals(1, $result[0]['bug_id']);
         $this->assertEquals(3, $result[0]['thecount']);
         $this->assertEquals(2, $result[1]['bug_id']);
@@ -1242,9 +1242,9 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectOrderByArray();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(
+        $this->assertCount(
             3,
-            count($result),
+            $result,
             'Expected count of result set to be 3'
         );
         $this->assertEquals('Linux', $result[0]['product_name']);
@@ -1264,9 +1264,9 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectOrderByAsc();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(
+        $this->assertCount(
             3,
-            count($result),
+            $result,
             'Expected count of result set to be 2'
         );
         $this->assertEquals(1, $result[0]['product_id']);
@@ -1365,9 +1365,9 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectOrderByDesc();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(
+        $this->assertCount(
             3,
-            count($result),
+            $result,
             'Expected count of result set to be 2'
         );
         $this->assertEquals(3, $result[0]['product_id']);
@@ -1490,7 +1490,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectLimit();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result));
+        $this->assertCount(1, $result);
         $this->assertEquals(1, $result[0]['product_id']);
         $this->_checkExtraField($result[0]);
     }
@@ -1509,7 +1509,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
             ->limit(1);
 
         $result = $this->_db->fetchCol($select);
-        $this->assertEquals(1, count($result));
+        $this->assertCount(1, $result);
         $this->assertEquals('OS X', $result[0]);
         $this->_checkExtraField($result);
     }
@@ -1531,7 +1531,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectLimitNone();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result));
+        $this->assertCount(3, $result);
         $this->_checkExtraField($result[0]);
     }
 
@@ -1552,7 +1552,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectLimitOffset();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result));
+        $this->assertCount(1, $result);
         $this->assertEquals(2, $result[0]['product_id']);
         $this->_checkExtraField($result[0]);
     }
@@ -1577,7 +1577,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectLimitPageOne();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result));
+        $this->assertCount(1, $result);
         $this->assertEquals(1, $result[0]['product_id']);
         $this->_checkExtraField($result[0]);
     }
@@ -1599,7 +1599,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectLimitPageTwo();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(1, count($result));
+        $this->assertCount(1, $result);
         $this->assertEquals(2, $result[0]['product_id']);
         $this->_checkExtraField($result[0]);
     }
@@ -1651,7 +1651,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $select = $this->_selectUnionString();
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(7, count($result));
+        $this->assertCount(7, $result);
         $this->assertEquals(1, $result[0]['id']);
     }
 

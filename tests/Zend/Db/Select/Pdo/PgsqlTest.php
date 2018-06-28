@@ -76,7 +76,7 @@ class Zend_Db_Select_Pdo_PgsqlTest extends Zend_Db_Select_TestCommon
 
         $rowset = $this->_db->fetchAll($sql);
 
-        $this->assertEquals(4, count($rowset));
+        $this->assertCount(4, $rowset);
     }
 
     /**
@@ -97,7 +97,7 @@ class Zend_Db_Select_Pdo_PgsqlTest extends Zend_Db_Select_TestCommon
 
         $rowset = $this->_db->fetchAll($sql);
 
-        $this->assertEquals(4, count($rowset));
+        $this->assertCount(4, $rowset);
     }
 
     /**
@@ -118,7 +118,7 @@ class Zend_Db_Select_Pdo_PgsqlTest extends Zend_Db_Select_TestCommon
 
         $rowset = $this->_db->fetchAll($sql);
 
-        $this->assertEquals(4, count($rowset));
+        $this->assertCount(4, $rowset);
     }
 
     public function testSqlInjectionWithOrder()

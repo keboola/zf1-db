@@ -126,7 +126,7 @@ class Zend_Db_Statement_SqlsrvTest extends Zend_Db_Statement_TestCommon
 
         $result2 = $stmt->fetchAll();
 
-        $this->assertEquals(4, count($result2), 'Expected 3 results from original data and one 1 row');
+        $this->assertCount(4, $result2, 'Expected 3 results from original data and one 1 row');
         $this->assertEquals('Product', $result2[3]['product_name']);
 
         $stmt->closeCursor();
@@ -154,7 +154,7 @@ class Zend_Db_Statement_SqlsrvTest extends Zend_Db_Statement_TestCommon
 
         $result1 = $stmt->fetchAll();
 
-        $this->assertEquals(3, count($result1), 'Expected 3 results from original data');
+        $this->assertCount(3, $result1, 'Expected 3 results from original data');
 
         $stmt->closeCursor();
     }
@@ -179,7 +179,7 @@ class Zend_Db_Statement_SqlsrvTest extends Zend_Db_Statement_TestCommon
         $this->assertEquals(-11, $stmt->errorCode());
 
         $errors = $stmt->errorInfo();
-        $this->assertEquals(2, count($errors));
+        $this->assertCount(2, $errors);
         $this->assertEquals($stmt->errorCode(), $errors[0]);
         $this->assertInternalType('string', $errors[1]);
     }

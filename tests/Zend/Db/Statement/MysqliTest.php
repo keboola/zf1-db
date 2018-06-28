@@ -296,7 +296,7 @@ INPUT;
         }
         $result = $stmt->fetch();
         $this->assertInternalType('array', $result);
-        $this->assertEquals(5, count($result));
+        $this->assertCount(5, $result);
         $this->assertEquals(1, $result['object_id']);
         $this->assertEquals(1, $result['object_type']);
         $this->assertEquals(1, $result['object_status']);

@@ -233,8 +233,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $stmt->setFetchMode(Zend_Db::FETCH_ASSOC);
         $result = $stmt->fetchAll();
 
-        $this->assertEquals(2, count($result));
-        $this->assertEquals(2, count($result[0]));
+        $this->assertCount(2, $result);
+        $this->assertCount(2, $result[0]);
 
         // check for FETCH_ASSOC entries
         $this->assertEquals(2, $result[0]['product_id']);
@@ -257,8 +257,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $stmt->setFetchMode(Zend_Db::FETCH_NUM);
         $result = $stmt->fetchAll();
 
-        $this->assertEquals(2, count($result));
-        $this->assertEquals(2, count($result[0]));
+        $this->assertCount(2, $result);
+        $this->assertCount(2, $result[0]);
 
         // check for FETCH_ASSOC entries
         $this->assertFalse(isset($result[0]['product_id']));
@@ -281,8 +281,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $stmt->setFetchMode(Zend_Db::FETCH_BOTH);
         $result = $stmt->fetchAll();
 
-        $this->assertEquals(2, count($result));
-        $this->assertEquals(4, count($result[0]));
+        $this->assertCount(2, $result);
+        $this->assertCount(4, $result[0]);
 
         // check for FETCH_ASSOC entries
         $this->assertEquals(2, $result[0]['product_id']);
@@ -305,7 +305,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $stmt->setFetchMode(Zend_Db::FETCH_OBJ);
         $result = $stmt->fetchAll();
 
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertTrue($result[0] instanceof stdClass);
 
         // check for FETCH_OBJ entries
@@ -340,8 +340,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchAll();
 
-        $this->assertEquals(2, count($result));
-        $this->assertEquals(2, count($result[0]));
+        $this->assertCount(2, $result);
+        $this->assertCount(2, $result[0]);
         $this->assertEquals(2, $result[0]['product_id']);
         $this->assertFalse(isset($result[0][0]));
     }
@@ -354,8 +354,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
 
-        $this->assertEquals(2, count($result));
-        $this->assertEquals(2, count($result[0]));
+        $this->assertCount(2, $result);
+        $this->assertCount(2, $result[0]);
         $this->assertEquals(2, $result[0][0]);
         $this->assertEquals('Linux', $result[0][1]);
         $this->assertFalse(isset($result[0]['product_id']));
@@ -369,8 +369,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
 
-        $this->assertEquals(2, count($result));
-        $this->assertEquals(2, count($result[0]));
+        $this->assertCount(2, $result);
+        $this->assertCount(2, $result[0]);
         $this->assertEquals(2, $result[0]['product_id']);
         $this->assertFalse(isset($result[0][0]));
     }
@@ -383,8 +383,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchAll(Zend_Db::FETCH_BOTH);
 
-        $this->assertEquals(2, count($result));
-        $this->assertEquals(4, count($result[0]));
+        $this->assertCount(2, $result);
+        $this->assertCount(4, $result[0]);
         $this->assertEquals(2, $result[0][0]);
         $this->assertEquals('Linux', $result[0][1]);
         $this->assertEquals(2, $result[0]['product_id']);
@@ -399,7 +399,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchAll(Zend_Db::FETCH_OBJ);
 
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertTrue($result[0] instanceof stdClass);
         $this->assertEquals(2, $result[0]->product_id);
     }
@@ -412,7 +412,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchAll(Zend_Db::FETCH_COLUMN);
 
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertEquals(2, $result[0]);
         $this->assertEquals(3, $result[1]);
     }
@@ -425,7 +425,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $stmt   = $this->_db->query("SELECT * FROM $products WHERE $product_id > 1 ORDER BY $product_id ASC");
         $result = $stmt->fetchAll(Zend_Db::FETCH_COLUMN, 1);
 
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertInternalType('string', $result[0]);
         $this->assertEquals('Linux', $result[0]);
         $this->assertEquals('OS X', $result[1]);

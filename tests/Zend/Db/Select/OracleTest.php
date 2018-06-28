@@ -69,7 +69,7 @@ class Zend_Db_Select_OracleTest extends Zend_Db_Select_TestCommon
         $select->order('product_id');
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertEquals(1, $result[0]['product_id']);
         $this->assertEquals(2, $result[1]['product_id']);
     }
@@ -83,7 +83,7 @@ class Zend_Db_Select_OracleTest extends Zend_Db_Select_TestCommon
         $select->order('product_id');
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertEquals(1, $result[0]['product_id']);
         $this->assertEquals(2, $result[1]['product_id']);
     }

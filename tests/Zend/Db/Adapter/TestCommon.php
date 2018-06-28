@@ -93,7 +93,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $select->from('zfproducts');
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result), 'Expected 3 rows in first query result');
+        $this->assertCount(3, $result, 'Expected 3 rows in first query result');
 
         $this->assertEquals(1, $result[0]['product_id']);
 
@@ -244,7 +244,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $select = $this->_db->select()->from('zfproducts')->order('product_id ASC');
         $result = $this->_db->fetchAll($select);
 
-        $this->assertEquals(3, count($result), 'Expected count of result to be 2');
+        $this->assertCount(3, $result, 'Expected count of result to be 2');
         $this->assertEquals(1, $result[0]['product_id'], 'Expecting product_id of 0th row to be 1');
 
         $rowsAffected = $this->_db->delete('zfproducts', "$product_id = 2");
@@ -253,7 +253,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $select = $this->_db->select()->from('zfproducts')->order('product_id ASC');
         $result = $this->_db->fetchAll($select);
 
-        $this->assertEquals(2, count($result), 'Expected count of result to be 2');
+        $this->assertCount(2, $result, 'Expected count of result to be 2');
         $this->assertEquals(1, $result[0]['product_id'], 'Expecting product_id of 0th row to be 1');
 
         $rowsAffected = $this->_db->delete('zfproducts', "$product_id = 327");
@@ -429,7 +429,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
     public function testAdapterDescribeView()
     {
         $describe = $this->_db->describeTable('temp_view');
-        $this->assertEquals(8, count($describe));
+        $this->assertCount(8, $describe);
     }
 
     /**
@@ -441,7 +441,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $result = $this->_db->fetchAll("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id ASC", 1);
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertEquals('2', $result[0]['product_id']);
     }
 
@@ -459,22 +459,22 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
         // Test associative array
         $result = $this->_db->fetchAll("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id ASC", 1, Zend_Db::FETCH_ASSOC);
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertInternalType('array', $result[0]);
-        $this->assertEquals(2, count($result[0])); // count columns
+        $this->assertCount(2, $result[0]); // count columns
         $this->assertEquals(2, $result[0][$col_name]);
 
         // Test numeric and associative array
         $result = $this->_db->fetchAll("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id ASC", 1, Zend_Db::FETCH_BOTH);
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertInternalType('array', $result[0]);
-        $this->assertEquals(4, count($result[0])); // count columns
+        $this->assertCount(4, $result[0]); // count columns
         $this->assertEquals(2, $result[0][$col_name]);
         $this->assertEquals(2, $result[0][0]);
 
         // Ensure original fetch mode has been retained
         $result = $this->_db->fetchAll("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id", 1);
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertInternalType('object', $result[0]);
         $this->assertEquals(2, $result[0]->$col_name);
     }
@@ -518,7 +518,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
         $result = $this->_db->fetchCol("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id ASC", 1);
         $this->assertInternalType('array', $result);
-        $this->assertEquals(2, count($result)); // count rows
+        $this->assertCount(2, $result); // count rows
         $this->assertEquals(2, $result[0]);
         $this->assertEquals(3, $result[1]);
     }
@@ -535,7 +535,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $this->_db->setFetchMode(Zend_Db::FETCH_OBJ);
         $result = $this->_db->fetchCol("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id ASC", 1);
         $this->assertInternalType('array', $result);
-        $this->assertEquals(2, count($result)); // count rows
+        $this->assertCount(2, $result); // count rows
         $this->assertEquals(2, $result[0]);
         $this->assertEquals(3, $result[1]);
     }
@@ -582,7 +582,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
         $prod   = 'Linux';
         $result = $this->_db->fetchPairs("SELECT $product_id, $product_name FROM $products WHERE $product_id > ? ORDER BY $product_id ASC", 1);
-        $this->assertEquals(2, count($result)); // count rows
+        $this->assertCount(2, $result); // count rows
         $this->assertEquals($prod, $result[2]);
     }
 
@@ -599,7 +599,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $prod   = 'Linux';
         $result = $this->_db->fetchPairs("SELECT $product_id, $product_name FROM $products WHERE $product_id > ? ORDER BY $product_id ASC", 1);
         $this->assertInternalType('array', $result);
-        $this->assertEquals(2, count($result)); // count rows
+        $this->assertCount(2, $result); // count rows
         $this->assertEquals($prod, $result[2]);
     }
 
@@ -612,7 +612,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $result = $this->_db->fetchRow("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id", 1);
-        $this->assertEquals(2, count($result)); // count columns
+        $this->assertCount(2, $result); // count columns
         $this->assertEquals(2, $result['product_id']);
     }
 
@@ -631,13 +631,13 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         // Test associative array
         $result = $this->_db->fetchRow("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id", 1, Zend_Db::FETCH_ASSOC);
         $this->assertInternalType('array', $result);
-        $this->assertEquals(2, count($result)); // count columns
+        $this->assertCount(2, $result); // count columns
         $this->assertEquals(2, $result['product_id']);
 
         // Test numeric and associative array
         $result = $this->_db->fetchRow("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id", 1, Zend_Db::FETCH_BOTH);
         $this->assertInternalType('array', $result);
-        $this->assertEquals(4, count($result)); // count columns
+        $this->assertCount(4, $result); // count columns
         $this->assertEquals(2, $result['product_id']);
         $this->assertEquals(2, $result[0]);
 
@@ -726,14 +726,14 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
         $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($result),
+            $result,
             'Expecting row count to be 1'
         );
-        $this->assertEquals(
+        $this->assertCount(
             2,
-            count($result[0]),
+            $result[0],
             'Expecting column count to be 2'
         );
         $this->assertEquals(
@@ -760,14 +760,14 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
         $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($result),
+            $result,
             'Expecting row count to be 1'
         );
-        $this->assertEquals(
+        $this->assertCount(
             2,
-            count($result[0]),
+            $result[0],
             'Expecting column count to be 2'
         );
         $this->assertEquals(
@@ -1659,7 +1659,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $bug_status  = $this->_db->quoteIdentifier('bug_status');
         $sql         = "SELECT $bug_id FROM $bugs WHERE $bug_status != " . $valueQuoted;
         $results     = $this->_db->fetchAll($sql);
-        $this->assertEquals(4, count($results));
+        $this->assertCount(4, $results);
     }
 
     public function testAdapterSetFetchMode()

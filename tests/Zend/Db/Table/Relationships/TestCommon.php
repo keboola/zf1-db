@@ -494,9 +494,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
                 ->current();
         $bug_id = $this->_db->foldCase('bug_id');
 
-        $this->assertEquals(
+        $this->assertCount(
             3,
-            count($bugProducts = $bug->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom')),
+            $bugProducts = $bug->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom'),
             'Expecting to find three dependent rows'
             );
 
@@ -504,9 +504,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
 
         $bug->save();
 
-        $this->assertEquals(
+        $this->assertCount(
             3,
-            count($bugProducts = $bug->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom')),
+            $bugProducts = $bug->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom'),
             'Expecting to find three dependent rows'
             );
 
@@ -518,9 +518,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
 
         $bug->save();
 
-        $this->assertEquals(
+        $this->assertCount(
             3,
-            count($bugProducts = $bug->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom')),
+            $bugProducts = $bug->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom'),
             'Expecting to find three dependent rows'
             );
 
@@ -542,9 +542,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
         $account_name = $this->_db->foldCase('account_name');
         $reported_by  = $this->_db->foldCase('reported_by');
 
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($account1->findDependentRowset('My_ZendDbTable_TableBugsCustom')),
+            $account1->findDependentRowset('My_ZendDbTable_TableBugsCustom'),
             'Expecting to find one dependent row'
             );
 
@@ -552,9 +552,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
 
         $account1->save();
 
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($account1Bugs = $account1->findDependentRowset('My_ZendDbTable_TableBugsCustom')),
+            $account1Bugs = $account1->findDependentRowset('My_ZendDbTable_TableBugsCustom'),
             'Expecting to find one dependent row'
             );
 
@@ -566,9 +566,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
 
         $account1->save();
 
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($account1Bugs = $account1->findDependentRowset('My_ZendDbTable_TableBugsCustom')),
+            $account1Bugs = $account1->findDependentRowset('My_ZendDbTable_TableBugsCustom'),
             'Expecting to find one dependent row'
             );
 
@@ -588,9 +588,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
                     ->find(1)
                     ->current();
 
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($product1->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom')),
+            $product1->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom'),
             'Expecting to find one dependent row'
             );
 
@@ -599,9 +599,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
 
         $product1->save();
 
-        $this->assertEquals(
+        $this->assertCount(
             0,
-            count($product1BugsProducts = $product1->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom')),
+            $product1BugsProducts = $product1->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom'),
             'Expecting to find one dependent row'
             );
 
@@ -609,9 +609,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
 
         $product1->save();
 
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($product1BugsProducts = $product1->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom')),
+            $product1BugsProducts = $product1->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom'),
             'Expecting to find one dependent row'
             );
 
@@ -631,9 +631,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
                 ->find(1)
                 ->current();
 
-        $this->assertEquals(
+        $this->assertCount(
             3,
-            count($bug1->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom')),
+            $bug1->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom'),
             'Expecting to find three dependent rows'
             );
 
@@ -641,9 +641,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
 
         $bug_id = $this->_db->quoteIdentifier('bug_id', true);
 
-        $this->assertEquals(
+        $this->assertCount(
             0,
-            count($this->_getTable('My_ZendDbTable_TableBugsProductsCustom')->fetchAll("$bug_id = 1")),
+            $this->_getTable('My_ZendDbTable_TableBugsProductsCustom')->fetchAll("$bug_id = 1"),
             'Expecting cascading delete to have reduced dependent rows to zero'
             );
     }
@@ -661,9 +661,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
                     ->find('mmouse')
                     ->current();
 
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($account1->findDependentRowset('My_ZendDbTable_TableBugsCustom')),
+            $account1->findDependentRowset('My_ZendDbTable_TableBugsCustom'),
             'Expecting to find one dependent row'
             );
 
@@ -671,14 +671,13 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
 
         $tableBugsCustom = $this->_getTable('My_ZendDbTable_TableBugsCustom');
 
-        $this->assertEquals(
+        $this->assertCount(
             0,
-            count(
+            
                 $tableBugsCustom->fetchAll(
                     $tableBugsCustom->getAdapter()
                                     ->quoteInto("$reported_by = ?", 'mmouse')
-                    )
-                ),
+                    ),
             'Expecting cascading delete to have reduced dependent rows to zero'
             );
     }
@@ -694,9 +693,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
                     ->find(1)
                     ->current();
 
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($product1->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom')),
+            $product1->findDependentRowset('My_ZendDbTable_TableBugsProductsCustom'),
             'Expecting to find one dependent row'
             );
 
@@ -704,9 +703,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
 
         $product_id = $this->_db->quoteIdentifier('product_id', true);
 
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($this->_getTable('My_ZendDbTable_TableBugsProductsCustom')->fetchAll("$product_id = 1")),
+            $this->_getTable('My_ZendDbTable_TableBugsProductsCustom')->fetchAll("$product_id = 1"),
             'Expecting to find one dependent row'
             );
     }
@@ -840,7 +839,7 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
             "Expecting object of type $myRowsetClass, got " . get_class($bugs)
         );
 
-        $this->assertEquals(3, count($bugs));
+        $this->assertCount(3, $bugs);
 
         foreach ($bugs as $bug) {
             $this->assertTrue(
@@ -876,7 +875,7 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
             "Expecting object of type $myRowsetClass, got " . get_class($bugs)
         );
 
-        $this->assertEquals(3, count($bugs));
+        $this->assertCount(3, $bugs);
 
         foreach ($bugs as $bug) {
             $this->assertTrue(
@@ -916,7 +915,7 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
             "Expecting object of type $myRowsetClass, got " . get_class($bug1Products)
         );
 
-        $this->assertEquals(3, count($bug1Products));
+        $this->assertCount(3, $bug1Products);
 
         foreach ($bug1Products as $bug1Product) {
             $this->assertTrue(
@@ -954,7 +953,7 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
             "Expecting object of type $myRowsetClass, got " . get_class($bug1Products)
         );
 
-        $this->assertEquals(3, count($bug1Products));
+        $this->assertCount(3, $bug1Products);
 
         foreach ($bug1Products as $bug1Product) {
             $this->assertTrue(
@@ -1223,7 +1222,7 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
 
         $this->assertEquals('Windows', $productRow->product_name);
 
-        $this->assertEquals(1, count($productRow->findDependentRowset('BugsProducts', 'Product')));
+        $this->assertCount(1, $productRow->findDependentRowset('BugsProducts', 'Product'));
 
         $bugsProductRow = $productRow->findDependentRowset('BugsProducts', 'Product')->current();
         $this->assertEquals(1, $bugsProductRow->product_id);

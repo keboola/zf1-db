@@ -220,12 +220,12 @@ abstract class Zend_Db_Table_Select_TestCommon extends Zend_Db_Select_TestCommon
     {
         $table   = $this->_getSelectTable('accounts');
         $select1 = $table->select();
-        $this->assertEquals(0, count($select1->getPart(Zend_Db_Table_Select::FROM)));
-        $this->assertEquals(0, count($select1->getPart(Zend_Db_Table_Select::COLUMNS)));
+        $this->assertCount(0, $select1->getPart(Zend_Db_Table_Select::FROM));
+        $this->assertCount(0, $select1->getPart(Zend_Db_Table_Select::COLUMNS));
 
         $select2 = $table->select(true);
-        $this->assertEquals(1, count($select2->getPart(Zend_Db_Table_Select::FROM)));
-        $this->assertEquals(1, count($select2->getPart(Zend_Db_Table_Select::COLUMNS)));
+        $this->assertCount(1, $select2->getPart(Zend_Db_Table_Select::FROM));
+        $this->assertCount(1, $select2->getPart(Zend_Db_Table_Select::COLUMNS));
 
         $this->assertEquals($select1->__toString(), $select2->__toString());
 

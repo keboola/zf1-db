@@ -61,12 +61,12 @@ class Zend_Db_Statement_Pdo_MysqlTest extends Zend_Db_Statement_Pdo_TestCommon
     {
         $sql     = "SELECT bug_id FROM zfbugs WHERE bug_status != ':0'";
         $results = $this->_db->fetchAll($sql);
-        $this->assertEquals(4, count($results));
+        $this->assertCount(4, $results);
 
         $select = $this->_db->select()->from('zfbugs', 'bug_id')
                                       ->where('bug_status != ?', ':0');
         $results = $this->_db->fetchAll($select);
-        $this->assertEquals(4, count($results));
+        $this->assertCount(4, $results);
     }
 
     /**

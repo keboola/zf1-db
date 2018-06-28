@@ -67,7 +67,7 @@ class Zend_Db_Adapter_Pdo_IbmTest extends Zend_Db_Adapter_Db2Test
         $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
 
-        $this->assertEquals(0, count($result), 'Expecting to see 0 rows returned');
+        $this->assertCount(0, $result, 'Expecting to see 0 rows returned');
 
         try {
             $sql = $this->_db->limit("SELECT * FROM $products", 1, -1);

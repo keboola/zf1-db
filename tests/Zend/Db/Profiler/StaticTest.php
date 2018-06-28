@@ -613,7 +613,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
 
         $this->_db->query('sqlTimeShort3');
 
-        $this->assertEquals(1, count($queryProfiles = $prof->getQueryProfiles()));
+        $this->assertCount(1, $queryProfiles = $prof->getQueryProfiles());
 
         $this->assertTrue(isset($queryProfiles[2]));
 
@@ -639,7 +639,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
         $this->_db->query('UPDATE');
         $this->_db->query('DELETE');
 
-        $this->assertEquals(2, count($prof->getQueryProfiles()));
+        $this->assertCount(2, $prof->getQueryProfiles());
     }
 
     /**
@@ -697,7 +697,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
 
         foreach ($queries as $queryId => $query) {
             $queryProfiles = $prof->getQueryProfiles(constant("Zend_Db_Profiler::$query"));
-            $this->assertEquals(1, count($queryProfiles));
+            $this->assertCount(1, $queryProfiles);
             $this->assertTrue(isset($queryProfiles[$queryId]));
             $this->assertEquals($query, $queryProfiles[$queryId]->getQuery());
         }

@@ -64,9 +64,9 @@ class Zend_Db_Select_Pdo_SqliteTest extends Zend_Db_Select_TestCommon
         $bugs_products = $this->_db->quoteIdentifier('zfbugs_products');
         $bug_id        = $this->_db->quoteIdentifier('bug_id');
         $key           = "$bugs_products.$bug_id";
-        $this->assertEquals(
+        $this->assertCount(
             3,
-            count($result),
+            $result,
             'Expected count of first result set to be 2'
         );
         $this->assertEquals(1, $result[0][$key]);
@@ -91,9 +91,9 @@ class Zend_Db_Select_Pdo_SqliteTest extends Zend_Db_Select_TestCommon
         $bugs_products = $this->_db->quoteIdentifier('zfbugs_products');
         $bug_id        = $this->_db->quoteIdentifier('bug_id');
         $key           = "$bugs_products.$bug_id";
-        $this->assertEquals(
+        $this->assertCount(
             3,
-            count($result),
+            $result,
             'Expected count of first result set to be 2'
         );
         $this->assertEquals(1, $result[0][$key]);
@@ -118,7 +118,7 @@ class Zend_Db_Select_Pdo_SqliteTest extends Zend_Db_Select_TestCommon
         $bugs_products = $this->_db->quoteIdentifier('zfbugs_products');
         $bug_id        = $this->_db->quoteIdentifier('bug_id');
         $key           = "$bugs_products.$bug_id";
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertEquals(1, $result[0][$key]);
         $this->assertEquals(3, $result[0]['thecount']);
     }
@@ -135,7 +135,7 @@ class Zend_Db_Select_Pdo_SqliteTest extends Zend_Db_Select_TestCommon
         $bugs_products = $this->_db->quoteIdentifier('zfbugs_products');
         $bug_id        = $this->_db->quoteIdentifier('bug_id');
         $key           = "$bugs_products.$bug_id";
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertEquals(1, $result[0][$key]);
         $this->assertEquals(3, $result[0]['thecount']);
     }
@@ -152,7 +152,7 @@ class Zend_Db_Select_Pdo_SqliteTest extends Zend_Db_Select_TestCommon
         $bugs_products = $this->_db->quoteIdentifier('zfbugs_products');
         $bug_id        = $this->_db->quoteIdentifier('bug_id');
         $key           = "$bugs_products.$bug_id";
-        $this->assertEquals(3, count($result));
+        $this->assertCount(3, $result);
         $this->assertEquals(1, $result[0][$key]);
         $this->assertEquals(3, $result[0]['thecount']);
         $this->assertEquals(2, $result[1][$key]);
@@ -171,7 +171,7 @@ class Zend_Db_Select_Pdo_SqliteTest extends Zend_Db_Select_TestCommon
         $bugs_products = $this->_db->quoteIdentifier('zfbugs_products');
         $bug_id        = $this->_db->quoteIdentifier('bug_id');
         $key           = "$bugs_products.$bug_id";
-        $this->assertEquals(3, count($result));
+        $this->assertCount(3, $result);
         $this->assertEquals(1, $result[0][$key]);
         $this->assertEquals(3, $result[0]['thecount']);
         $this->assertEquals(2, $result[1][$key]);

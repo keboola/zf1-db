@@ -66,7 +66,7 @@ class Zend_Db_Adapter_Pdo_MssqlTest extends Zend_Db_Adapter_Pdo_TestCommon
         $select->from('zfproducts');
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result), 'Expected 3 rows in first query result');
+        $this->assertCount(3, $result, 'Expected 3 rows in first query result');
 
         $this->assertEquals(1, $result[0]['product_id']);
     }

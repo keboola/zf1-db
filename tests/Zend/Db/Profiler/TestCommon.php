@@ -65,7 +65,7 @@ abstract class Zend_Db_Profiler_TestCommon extends Zend_Db_TestSetup
         // analyze query profiles
         $profiles = $this->_db->getProfiler()->getQueryProfiles();
         $this->assertInternalType('array', $profiles);
-        $this->assertEquals(1, count($profiles), 'Expected to find 1 profile');
+        $this->assertCount(1, $profiles, 'Expected to find 1 profile');
         $qp = $profiles[0];
         $this->assertTrue($qp instanceof Zend_Db_Profiler_Query);
 
@@ -78,7 +78,7 @@ abstract class Zend_Db_Profiler_TestCommon extends Zend_Db_TestSetup
         // analyze query profiles
         $profiles = $this->_db->getProfiler()->getQueryProfiles();
         $this->assertInternalType('array', $profiles);
-        $this->assertEquals(2, count($profiles), 'Expected to find 2 profiles');
+        $this->assertCount(2, $profiles, 'Expected to find 2 profiles');
         $qp = $profiles[1];
         $this->assertTrue($qp instanceof Zend_Db_Profiler_Query);
 
@@ -106,7 +106,7 @@ abstract class Zend_Db_Profiler_TestCommon extends Zend_Db_TestSetup
         // analyze query profiles
         $profiles = $this->_db->getProfiler()->getQueryProfiles();
         $this->assertInternalType('array', $profiles);
-        $this->assertEquals(1, count($profiles), 'Expected to find 1 profile');
+        $this->assertCount(1, $profiles, 'Expected to find 1 profile');
         $qp = $profiles[0];
         $this->assertTrue($qp instanceof Zend_Db_Profiler_Query);
 
@@ -126,7 +126,7 @@ abstract class Zend_Db_Profiler_TestCommon extends Zend_Db_TestSetup
         // analyze query profiles
         $profiles = $this->_db->getProfiler()->getQueryProfiles();
         $this->assertInternalType('array', $profiles);
-        $this->assertEquals(2, count($profiles), 'Expected to find 2 profiles');
+        $this->assertCount(2, $profiles, 'Expected to find 2 profiles');
         $qp = $profiles[1];
         $this->assertTrue($qp instanceof Zend_Db_Profiler_Query);
         $this->assertNotSame($profiles[0], $profiles[1]);
@@ -169,7 +169,7 @@ abstract class Zend_Db_Profiler_TestCommon extends Zend_Db_TestSetup
         // analyze query profiles
         $profiles = $this->_db->getProfiler()->getQueryProfiles();
         $this->assertInternalType('array', $profiles, 'Expected array, got ' . gettype($profiles));
-        $this->assertEquals(1, count($profiles), 'Expected to find 1 profile');
+        $this->assertCount(1, $profiles, 'Expected to find 1 profile');
         $qp = $profiles[0];
         $this->assertTrue($qp instanceof Zend_Db_Profiler_Query);
 
@@ -191,7 +191,7 @@ abstract class Zend_Db_Profiler_TestCommon extends Zend_Db_TestSetup
         // analyze query profiles
         $profiles = $this->_db->getProfiler()->getQueryProfiles();
         $this->assertInternalType('array', $profiles, 'Expected array, got ' . gettype($profiles));
-        $this->assertEquals(2, count($profiles), 'Expected to find 2 profiles');
+        $this->assertCount(2, $profiles, 'Expected to find 2 profiles');
         $qp = $profiles[1];
         $this->assertTrue($qp instanceof Zend_Db_Profiler_Query);
 

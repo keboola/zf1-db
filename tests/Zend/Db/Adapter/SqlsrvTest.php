@@ -64,7 +64,7 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
         $select->from('zfproducts');
         $stmt   = $this->_db->query($select);
         $result = $stmt->fetchAll();
-        $this->assertEquals(3, count($result), 'Expected 3 rows in first query result');
+        $this->assertCount(3, $result, 'Expected 3 rows in first query result');
 
         $this->assertEquals(1, $result[0]['product_id']);
     }
@@ -167,7 +167,7 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
     {
         $desc = $this->_db->describeTable('not_existing_table');
 
-        $this->assertEquals(0, count($desc), 'Expected to have empty result');
+        $this->assertCount(0, $desc, 'Expected to have empty result');
     }
 
     public function testAdapterDescribeTablePrimaryKeyColumn()
@@ -455,9 +455,9 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
 
         $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($result),
+            $result,
             'Expecting row count to be 1'
         );
         $this->assertEquals(
@@ -482,9 +482,9 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
 
         $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($result),
+            $result,
             'Expecting row count to be 1'
         );
         $this->assertEquals(
@@ -506,9 +506,9 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
 
         $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($result),
+            $result,
             'Expecting row count to be 1'
         );
     }
@@ -525,9 +525,9 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
 
         $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($result),
+            $result,
             'Expecting row count to be 1'
         );
         $this->assertEquals(
@@ -549,9 +549,9 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
 
         $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($result),
+            $result,
             'Expecting row count to be 1'
         );
         $this->assertEquals(
@@ -574,9 +574,9 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
 
         $stmt   = $this->_db->query($sql);
         $result = $stmt->fetchAll();
-        $this->assertEquals(
+        $this->assertCount(
             1,
-            count($result),
+            $result,
             'Expecting row count to be 1'
         );
         $this->assertEquals(

@@ -197,9 +197,9 @@ class Zend_Db_Table_Pdo_PgsqlTest extends Zend_Db_Table_TestCommon
             $this->isInstanceOf('Zend_Db_Table_Rowset')
             );
 
-        $this->assertEquals(
+        $this->assertCount(
             4,
-            count($rowset)
+            $rowset
             );
     }
 }
