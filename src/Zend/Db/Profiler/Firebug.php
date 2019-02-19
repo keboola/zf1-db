@@ -141,10 +141,10 @@ class Zend_Db_Profiler_Firebug extends Zend_Db_Profiler
             array('%label%',
                                                     '%totalCount%',
                                                     '%totalDuration%'),
-                                              array($this->_label,
+            array($this->_label,
                                                     $this->getTotalNumQueries(),
                                                     (string)round($this->_totalElapsedTime, 5)),
-                                              $this->_label_template
+            $this->_label_template
         ));
     }
 }

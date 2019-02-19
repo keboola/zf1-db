@@ -68,7 +68,7 @@ class Zend_Db_Profiler_FirebugTest extends PHPUnit\Framework\TestCase
         $this->_profiler = new Zend_Db_Profiler_Firebug();
         $this->_db       = Zend_Db::factory(
             'PDO_SQLITE',
-                               array('dbname'   => ':memory:',
+            array('dbname'                      => ':memory:',
                                      'profiler' => $this->_profiler)
         );
         $this->_db->getConnection()->exec('CREATE TABLE foo (
@@ -109,7 +109,7 @@ class Zend_Db_Profiler_FirebugTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(
             substr($messages[Zend_Wildfire_Plugin_FirePhp::STRUCTURE_URI_FIREBUGCONSOLE]
                                             [Zend_Wildfire_Plugin_FirePhp::PLUGIN_URI][0], 0, 55),
-                            '[{"Type":"TABLE","Label":"Zend_Db_Profiler_Firebug (1 @'
+            '[{"Type":"TABLE","Label":"Zend_Db_Profiler_Firebug (1 @'
         );
     }
 
@@ -146,7 +146,7 @@ class Zend_Db_Profiler_FirebugTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(
             substr($messages[Zend_Wildfire_Plugin_FirePhp::STRUCTURE_URI_FIREBUGCONSOLE]
                                             [Zend_Wildfire_Plugin_FirePhp::PLUGIN_URI][0], 0, 38),
-                            '[{"Type":"TABLE","Label":"Label 1 (1 @'
+            '[{"Type":"TABLE","Label":"Label 1 (1 @'
         );
     }
 

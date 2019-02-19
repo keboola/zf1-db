@@ -1538,14 +1538,14 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
     public function testAdapterQuoteTypeFloat()
     {
         foreach ($this->_numericDataTypes as $typeName => $type) {
-            if ($type != 2) {
+            if ($type != Zend_Db::FLOAT_TYPE) {
                 continue;
             }
 
             $value = $this->_db->quote(12.34, $typeName);
             $this->assertInternalType('string', $value);
             $this->assertEquals(
-                '12.34',
+                '12.340000',
                 $value,
                 'Incorrect quote() FLOAT_TYPE result'
             );
@@ -1553,7 +1553,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
             $value = $this->_db->quote('12.34', $typeName);
             $this->assertInternalType('string', $value);
             $this->assertEquals(
-                '12.34',
+                '12.340000',
                 $value,
                 'Incorrect quote() FLOAT_TYPE result'
             );
@@ -1561,7 +1561,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
             $value = $this->_db->quote('+12.34', $typeName);
             $this->assertInternalType('string', $value);
             $this->assertEquals(
-                '12.34',
+                '12.340000',
                 $value,
                 'Incorrect quote() FLOAT_TYPE result'
             );
@@ -1569,7 +1569,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
             $value = $this->_db->quote('-12.34', $typeName);
             $this->assertInternalType('string', $value);
             $this->assertEquals(
-                '-12.34',
+                '-12.340000',
                 $value,
                 'Incorrect quote() FLOAT_TYPE result'
             );
@@ -1577,7 +1577,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
             $value = $this->_db->quote('12.34abcd', $typeName);
             $this->assertInternalType('string', $value);
             $this->assertEquals(
-                '12.34',
+                '12.340000',
                 $value,
                 'Incorrect quote() FLOAT_TYPE result'
             );
@@ -1585,7 +1585,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
             $value = $this->_db->quote('abcd', $typeName);
             $this->assertInternalType('string', $value);
             $this->assertEquals(
-                '0',
+                '0.000000',
                 $value,
                 'Incorrect quote() FLOAT_TYPE result'
             );
@@ -1973,8 +1973,8 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         //try to update
         $this->_db->update(
             $tableName,
-                           array('veryveryveryverylongidentifier' => 3),
-                           array($this->_db->quoteIdentifier('id') . ' = 1')
+            array('veryveryveryverylongidentifier' => 3),
+            array($this->_db->quoteIdentifier('id') . ' = 1')
         );
 
         // check if the row was inserted as expected

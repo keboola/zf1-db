@@ -233,7 +233,7 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
         $destRows = $originRow1->findManyToManyRowset(
             'My_ZendDbTable_TableProducts',
             'My_ZendDbTable_TableBugsProducts',
-                                                      null,
+            null,
             null,
             $select
         );
@@ -673,9 +673,8 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
 
         $this->assertCount(
             0,
-            
-                $tableBugsCustom->fetchAll(
-                    $tableBugsCustom->getAdapter()
+            $tableBugsCustom->fetchAll(
+                $tableBugsCustom->getAdapter()
                                     ->quoteInto("$reported_by = ?", 'mmouse')
                     ),
             'Expecting cascading delete to have reduced dependent rows to zero'

@@ -341,7 +341,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         } catch (Zend_Exception $e) {
             $this->assertTrue(
                 $e instanceof Zend_Db_Select_Exception,
-                              'Expected exception of type "Zend_Db_Select_Exception", got ' . get_class($e)
+                'Expected exception of type "Zend_Db_Select_Exception", got ' . get_class($e)
             );
             $this->assertEquals('No table has been specified for the FROM clause', $e->getMessage());
         }
@@ -636,7 +636,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         } catch (Zend_Exception $e) {
             $this->assertTrue(
                 $e instanceof Zend_Db_Select_Exception,
-                              'Expected exception of type "Zend_Db_Select_Exception", got ' . get_class($e)
+                'Expected exception of type "Zend_Db_Select_Exception", got ' . get_class($e)
             );
             $this->assertEquals("Unrecognized method 'foo()'", $e->getMessage());
         }
@@ -684,7 +684,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         } catch (Zend_Exception $e) {
             $this->assertTrue(
                 $e instanceof Zend_Db_Select_Exception,
-                              'Expected exception of type "Zend_Db_Select_Exception", got ' . get_class($e)
+                'Expected exception of type "Zend_Db_Select_Exception", got ' . get_class($e)
             );
             $this->assertEquals("Unrecognized method 'joinFooUsing()'", $e->getMessage());
         }
@@ -712,7 +712,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         } catch (Zend_Exception $e) {
             $this->assertTrue(
                 $e instanceof Zend_Db_Select_Exception,
-                              'Expected exception of type "Zend_Db_Select_Exception", got ' . get_class($e)
+                'Expected exception of type "Zend_Db_Select_Exception", got ' . get_class($e)
             );
             $this->assertEquals("Cannot perform a joinUsing with method 'joinCrossUsing()'", $e->getMessage());
         }

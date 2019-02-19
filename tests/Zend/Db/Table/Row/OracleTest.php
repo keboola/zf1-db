@@ -45,7 +45,7 @@ class Zend_Db_Table_Row_OracleTest extends Zend_Db_Table_Row_TestCommon
     {
         return $this->_getTable(
             'My_ZendDbTable_TableBugs',
-                                array(Zend_Db_Table_Abstract::SEQUENCE => 'zfbugs_seq')
+            array(Zend_Db_Table_Abstract::SEQUENCE => 'zfbugs_seq')
         );
     }
 

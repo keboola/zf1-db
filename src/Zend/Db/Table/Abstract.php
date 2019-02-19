@@ -410,7 +410,7 @@ abstract class Zend_Db_Table_Abstract
         $columns,
         $refTableClass,
         $refColumns,
-                                 $onDelete = null,
+        $onDelete = null,
         $onUpdate = null
     ) {
         $reference = array(self::COLUMNS         => (array) $columns,

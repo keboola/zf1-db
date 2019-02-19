@@ -55,7 +55,7 @@ class My_ZendDbTable_Row_TestMockRow extends Zend_Db_Table_Row_Abstract
         $matchTable,
         $intersectionTable,
         $callerRefRule = null,
-                                         $matchRefRule = null,
+        $matchRefRule = null,
         Zend_Db_Table_Select $select = null
     ) {
         $this->matchTable        = $matchTable;

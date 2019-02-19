@@ -69,7 +69,7 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
         $products->addReference(
             'Reporter',
             'reported_by',
-                                'My_ZendDbTable_TableAccounts',
+            'My_ZendDbTable_TableAccounts',
             'account_name'
         );
 
@@ -410,7 +410,7 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
             $this->fail('Zend_Db_Table_Exception should be thrown');
         } catch (Zend_Exception $e) {
             $this->assertTrue(
-             $e instanceof Zend_Db_Table_Exception,
+                $e instanceof Zend_Db_Table_Exception,
                 'Expecting object of type Zend_Db_Table_Exception, got ' . get_class($e)
          );
         }
@@ -1936,7 +1936,7 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
         Zend_Db_Table::setDefaultAdapter($this->_db);
         $dbConfig = $this->_db->getConfig();
         $cacheId  = md5(
-                (isset($dbConfig['port']) ? ':' . $dbConfig['port'] : null)
+            (isset($dbConfig['port']) ? ':' . $dbConfig['port'] : null)
                 . (isset($dbConfig['host']) ? ':' . $dbConfig['host'] : null)
                 . '/' . $dbConfig['dbname'] . ':.cache_metadata'
                 );
