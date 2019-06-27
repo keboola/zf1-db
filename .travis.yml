@@ -18,6 +18,10 @@ stages:
   - phpstan analysis
   - test with coverage
 
+services:
+  - mysql
+  - postgresql
+
 before_script:
   - if [[ "$USE_XDEBUG" == false ]]; then phpenv config-rm xdebug.ini || return 0; fi
   - mysql -e 'create database zftest;'
@@ -49,7 +53,7 @@ jobs:
       env: COMPOSER_ARGS="--ignore-platform-reqs --prefer-lowest"
     - php: nightly
       env: COMPOSER_ARGS="--ignore-platform-reqs"
-      
+
     - stage: style check
       php: 7.2
       env: TMPDIR=/tmp USE_XDEBUG=false
