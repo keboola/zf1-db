@@ -325,7 +325,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
             '/^SELECT\s+(DISTINCT\s)?/i',
             'SELECT $1TOP ' . ($count + $offset) . ' ',
             $sql
-            );
+        );
 
         if ($offset > 0) {
             $orderby = stristr($sql, 'ORDER BY');

@@ -102,7 +102,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
                     'dbname'   => 'dummy',
                     'profiler' => $profilerString
                     )
-                );
+            );
             $this->assertTrue(
                 $db instanceof Zend_Db_Adapter_Abstract,
                 'Expected object of type Zend_Db_Adapter_Abstract, got ' . get_class($db)
@@ -278,7 +278,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
                 'dbname'   => 'dummy',
                 'profiler' => $profiler
                 )
-            );
+        );
         $this->assertTrue(
             $db instanceof Zend_Db_Adapter_Abstract,
             'Expected object of type Zend_Db_Adapter_Abstract, got ' . get_class($db)
@@ -303,7 +303,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
                     'dbname'   => 'dummy',
                     'profiler' => $profilerInvalid
                     )
-                );
+            );
             $this->fail('Expected Zend_Db_Profiler_Exception not thrown');
         } catch (Zend_Db_Profiler_Exception $e) {
             $this->assertContains('Profiler argument must be an instance of', $e->getMessage());
@@ -327,7 +327,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
                 'dbname'   => 'dummy',
                 'profiler' => $config
                 )
-            );
+        );
         $this->assertTrue(
             $db instanceof Zend_Db_Adapter_Abstract,
             'Expected object of type Zend_Db_Adapter_Abstract, got ' . get_class($db)
@@ -354,7 +354,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
                     'class'    => 'stdClass'
                     )
                 )
-            );
+        );
         $this->assertTrue(
             $db instanceof Zend_Db_Adapter_Abstract,
             'Expected object of type Zend_Db_Adapter_Abstract, got ' . get_class($db)
@@ -724,7 +724,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
         $this->assertThat(
             $prof->getTotalElapsedSecs(),
             $this->greaterThan($numQueries - 0.1)
-            );
+        );
     }
 
     /**
@@ -760,12 +760,12 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
         $this->assertThat(
             $prof->getTotalElapsedSecs(Zend_Db_Profiler::SELECT),
             $this->lessThan(1)
-            );
+        );
 
         $this->assertThat(
             $prof->getTotalElapsedSecs(Zend_Db_Profiler::UPDATE),
             $this->greaterThan(1.9)
-            );
+        );
     }
 
     /**

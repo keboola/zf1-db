@@ -171,14 +171,14 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
             3,
             $productRowsetCount = count($productRowset),
             "Expected rowset with 3 elements; got $productRowsetCount"
-            );
+        );
 
         foreach ($productRowset as $productRow) {
             $this->assertThat(
                 $productRow,
                 $this->isInstanceOf('stdClass'),
                 'Expected row to be instance of stdClass; got ' . get_class($productRow)
-                );
+            );
         }
     }
 
@@ -195,7 +195,7 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
             $productRowset,
             $this->isInstanceOf('stdClass'),
             'Expected rowset to be instance of stdClass; got ' . get_class($productRowset)
-            );
+        );
     }
 
     public function testTableImplicitName()
@@ -412,7 +412,7 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
             $this->assertTrue(
                 $e instanceof Zend_Db_Table_Exception,
                 'Expecting object of type Zend_Db_Table_Exception, got ' . get_class($e)
-         );
+            );
         }
     }
 
@@ -1939,7 +1939,7 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
             (isset($dbConfig['port']) ? ':' . $dbConfig['port'] : null)
                 . (isset($dbConfig['host']) ? ':' . $dbConfig['host'] : null)
                 . '/' . $dbConfig['dbname'] . ':.cache_metadata'
-                );
+        );
 
         $metadata     = array('id' => array('PRIMARY' => true));
         $cacheBackend = $this->getMockBuilder('Zend_Cache_Backend_BlackHole')->getMock();

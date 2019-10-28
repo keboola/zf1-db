@@ -300,7 +300,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
             $adapter = Zend_Db::factory(
                 'Dbadapter',
                 array('dbname' => 'dummy', 'adapterNamespace' => 'Test_MyCompany1')
-                );
+            );
         } catch (Exception $e) {
             set_include_path($oldIncludePath);
             $this->fail('Could not load file for reason: ' . $e->getMessage());
@@ -327,7 +327,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
             $adapter = Zend_Db::factory(
                 'Dbadapter',
                 array('dbname' => 'dummy', 'adapterNamespace' => 'Test_MyCompany2')
-                );
+            );
         } catch (Exception $e) {
             set_include_path($oldIncludePath);
             $this->assertInstanceOf('Zend_Exception', $e);
@@ -351,7 +351,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
             $adapter = Zend_Db::factory(
                 'DB_ADAPTER',
                 array('dbname' => 'dummy', 'adapterNamespace' => 'Test_MyCompany1')
-                );
+            );
         } catch (Exception $e) {
             set_include_path($oldIncludePath);
             $this->fail('Could not load file for reason: ' . $e->getMessage());
