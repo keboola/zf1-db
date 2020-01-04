@@ -7,8 +7,6 @@ parameters:
         - %rootDir%/../../../vendor/*
     bootstrap: %rootDir%/../../../phpstan-bootstrap.php
     ignoreErrors:
-        - '#Zend_Db_.+_Exception::__construct\(\) does not call parent constructor from Zend_.*Exception\.#'
-        - '#Zend_Db_Profiler_Firebug::__construct\(\) does not call parent constructor from Zend_Db_Profiler\.#'
         - '#Call to an undefined method Zend_Db_Statement::_bindParam\(\)\.#'
         - '#Call to an undefined method Zend_Db_Statement::_execute\(\)\.#'
         - '#Variable \$.+ might not be defined\.#'
