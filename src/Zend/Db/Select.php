@@ -930,7 +930,7 @@ class Zend_Db_Select
 
         $columnValues = array();
 
-        foreach (array_filter($cols) as $alias => $col) {
+        foreach ($cols as $alias => $col) {
             $currentCorrelationName = $correlationName;
             if (is_string($col)) {
                 // Check for a column matching "<column> AS <alias>" and extract the alias name
