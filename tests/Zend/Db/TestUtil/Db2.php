@@ -30,7 +30,7 @@
  */
 class Zend_Db_TestUtil_Db2 extends Zend_Db_TestUtil_Common
 {
-    public function setUp(Zend_Db_Adapter_Abstract $db)
+    public function setUp(Zend_Db_Adapter_Abstract $db): void
     {
         $this->setAdapter($db);
         $this->createSequence('zfproducts_seq');

@@ -56,7 +56,7 @@ class Zend_Db_Profiler_Pdo_OciTest extends Zend_Db_Profiler_TestCommon
         $this->_db->query("UPDATE $bugs SET $bug_status = :status", array(':status' => 'FIXED'));
 
         $qps = $prof->getQueryProfiles();
-        $this->assertInternalType('array', $qps, 'Expecting some query profiles, got none');
+        $this->assertIsArray($qps, 'Expecting some query profiles, got none');
         foreach ($qps as $qp) {
             $qtype = $qp->getQueryType();
             $this->assertEquals(

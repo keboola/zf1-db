@@ -105,8 +105,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $stmt = $this->_db->prepare("DELETE FROM $products WHERE $product_id = 1");
 
         $n = $stmt->rowCount();
-        $this->assertInternalType('int', $n);
-        $this->assertInternalType('int', $n);
+        $this->assertIsInt($n);
+        $this->assertIsInt($n);
         $this->assertEquals(0, $n, 'Expecting row count to be 0 before executing query');
 
         $stmt->execute();
@@ -114,7 +114,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $n = $stmt->rowCount();
         $stmt->closeCursor();
 
-        $this->assertInternalType('int', $n);
+        $this->assertIsInt($n);
         $this->assertEquals(1, $n, 'Expected row count to be one after executing query');
     }
 
@@ -133,7 +133,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $n = $stmt->columnCount();
         $stmt->closeCursor();
 
-        $this->assertInternalType('int', $n);
+        $this->assertIsInt($n);
         $this->assertEquals(2, $n);
     }
 
@@ -329,6 +329,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
                 'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
             );
             $this->assertRegExp('#invalid fetch mode#i', $e->getMessage());
+        } catch (ValueError $e) {
+            $this->assertRegExp('#must be a bitmask of PDO::FETCH_#i', $e->getMessage());
         }
     }
 
@@ -426,7 +428,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $result = $stmt->fetchAll(Zend_Db::FETCH_COLUMN, 1);
 
         $this->assertCount(2, $result);
-        $this->assertInternalType('string', $result[0]);
+        $this->assertIsString($result[0]);
         $this->assertEquals('Linux', $result[0]);
         $this->assertEquals('OS X', $result[1]);
     }
@@ -445,6 +447,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
                 $e instanceof Zend_Db_Statement_Exception,
                 'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
             );
+        } catch (ValueError $e) {
+            $this->assertRegExp('#must be a bitmask of PDO::FETCH_#i', $e->getMessage());
         }
         $stmt->closeCursor();
     }
@@ -531,7 +535,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $result = $stmt->fetch(Zend_Db::FETCH_NUM);
         $stmt->closeCursor();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertEquals('Linux', $result[1]);
         $this->assertFalse(isset($result['product_name']));
     }
@@ -545,7 +549,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $result = $stmt->fetch(Zend_Db::FETCH_ASSOC);
         $stmt->closeCursor();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertEquals('Linux', $result['product_name']);
         $this->assertFalse(isset($result[1]));
     }
@@ -559,7 +563,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $result = $stmt->fetch(Zend_Db::FETCH_BOTH);
         $stmt->closeCursor();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertEquals('Linux', $result[1]);
         $this->assertEquals('Linux', $result['product_name']);
     }
@@ -594,6 +598,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
                 $e instanceof Zend_Db_Statement_Exception,
                 'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
             );
+        } catch (ValueError $e) {
+            $this->assertRegExp('#must be a bitmask of PDO::FETCH_#i', $e->getMessage());
         }
         $stmt->closeCursor();
     }
@@ -837,7 +843,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         $stmt->execute();
         for ($i = 0; $i < $stmt->columnCount(); ++$i) {
             $meta = $stmt->getColumnMeta($i);
-            $this->assertInternalType('array', $meta);
+            $this->assertIsArray($meta);
             foreach ($this->_getColumnMetaKeys as $key) {
                 if ($key == 'table' && version_compare(PHP_VERSION, '5.2.0', '<')) {
                     continue;
@@ -875,13 +881,13 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         try {
             $stmt->setAttribute(1234, $value);
         } catch (Zend_Exception $e) {
-            $this->assertContains('This driver doesn\'t support setting attributes', $e->getMessage());
+            $this->assertStringContainsString('This driver doesn\'t support setting attributes', $e->getMessage());
         }
 
         try {
             $this->assertEquals($value, $stmt->getAttribute(1234), "Expected '$value' #1");
         } catch (Zend_Exception $e) {
-            $this->assertContains('Driver does not support this function', $e->getMessage());
+            $this->assertStringContainsString('Driver does not support this function', $e->getMessage());
             return;
         }
 

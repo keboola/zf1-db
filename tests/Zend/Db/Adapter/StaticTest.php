@@ -49,7 +49,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
                 $db = new Zend_Db_Adapter_Static('scalar');
                 $this->fail('Expected exception not thrown');
             } catch (Exception $e) {
-                $this->assertContains('Adapter parameters must be in an array or a Zend_Config object', $e->getMessage());
+                $this->assertStringContainsString('Adapter parameters must be in an array or a Zend_Config object', $e->getMessage());
             }
         } else {
             $this->markTestIncomplete('Failure to meet type hint results in fatal error in PHP < 5.2.0');
@@ -143,7 +143,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
                 $db = Zend_Db::factory('Static', 'scalar');
                 $this->fail('Expected exception not thrown');
             } catch (Exception $e) {
-                $this->assertContains('Adapter parameters must be in an array or a Zend_Config object', $e->getMessage());
+                $this->assertStringContainsString('Adapter parameters must be in an array or a Zend_Config object', $e->getMessage());
             }
         } else {
             $this->markTestIncomplete('Failure to meet type hint results in fatal error in PHP < 5.2.0');
@@ -158,7 +158,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
                 $db = Zend_Db::factory('Static');
                 $this->fail('Expected exception not thrown');
             } catch (Exception $e) {
-                $this->assertContains('Configuration must have a key for \'dbname\' that names the database instance', $e->getMessage());
+                $this->assertStringContainsString('Configuration must have a key for \'dbname\' that names the database instance', $e->getMessage());
             }
         } else {
             $this->markTestIncomplete('Failure to meet type hint results in fatal error in PHP < 5.2.0');
@@ -261,7 +261,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
     {
         $db   = Zend_Db::factory('Static', array('dbname' => 'dummy'));
         $mode = $db->getFetchMode();
-        $this->assertInternalType('int', $mode);
+        $this->assertIsInt($mode);
     }
 
     /**
@@ -331,7 +331,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
         } catch (Exception $e) {
             set_include_path($oldIncludePath);
             $this->assertInstanceOf('Zend_Exception', $e);
-            $this->assertContains('does not exist or class "Test_MyCompany2_Dbadapter" was not found in the file', $e->getMessage());
+            $this->assertStringContainsString('does not exist or class "Test_MyCompany2_Dbadapter" was not found in the file', $e->getMessage());
             return;
         }
 

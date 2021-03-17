@@ -156,7 +156,7 @@ INPUT;
         $stmt = $this->_db->prepare("DELETE FROM $products WHERE $product_id = 1");
 
         $n = $stmt->rowCount();
-        $this->assertInternalType('int', $n);
+        $this->assertIsInt($n);
         $this->assertEquals(-1, $n, 'Expecting row count to be -1 before executing query');
 
         $stmt->execute();
@@ -164,7 +164,7 @@ INPUT;
         $n = $stmt->rowCount();
         $stmt->closeCursor();
 
-        $this->assertInternalType('int', $n);
+        $this->assertIsInt($n);
         $this->assertEquals(1, $n, 'Expected row count to be one after executing query');
     }
 
@@ -235,7 +235,7 @@ INPUT;
             $stmt = $this->_db->query($sql);
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertInternalType('int', $e->getCode());
+            $this->assertIsInt($e->getCode());
         }
     }
 
@@ -295,7 +295,7 @@ INPUT;
             $this->fail('Bounding params failed: ' . $e->getMessage());
         }
         $result = $stmt->fetch();
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(5, $result);
         $this->assertEquals(1, $result['object_id']);
         $this->assertEquals(1, $result['object_type']);

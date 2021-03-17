@@ -108,14 +108,14 @@ class Zend_Db_TestUtil_Mysqli extends Zend_Db_TestUtil_Common
         );
     }
 
-    public function setUp(Zend_Db_Adapter_Abstract $db)
+    public function setUp(Zend_Db_Adapter_Abstract $db): void
     {
         parent::setUp($db);
 
         $this->_createTestProcedure();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->_dropTestProcedure();
 

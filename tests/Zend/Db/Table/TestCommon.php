@@ -476,8 +476,8 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
                 $e instanceof Zend_Db_Table_Exception,
                 'Expecting object of type Zend_Db_Table_Exception, got ' . get_class($e)
             );
-            $this->assertContains('Primary key column(s)', $e->getMessage());
-            $this->assertContains('are not columns in this table', $e->getMessage());
+            $this->assertStringContainsString('Primary key column(s)', $e->getMessage());
+            $this->assertStringContainsString('are not columns in this table', $e->getMessage());
         }
     }
 
@@ -492,8 +492,8 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
                 $e instanceof Zend_Db_Table_Exception,
                 'Expecting object of type Zend_Db_Table_Exception, got ' . get_class($e)
             );
-            $this->assertContains('Primary key column(s)', $e->getMessage());
-            $this->assertContains('are not columns in this table', $e->getMessage());
+            $this->assertStringContainsString('Primary key column(s)', $e->getMessage());
+            $this->assertStringContainsString('are not columns in this table', $e->getMessage());
         }
     }
 
@@ -762,7 +762,7 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
 
         $qp        = $this->_db->getProfiler()->getLastQueryProfile();
         $tableSpec = $this->_db->quoteIdentifier($identifier, true);
-        $this->assertContains("INSERT INTO $tableSpec ", $qp->getQuery());
+        $this->assertStringContainsString("INSERT INTO $tableSpec ", $qp->getQuery());
     }
 
     public function testTableInsertSequence()
@@ -791,7 +791,7 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
             'product_id' => 1
         );
         $primary = $table->insert($row);
-        $this->assertInternalType('array', $primary);
+        $this->assertIsArray($primary);
         $this->assertCount(2, $primary);
         $this->assertEquals(array(2, 1), array_values($primary));
     }
@@ -895,17 +895,17 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
         // empty string
         $row['bug_id'] = '';
         $insertResult  = $table->insert($row);
-        $this->assertInternalType('numeric', $insertResult, 'Empty string did not return assigned primary key');
+        $this->assertIsNumeric($insertResult, 'Empty string did not return assigned primary key');
 
         // false (bool)
         $row['bug_id'] = false;
         $insertResult  = $table->insert($row);
-        $this->assertInternalType('numeric', $insertResult, 'Bool false did not return assigned primary key');
+        $this->assertIsNumeric($insertResult, 'Bool false did not return assigned primary key');
 
         // empty array
         $row['bug_id'] = array();
         $insertResult  = $table->insert($row);
-        $this->assertInternalType('numeric', $insertResult, 'Empty array did not return assigned primary key');
+        $this->assertIsNumeric($insertResult, 'Empty array did not return assigned primary key');
 
         // zero '0'
         $row['bug_id'] = '0';
@@ -977,7 +977,7 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
         $this->assertEquals(1, $result);
         $qp        = $this->_db->getProfiler()->getLastQueryProfile();
         $tableSpec = $this->_db->quoteIdentifier($identifier, true);
-        $this->assertContains("UPDATE $tableSpec ", $qp->getQuery());
+        $this->assertStringContainsString("UPDATE $tableSpec ", $qp->getQuery());
     }
 
     public function testTableUpdateWhereArray()
@@ -1038,7 +1038,7 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
 
         $qp        = $this->_db->getProfiler()->getLastQueryProfile();
         $tableSpec = $this->_db->quoteIdentifier($identifier, true);
-        $this->assertContains("DELETE FROM $tableSpec ", $qp->getQuery());
+        $this->assertStringContainsString("DELETE FROM $tableSpec ", $qp->getQuery());
     }
 
     public function testTableDeleteWhereArray()
@@ -1807,7 +1807,7 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
     public function testSerialiseTable()
     {
         $table = $this->_table['products'];
-        $this->assertInternalType('string', serialize($table));
+        $this->assertIsString(serialize($table));
     }
 
     /**

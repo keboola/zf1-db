@@ -479,7 +479,7 @@ abstract class Zend_Db_TestUtil_Common
         }
     }
 
-    public function setUp(Zend_Db_Adapter_Abstract $db)
+    public function setUp(Zend_Db_Adapter_Abstract $db): void
     {
         $this->setAdapter($db);
 
@@ -520,7 +520,7 @@ abstract class Zend_Db_TestUtil_Common
         return $this->_db;
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->dropView();
         $this->dropTable();

@@ -49,7 +49,7 @@ abstract class Zend_Db_TestSetup extends PHPUnit\Framework\TestCase
      * Subclasses should call parent::setUp() before
      * doing their own logic, e.g. creating metadata.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->skipped = false;
 
@@ -137,7 +137,7 @@ abstract class Zend_Db_TestSetup extends PHPUnit\Framework\TestCase
      * Subclasses should call parent::tearDown() after
      * doing their own logic, e.g. deleting metadata.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         if ($this->skipped === false) {
             $this->_util->tearDown();

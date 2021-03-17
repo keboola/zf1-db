@@ -181,7 +181,7 @@ class Zend_Db_Statement_SqlsrvTest extends Zend_Db_Statement_TestCommon
         $errors = $stmt->errorInfo();
         $this->assertCount(2, $errors);
         $this->assertEquals($stmt->errorCode(), $errors[0]);
-        $this->assertInternalType('string', $errors[1]);
+        $this->assertIsArray($errors[1]);
     }
 
     public function getDriver()

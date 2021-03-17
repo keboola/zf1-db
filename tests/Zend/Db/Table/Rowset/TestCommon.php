@@ -175,9 +175,9 @@ abstract class Zend_Db_Table_Rowset_TestCommon extends Zend_Db_Table_TestSetup
 
         $a = $rows->toArray();
 
-        $this->assertInternalType('array', $a);
+        $this->assertIsArray($a);
         $this->assertEquals(count($a), count($rows));
-        $this->assertInternalType('array', $a[0]);
+        $this->assertIsArray($a[0]);
         $this->assertCount(8, $a[0]);
         $this->assertEquals('foo', $a[0][$bug_description]);
     }
@@ -283,7 +283,7 @@ abstract class Zend_Db_Table_Rowset_TestCommon extends Zend_Db_Table_TestSetup
             $this->fail();
         } catch (Exception $e) {
             $this->assertTrue($e instanceof Zend_Db_Table_Rowset_Exception);
-            $this->assertContains('Illegal index', $e->getMessage());
+            $this->assertStringContainsString('Illegal index', $e->getMessage());
         }
 
         $this->assertTrue($rowset[0] instanceof Zend_Db_Table_Row);
@@ -293,7 +293,7 @@ abstract class Zend_Db_Table_Rowset_TestCommon extends Zend_Db_Table_TestSetup
             $this->fail();
         } catch (Exception $e) {
             $this->assertTrue($e instanceof Zend_Db_Table_Rowset_Exception);
-            $this->assertContains('Illegal index', $e->getMessage());
+            $this->assertStringContainsString('Illegal index', $e->getMessage());
         }
         $this->assertEquals(0, $rowset->key());
     }
@@ -404,7 +404,7 @@ abstract class Zend_Db_Table_Rowset_TestCommon extends Zend_Db_Table_TestSetup
         if (!defined('TESTS_ZEND_DB_ZF1_FULL_SUITE') || TESTS_ZEND_DB_ZF1_FULL_SUITE === false) {
             $this->markTestSkipped('This test causes a circular dependency in broken out components, can only be run in full suite');
         }
-        
+
         $table      = $this->_table['bugs'];
         $tableClass = get_class($table);
 

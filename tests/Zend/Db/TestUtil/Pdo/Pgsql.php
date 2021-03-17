@@ -30,7 +30,7 @@
  */
 class Zend_Db_TestUtil_Pdo_Pgsql extends Zend_Db_TestUtil_Pdo_Common
 {
-    public function setUp(Zend_Db_Adapter_Abstract $db)
+    public function setUp(Zend_Db_Adapter_Abstract $db): void
     {
         $this->_db = $db;
         $this->createSequence('zfproducts_seq');

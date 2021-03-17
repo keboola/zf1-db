@@ -213,7 +213,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
             $this->fail("Expected to catch $exceptionClass");
         } catch (Zend_Exception $e) {
             $this->assertTrue($e instanceof $exceptionClass, "Expected to catch $exceptionClass, got " . get_class($e));
-            $this->assertContains("Configuration array must have a key for '$param'", $e->getMessage());
+            $this->assertStringContainsString("Configuration array must have a key for '$param'", $e->getMessage());
         }
     }
 
@@ -460,14 +460,14 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         // Test associative array
         $result = $this->_db->fetchAll("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id ASC", 1, Zend_Db::FETCH_ASSOC);
         $this->assertCount(2, $result);
-        $this->assertInternalType('array', $result[0]);
+        $this->assertIsArray($result[0]);
         $this->assertCount(2, $result[0]); // count columns
         $this->assertEquals(2, $result[0][$col_name]);
 
         // Test numeric and associative array
         $result = $this->_db->fetchAll("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id ASC", 1, Zend_Db::FETCH_BOTH);
         $this->assertCount(2, $result);
-        $this->assertInternalType('array', $result[0]);
+        $this->assertIsArray($result[0]);
         $this->assertCount(4, $result[0]); // count columns
         $this->assertEquals(2, $result[0][$col_name]);
         $this->assertEquals(2, $result[0][0]);
@@ -475,7 +475,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         // Ensure original fetch mode has been retained
         $result = $this->_db->fetchAll("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id", 1);
         $this->assertCount(2, $result);
-        $this->assertInternalType('object', $result[0]);
+        $this->assertIsObject($result[0]);
         $this->assertEquals(2, $result[0]->$col_name);
     }
 
@@ -504,7 +504,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
         $this->_db->setFetchMode(Zend_Db::FETCH_OBJ);
         $result = $this->_db->fetchAssoc("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id DESC", 1);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertEquals(array('product_id', 'product_name'), array_keys(current($result)));
     }
 
@@ -517,7 +517,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $result = $this->_db->fetchCol("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id ASC", 1);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(2, $result); // count rows
         $this->assertEquals(2, $result[0]);
         $this->assertEquals(3, $result[1]);
@@ -534,7 +534,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
         $this->_db->setFetchMode(Zend_Db::FETCH_OBJ);
         $result = $this->_db->fetchCol("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id ASC", 1);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(2, $result); // count rows
         $this->assertEquals(2, $result[0]);
         $this->assertEquals(3, $result[1]);
@@ -567,7 +567,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $this->_db->setFetchMode(Zend_Db::FETCH_OBJ);
         $prod   = 'Linux';
         $result = $this->_db->fetchOne("SELECT $product_name FROM $products WHERE $product_id > ? ORDER BY $product_id", 1);
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
         $this->assertEquals($prod, $result);
     }
 
@@ -598,7 +598,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $this->_db->setFetchMode(Zend_Db::FETCH_OBJ);
         $prod   = 'Linux';
         $result = $this->_db->fetchPairs("SELECT $product_id, $product_name FROM $products WHERE $product_id > ? ORDER BY $product_id ASC", 1);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(2, $result); // count rows
         $this->assertEquals($prod, $result[2]);
     }
@@ -630,20 +630,20 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
         // Test associative array
         $result = $this->_db->fetchRow("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id", 1, Zend_Db::FETCH_ASSOC);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(2, $result); // count columns
         $this->assertEquals(2, $result['product_id']);
 
         // Test numeric and associative array
         $result = $this->_db->fetchRow("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id", 1, Zend_Db::FETCH_BOTH);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(4, $result); // count columns
         $this->assertEquals(2, $result['product_id']);
         $this->assertEquals(2, $result[0]);
 
         // Ensure original fetch mode has been retained
         $result = $this->_db->fetchRow("SELECT * FROM $products WHERE $product_id > ? ORDER BY $product_id", 1);
-        $this->assertInternalType('object', $result);
+        $this->assertIsObject($result);
         $this->assertEquals(2, $result->$col_name);
     }
 
@@ -665,7 +665,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $rowsAffected = $this->_db->insert('zfbugs', $row);
         $this->assertEquals(1, $rowsAffected);
         $lastInsertId = $this->_db->lastInsertId();
-        $this->assertInternalType('string', $lastInsertId);
+        $this->assertIsString($lastInsertId);
         $this->assertEquals(
             '5',
             (string) $lastInsertId,
@@ -683,8 +683,8 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $this->assertEquals(1, $rowsAffected);
         $lastInsertId   = $this->_db->lastInsertId('zfproducts');
         $lastSequenceId = $this->_db->lastSequenceId('zfproducts_seq');
-        $this->assertInternalType('string', $lastInsertId);
-        $this->assertInternalType('string', $lastSequenceId);
+        $this->assertIsString($lastInsertId);
+        $this->assertIsString($lastSequenceId);
         $this->assertEquals('4', (string) $lastInsertId, 'Expected new id to be 4');
     }
 
@@ -986,8 +986,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $stmt = $this->_db->query('SELECT * FROM ' . $this->_db->quoteIdentifier('zfbugs') . ' WHERE '
             . $this->_db->quoteIdentifier('bug_id') . ' = -1');
 
-        $this->assertInternalType(
-            'object',
+        $this->assertIsObject(
             $stmt,
             'Expected query() to return object; got ' . gettype($stmt)
         );
@@ -1274,7 +1273,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
     public function testAdapterQuoteIntoType()
     {
         $value = $this->_db->quoteInto('foo = ?', 1234, Zend_Db::INT_TYPE);
-        $this->assertInternalType('string', $value);
+        $this->assertIsString($value);
         $this->assertEquals(
             'foo = 1234',
             $value,
@@ -1282,7 +1281,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         );
 
         $value = $this->_db->quoteInto('foo = ?', 1234, Zend_Db::BIGINT_TYPE);
-        $this->assertInternalType('string', $value);
+        $this->assertIsString($value);
         $this->assertEquals(
             'foo = 1234',
             $value,
@@ -1290,7 +1289,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         );
 
         $value = $this->_db->quoteInto('foo = ?', 12.34, Zend_Db::FLOAT_TYPE);
-        $this->assertInternalType('string', $value);
+        $this->assertIsString($value);
         $this->assertEquals(
             'foo = 12.340000',
             $value,
@@ -1298,7 +1297,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         );
 
         $value = $this->_db->quoteInto('foo = ?', 1234, 'CHAR');
-        $this->assertInternalType('string', $value);
+        $this->assertIsString($value);
         $this->assertEquals(
             'foo = 1234',
             $value,
@@ -1306,7 +1305,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         );
 
         $value = $this->_db->quoteInto('foo = ?', '1234', 'CHAR');
-        $this->assertInternalType('string', $value);
+        $this->assertIsString($value);
         $this->assertEquals(
             "foo = '1234'",
             $value,
@@ -1317,7 +1316,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
     public function testAdapterQuoteIntoCount()
     {
         $value = $this->_db->quoteInto('foo = ? and bar = ?', 1234, null, 1);
-        $this->assertInternalType('string', $value);
+        $this->assertIsString($value);
         $this->assertEquals(
             'foo = 1234 and bar = ?',
             $value,
@@ -1330,7 +1329,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         $string = 'foo = ? OR moo = ? OR boo = ?';
         $param  = 'What?';
         $value  = $this->_db->quoteInto($string, $param, null, 2);
-        $this->assertInternalType('string', $value);
+        $this->assertIsString($value);
         $this->assertEquals(
             "foo = 'What?' OR moo = 'What?' OR boo = ?",
             $value,
@@ -1347,7 +1346,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test int value
             $value = $this->_db->quote(1234, $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '1234',
                 $value,
@@ -1356,7 +1355,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test int string
             $value = $this->_db->quote('1234', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '1234',
                 $value,
@@ -1365,7 +1364,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test int string with + sign
             $value = $this->_db->quote('+1234', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '1234',
                 $value,
@@ -1374,7 +1373,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test int string with - sign
             $value = $this->_db->quote('-1234', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '-1234',
                 $value,
@@ -1383,7 +1382,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test int string with non-digit text
             $value = $this->_db->quote('1234abcd', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '1234',
                 $value,
@@ -1392,7 +1391,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test non-digit test; it should return 0
             $value = $this->_db->quote('abcd', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '0',
                 $value,
@@ -1401,7 +1400,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test Zend_Db_Expr is passed through literally
             $value = $this->_db->quote(new Zend_Db_Expr('1+2+3'), $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '1+2+3',
                 $value,
@@ -1419,7 +1418,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test int value
             $value = $this->_db->quote(1234, $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 1234,
                 $value,
@@ -1428,7 +1427,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test int string
             $value = $this->_db->quote('1234', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '1234',
                 $value,
@@ -1437,7 +1436,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test int string with + sign
             $value = $this->_db->quote('+1234', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '+1234',
                 $value,
@@ -1446,7 +1445,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test int string with - sign
             $value = $this->_db->quote('-1234', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '-1234',
                 $value,
@@ -1455,7 +1454,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test int string with positive exponent
             $value = $this->_db->quote('1234e15', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '1234e15',
                 $value,
@@ -1463,7 +1462,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
             );
 
             $value = $this->_db->quote('1234e+15', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '1234e+15',
                 $value,
@@ -1472,7 +1471,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test int value with negative exponent
             $value = $this->_db->quote('1234e-15', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '1234e-15',
                 $value,
@@ -1481,7 +1480,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test bigint value
             $value = $this->_db->quote('2200000000', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '2200000000',
                 $value,
@@ -1490,7 +1489,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test octal value with leading zeroes
             $value = $this->_db->quote('020310253000', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '020310253000',
                 $value,
@@ -1499,7 +1498,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test decimal value with leading zeroes
             $value = $this->_db->quote('09091', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '09091',
                 $value,
@@ -1508,7 +1507,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test hex value with ODBC-style notation
             $value = $this->_db->quote('0x83215600', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '0x83215600',
                 $value,
@@ -1517,7 +1516,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test non-numeric value; it should be zero
             $value = $this->_db->quote('abcd', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '0',
                 $value,
@@ -1526,7 +1525,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
             // test Zend_Db_Expr is passed through literally
             $value = $this->_db->quote(new Zend_Db_Expr('1+2+3'), $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '1+2+3',
                 $value,
@@ -1543,7 +1542,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
             }
 
             $value = $this->_db->quote(12.34, $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '12.340000',
                 $value,
@@ -1551,7 +1550,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
             );
 
             $value = $this->_db->quote('12.34', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '12.340000',
                 $value,
@@ -1559,7 +1558,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
             );
 
             $value = $this->_db->quote('+12.34', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '12.340000',
                 $value,
@@ -1567,7 +1566,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
             );
 
             $value = $this->_db->quote('-12.34', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '-12.340000',
                 $value,
@@ -1575,7 +1574,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
             );
 
             $value = $this->_db->quote('12.34abcd', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '12.340000',
                 $value,
@@ -1583,7 +1582,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
             );
 
             $value = $this->_db->quote('abcd', $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '0.000000',
                 $value,
@@ -1591,7 +1590,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
             );
 
             $value = $this->_db->quote(new Zend_Db_Expr('1+2+3'), $typeName);
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertEquals(
                 '1+2+3',
                 $value,
@@ -1603,7 +1602,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
     public function testAdapterQuoteTypeNonNumeric()
     {
         $value = $this->_db->quote(1234, 'CHAR');
-        $this->assertInternalType('int', $value);
+        $this->assertIsInt($value);
         $this->assertEquals(
             1234,
             $value,
@@ -1611,7 +1610,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         );
 
         $value = $this->_db->quote('1234', 'CHAR');
-        $this->assertInternalType('string', $value);
+        $this->assertIsString($value);
         $this->assertEquals(
             "'1234'",
             $value,
@@ -1619,7 +1618,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         );
 
         $value = $this->_db->quote('1234abcd', 'CHAR');
-        $this->assertInternalType('string', $value);
+        $this->assertIsString($value);
         $this->assertEquals(
             "'1234abcd'",
             $value,
@@ -1627,7 +1626,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
         );
 
         $value = $this->_db->quote('1234abcd56', 'CHAR');
-        $this->assertInternalType('string', $value);
+        $this->assertIsString($value);
         $this->assertEquals(
             "'1234abcd56'",
             $value,
@@ -1636,7 +1635,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
 
         // test Zend_Db_Expr is passed through literally
         $value = $this->_db->quote(new Zend_Db_Expr('1+2+3'), 'CHAR');
-        $this->assertInternalType('string', $value);
+        $this->assertIsString($value);
         $this->assertEquals(
             '1+2+3',
             $value,
@@ -2146,7 +2145,7 @@ abstract class Zend_Db_Adapter_TestCommon extends Zend_Db_TestSetup
     public function testAdapterSerializationIsOkByDefault()
     {
         $serialized = serialize($this->_db);
-        $this->assertInternalType('string', $serialized);
+        $this->assertIsString($serialized);
         $this->assertThat(unserialize($serialized), new PHPUnit\Framework\Constraint\IsInstanceOf('Zend_Db_Adapter_Abstract'));
     }
 

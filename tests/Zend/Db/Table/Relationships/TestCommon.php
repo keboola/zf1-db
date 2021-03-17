@@ -169,12 +169,11 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
         }
     }
 
-    /**
-     * @expectedException Zend_Exception
-     * @expectedExceptionMessage does not exist or class "nonexistant_class" was not found in the file
-     */
     public function testTableRelationshipFindParentRowErrorOnBadString()
     {
+        $this->expectException(Zend_Exception::class);
+        $this->expectExceptionMessage('does not exist or class "nonexistant_class" was not found in the file');
+
         $bug_id = $this->_db->quoteIdentifier('bug_id', true);
 
         $table = $this->_table['bugs'];
@@ -185,11 +184,10 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
         $parentRow = $childRow1->findParentRow('nonexistant_class');
     }
 
-    /**
-     * @expectedException Zend_Db_Table_Exception
-     */
     public function testTableRelationshipFindParentRowExceptionOnBadClass()
     {
+        $this->expectException(Zend_Db_Table_Exception::class);
+
         $bug_id = $this->_db->quoteIdentifier('bug_id', true);
 
         $table = $this->_table['bugs'];
@@ -290,12 +288,11 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
         $this->assertEquals('Linux', $childRow->$product_name);
     }
 
-    /**
-     * @expectedException Zend_Exception
-     * @expectedExceptionMessage does not exist or class "nonexistant_class" was not found in the file
-     */
     public function testTableRelationshipFindManyToManyRowsetErrorOnBadClassNameAsString()
     {
+        $this->expectException(Zend_Exception::class);
+        $this->expectExceptionMessage('does not exist or class "nonexistant_class" was not found in the file');
+
         $table = $this->_table['bugs'];
 
         $originRows = $table->find(1);
@@ -305,12 +302,11 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
         $destRows = $originRow1->findManyToManyRowset('nonexistant_class', 'My_ZendDbTable_TableBugsProducts');
     }
 
-    /**
-     * @expectedException Zend_Exception
-     * @expectedExceptionMessage does not exist or class "nonexistant_class" was not found in the file
-     */
     public function testTableRelationshipFindManyToManyRowsetErrorOnBadClassNameAsStringForIntersection()
     {
+        $this->expectException(Zend_Exception::class);
+        $this->expectExceptionMessage('does not exist or class "nonexistant_class" was not found in the file');
+
         $table = $this->_table['bugs'];
 
         $originRows = $table->find(1);
@@ -320,11 +316,10 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
         $destRows = $originRow1->findManyToManyRowset('My_ZendDbTable_TableProducts', 'nonexistant_class');
     }
 
-    /**
-     * @expectedException Zend_Db_Table_Exception
-     */
     public function testTableRelationshipFindManyToManyRowsetExceptionOnBadClassAsString()
     {
+        $this->expectException(Zend_Db_Table_Exception::class);
+
         $table = $this->_table['bugs'];
 
         $originRows = $table->find(1);
@@ -335,11 +330,10 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
     }
 
 
-    /**
-     * @expectedException Zend_Db_Table_Exception
-     */
     public function testTableRelationshipFindManyToManyRowsetExceptionOnBadClassAsStringForIntersection()
     {
+        $this->expectException(Zend_Db_Table_Exception::class);
+
         $table = $this->_table['bugs'];
 
         $originRows = $table->find(1);
@@ -468,12 +462,11 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
         $this->assertEquals(3, $childRow1->$product_id);
     }
 
-    /**
-     * @expectedException Zend_Exception
-     * @expectedExceptionMessage does not exist or class "nonexistant_class" was not found in the file
-     */
     public function testTableRelationshipFindDependentRowsetPhpError()
     {
+        $this->expectException(Zend_Exception::class);
+        $this->expectExceptionMessage('does not exist or class "nonexistant_class" was not found in the file');
+
         $table = $this->_table['bugs'];
 
         $parentRows = $table->find(1);

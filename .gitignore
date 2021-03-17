@@ -3,3 +3,4 @@
 /clover.xml
 .php_cs.cache
 /tests/Zend/Db/Table/_files/cachefiles/*
+.phpunit.result.cache

@@ -59,7 +59,7 @@ class Zend_Db_Statement_Db2Test extends Zend_Db_Statement_TestCommon
         $n = $stmt->columnCount();
         $stmt->closeCursor();
 
-        $this->assertInternalType('int', $n);
+        $this->assertIsInt($n);
         $this->assertEquals(2, $n);
     }
 

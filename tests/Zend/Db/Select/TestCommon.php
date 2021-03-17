@@ -1657,19 +1657,19 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
 
     /**
      * @group ZF-4772
-     * @expectedException Zend_Db_Select_Exception
      */
     public function testSelectUnionNoArrayThrowsException()
     {
+        $this->expectException(Zend_Db_Select_Exception::class);
         $this->_db->select()->union('string');
     }
 
     /**
      * @group ZF-4772
-     * @expectedException Zend_Db_Select_Exception
      */
     public function testSelectUnionInvalidUnionTypeThrowsException()
     {
+        $this->expectException(Zend_Db_Select_Exception::class);
         $this->_db->select()->union(array(), 'foo');
     }
 
@@ -1741,7 +1741,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         /* checks if the adapter has effectively gotten serialized,
            no exceptions are thrown here, so it's all right */
         $serialize = serialize($this->_select());
-        $this->assertInternalType('string', $serialize);
+        $this->assertIsString($serialize);
     }
 
     /**
@@ -1754,7 +1754,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $colname = $this->_db->quoteIdentifier('colname');
 
         $s = $this->_db->select()->from('A')->joinUsing('B', $colname);
-        $this->assertContains("JOIN {$table_B} ON {$table_B}.{$colname} = {$table_A}.{$colname}", $s->assemble());
+        $this->assertStringContainsString("JOIN {$table_B} ON {$table_B}.{$colname} = {$table_A}.{$colname}", $s->assemble());
     }
 
     /**
@@ -1768,7 +1768,7 @@ abstract class Zend_Db_Select_TestCommon extends Zend_Db_TestSetup
         $colTwo  = $this->_db->quoteIdentifier('colTwo');
 
         $s = $this->_db->select()->from('A')->joinUsing('B', array($colOne,$colTwo));
-        $this->assertContains(
+        $this->assertStringContainsString(
             "JOIN {$table_B} ON {$table_B}.{$colOne} = {$table_A}.{$colOne}"
             . " AND {$table_B}.{$colTwo} = {$table_A}.{$colTwo}",
             $s->assemble()
