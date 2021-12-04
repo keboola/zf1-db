@@ -385,7 +385,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      *
      * @param string $key Attribute name.
      * @param mixed  $val Attribute value.
-     * @return bool
+     * @return void
      */
     public function setAttribute($key, $val)
     {
@@ -396,7 +396,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      * Set the default fetch mode for this statement.
      *
      * @param int   $mode The fetch mode.
-     * @return bool
+     * @return void
      * @throws Zend_Db_Statement_Exception
      */
     public function setFetchMode($mode)

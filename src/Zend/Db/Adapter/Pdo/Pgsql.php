@@ -197,7 +197,7 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
                         $row[$length] = null; // unlimited
                     }
                 }
-                if (preg_match("/^'(.*?)'::(?:character varying|bpchar)$/", $defaultValue, $matches)) {
+                if (preg_match("/^'(.*?)'::(?:character varying|bpchar)$/", $defaultValue ?? '', $matches)) {
                     $defaultValue = $matches[1];
                 }
             }
@@ -205,7 +205,7 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
             if ($row[$contype] == 'p') {
                 $primary         = true;
                 $primaryPosition = array_search($row[$attnum], explode(',', $row[$conkey])) + 1;
-                $identity        = (bool) (preg_match('/^nextval/', $row[$default_value]));
+                $identity        = (bool) (preg_match('/^nextval/', $row[$default_value] ?? ''));
             }
             $desc[$this->foldCase($row[$colname])] = array(
                 'SCHEMA_NAME'      => $this->foldCase($row[$nspname]),

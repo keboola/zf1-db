@@ -104,7 +104,7 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
                     $type = PDO::PARAM_STR;
                 }
             }
-            return $this->_stmt->bindParam($parameter, $variable, $type, $length, $options);
+            return $this->_stmt->bindParam($parameter, $variable, $type, $length ?? 0, $options);
         } catch (PDOException $e) {
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
@@ -237,7 +237,7 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             $style = $this->_fetchMode;
         }
         try {
-            return $this->_stmt->fetch($style, $cursor, $offset);
+            return $this->_stmt->fetch($style, $cursor ?? PDO::FETCH_ORI_NEXT, $offset ?? 0);
         } catch (PDOException $e) {
             throw new Zend_Db_Statement_Exception($e->getMessage(), $e->getCode(), $e);
         }
@@ -248,6 +248,7 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
      *
      * @return IteratorIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new IteratorIterator($this->_stmt);

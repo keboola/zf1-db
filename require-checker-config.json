@@ -17,6 +17,6 @@
     "SQLSRV_FETCH_ASSOC", "sqlsrv_fetch", "sqlsrv_get_field", "sqlsrv_fetch_object", "sqlsrv_field_metadata", "sqlsrv_next_result",
     "sqlsrv_rows_affected", "sqlsrv_connect", "SQLSRV_TXN_READ_COMMITTED", "SQLSRV_TXN_READ_UNCOMMITTED", "SQLSRV_TXN_REPEATABLE_READ",
     "SQLSRV_TXN_SNAPSHOT", "SQLSRV_TXN_SERIALIZABLE", "sqlsrv_close", "sqlsrv_begin_transaction", "sqlsrv_commit", "sqlsrv_rollback", "sqlsrv_server_info",
-    "mysqli_init", "mysqli_options", "mysqli_real_connect", "mysqli_connect_errno", "mysqli_connect_error", "mysqli_set_charset", "mysqli"
+    "mysqli_init", "mysqli_options", "mysqli_real_connect", "mysqli_connect_errno", "mysqli_connect_error", "mysqli_set_charset", "mysqli", "mysqli_sql_exception"
   ]
 }

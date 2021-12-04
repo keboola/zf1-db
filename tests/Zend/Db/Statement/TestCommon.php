@@ -328,9 +328,9 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
                 $e instanceof Zend_Db_Statement_Exception,
                 'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
             );
-            $this->assertRegExp('#invalid fetch mode#i', $e->getMessage());
+            $this->assertMatchesRegularExpression('#invalid fetch mode#i', $e->getMessage());
         } catch (ValueError $e) {
-            $this->assertRegExp('#must be a bitmask of PDO::FETCH_#i', $e->getMessage());
+            $this->assertMatchesRegularExpression('#must be a bitmask of PDO::FETCH_#i', $e->getMessage());
         }
     }
 
@@ -448,7 +448,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
                 'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
             );
         } catch (ValueError $e) {
-            $this->assertRegExp('#must be a bitmask of PDO::FETCH_#i', $e->getMessage());
+            $this->assertMatchesRegularExpression('#must be a bitmask of PDO::FETCH_#i', $e->getMessage());
         }
         $stmt->closeCursor();
     }
@@ -599,7 +599,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
                 'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
             );
         } catch (ValueError $e) {
-            $this->assertRegExp('#must be a bitmask of PDO::FETCH_#i', $e->getMessage());
+            $this->assertMatchesRegularExpression('#must be a bitmask of PDO::FETCH_#i', $e->getMessage());
         }
         $stmt->closeCursor();
     }
@@ -845,9 +845,6 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
             $meta = $stmt->getColumnMeta($i);
             $this->assertIsArray($meta);
             foreach ($this->_getColumnMetaKeys as $key) {
-                if ($key == 'table' && version_compare(PHP_VERSION, '5.2.0', '<')) {
-                    continue;
-                }
                 $this->assertContains($key, array_keys($meta));
             }
         }
