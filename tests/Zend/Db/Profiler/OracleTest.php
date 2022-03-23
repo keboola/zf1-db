@@ -53,7 +53,7 @@ class Zend_Db_Profiler_OracleTest extends Zend_Db_Profiler_TestCommon
         $this->assertIsArray($profiles, 'Expected array, got ' . gettype($profiles));
         $this->assertCount(1, $profiles, 'Expected to find 1 profile');
         $qp = $profiles[0];
-        $this->assertTrue($qp instanceof Zend_Db_Profiler_Query);
+        $this->assertInstanceOf(Zend_Db_Profiler_Query::class, $qp);
 
         // analyze query in the profile
         $sql = $qp->getQuery();
@@ -73,7 +73,7 @@ class Zend_Db_Profiler_OracleTest extends Zend_Db_Profiler_TestCommon
         $this->assertIsArray($profiles, 'Expected array, got ' . gettype($profiles));
         $this->assertCount(2, $profiles, 'Expected to find 2 profiles');
         $qp = $profiles[1];
-        $this->assertTrue($qp instanceof Zend_Db_Profiler_Query);
+        $this->assertInstanceOf(Zend_Db_Profiler_Query::class, $qp);
 
         // analyze query in the profile
         $sql = $qp->getQuery();
@@ -107,7 +107,7 @@ class Zend_Db_Profiler_OracleTest extends Zend_Db_Profiler_TestCommon
         $this->assertIsArray($profiles);
         $this->assertCount(1, $profiles, 'Expected to find 1 profile');
         $qp = $profiles[0];
-        $this->assertTrue($qp instanceof Zend_Db_Profiler_Query);
+        $this->assertInstanceOf(Zend_Db_Profiler_Query::class, $qp);
 
         // analyze query in the profile
         $sql = $qp->getQuery();
@@ -128,7 +128,7 @@ class Zend_Db_Profiler_OracleTest extends Zend_Db_Profiler_TestCommon
         $this->assertIsArray($profiles);
         $this->assertCount(2, $profiles, 'Expected to find 2 profiles');
         $qp = $profiles[1];
-        $this->assertTrue($qp instanceof Zend_Db_Profiler_Query);
+        $this->assertInstanceOf(Zend_Db_Profiler_Query::class, $qp);
 
         // analyze query in the profile
         $sql = $qp->getQuery();

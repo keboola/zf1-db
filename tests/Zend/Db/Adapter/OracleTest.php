@@ -470,7 +470,7 @@ class Zend_Db_Adapter_OracleTest extends Zend_Db_Adapter_TestCommon
         $document_clob = $this->_db->quoteIdentifier('doc_clob');
         $value         = $this->_db->fetchOne("SELECT $document_clob FROM $documents WHERE $document_id = 1");
         $class         = 'OCI-Lob';
-        $this->assertTrue($value instanceof $class);
+        $this->assertInstanceOf($class, $value);
         $expected = 'this is the clob that never ends...' .
                     'this is the clob that never ends...' .
                     'this is the clob that never ends...';

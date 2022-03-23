@@ -70,8 +70,9 @@ class Zend_Db_Adapter_Pdo_SqliteTest extends Zend_Db_Adapter_Pdo_TestCommon
             $stmt    = $this->_db->query($select);
             $result2 = $stmt->fetchAll();
         } catch (Zend_Exception $e) {
-            $this->assertTrue(
-                $e instanceof Zend_Db_Statement_Exception,
+            $this->assertInstanceOf(
+                Zend_Db_Statement_Exception::class,
+                $e,
                 'Expecting object of type Zend_Db_Statement_Exception, got ' . get_class($e)
             );
             $this->fail('Unexpected exception ' . get_class($e) . ' received: ' . $e->getMessage());
@@ -210,7 +211,7 @@ class Zend_Db_Adapter_Pdo_SqliteTest extends Zend_Db_Adapter_Pdo_TestCommon
 
         $select = $db->select()->from('zfproducts');
         $row    = $db->fetchRow($select);
-        $this->assertTrue($row instanceof stdClass);
+        $this->assertInstanceOf(stdClass::class, $row);
     }
 
     protected function _testAdapterAlternateStatement($stmtClass)
@@ -239,8 +240,9 @@ class Zend_Db_Adapter_Pdo_SqliteTest extends Zend_Db_Adapter_Pdo_TestCommon
 
         $stmt = $db->prepare("SELECT COUNT(*) FROM $bugs");
 
-        $this->assertTrue(
-            $stmt instanceof $stmtClass,
+        $this->assertInstanceOf(
+            $stmtClass,
+            $stmt,
             'Expecting object of type ' . $stmtClass . ', got ' . get_class($stmt)
         );
     }

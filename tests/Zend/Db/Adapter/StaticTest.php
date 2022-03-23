@@ -37,7 +37,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
     public function testDbConstructor()
     {
         $db = new Zend_Db_Adapter_Static(array('dbname' => 'dummy'));
-        $this->assertTrue($db instanceof Zend_Db_Adapter_Abstract);
+        $this->assertInstanceOf(Zend_Db_Adapter_Abstract::class, $db);
         $this->assertEquals('dummy', $db->config['dbname']);
     }
 
@@ -61,16 +61,16 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
         );
         $config1 = new Zend_Config($configData1);
         $db      = new Zend_Db_Adapter_Static($config1->params);
-        $this->assertTrue($db instanceof Zend_Db_Adapter_Abstract);
+        $this->assertInstanceOf(Zend_Db_Adapter_Abstract::class, $db);
         $this->assertEquals('dummy', $db->config['dbname']);
     }
 
     public function testDbFactory()
     {
         $db = Zend_Db::factory('Static', array('dbname' => 'dummy'));
-        $this->assertTrue($db instanceof Zend_Db_Adapter_Abstract);
+        $this->assertInstanceOf(Zend_Db_Adapter_Abstract::class, $db);
         $this->assertTrue(class_exists('Zend_Db_Adapter_Static'));
-        $this->assertTrue($db instanceof Zend_Db_Adapter_Static);
+        $this->assertInstanceOf(Zend_Db_Adapter_Static::class, $db);
         $this->assertEquals('dummy', $db->config['dbname']);
     }
 
@@ -91,11 +91,11 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
 
         set_include_path($ip);
 
-        $this->assertTrue($db instanceof Zend_Db_Adapter_Abstract);
+        $this->assertInstanceOf(Zend_Db_Adapter_Abstract::class, $db);
         $this->assertTrue(class_exists('Zend_Db_Adapter_Static'));
-        $this->assertTrue($db instanceof Zend_Db_Adapter_Static);
+        $this->assertInstanceOf(Zend_Db_Adapter_Static::class, $db);
         $this->assertTrue(class_exists('TestNamespace_Static'));
-        $this->assertTrue($db instanceof TestNamespace_Static);
+        $this->assertInstanceOf(TestNamespace_Static::class, $db);
     }
 
     public function testDbFactoryAlternateNamespaceExceptionInvalidAdapter()
@@ -122,8 +122,9 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
             $db = Zend_Db::factory(null);
             $this->fail('Expected to catch Zend_Db_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue(
-                $e instanceof Zend_Db_Exception,
+            $this->assertInstanceOf(
+                Zend_Db_Exception::class,
+                $e,
                 'Expected exception of type Zend_Db_Exception, got ' . get_class($e)
             );
             $this->assertEquals($e->getMessage(), 'Adapter name must be specified in a string');
@@ -156,8 +157,9 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
             $db = Zend_Db::factory('Static', array());
             $this->fail('Expected to catch Zend_Db_Adapter_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue(
-                $e instanceof Zend_Db_Adapter_Exception,
+            $this->assertInstanceOf(
+                Zend_Db_Adapter_Exception::class,
+                $e,
                 'Expected exception of type Zend_Db_Adapter_Exception, got ' . get_class($e)
             );
             $this->assertEquals("Configuration must have a key for 'dbname' that names the database instance", $e->getMessage());
@@ -174,7 +176,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
         );
         $config1 = new Zend_Config($configData1);
         $db      = Zend_Db::factory($config1);
-        $this->assertTrue($db instanceof Zend_Db_Adapter_Static);
+        $this->assertInstanceOf(Zend_Db_Adapter_Static::class, $db);
         $this->assertEquals('dummy', $db->config['dbname']);
     }
 
@@ -190,8 +192,9 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
             $db = Zend_Db::factory($config1);
             $this->fail('Expected to catch Zend_Db_Exception');
         } catch (Zend_Exception $e) {
-            $this->assertTrue(
-                $e instanceof Zend_Db_Exception,
+            $this->assertInstanceOf(
+                Zend_Db_Exception::class,
+                $e,
                 'Expected exception of type Zend_Db_Exception, got ' . get_class($e)
             );
             $this->assertEquals($e->getMessage(), 'Adapter name must be specified in a string');
@@ -211,7 +214,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
         );
         $config1 = new Zend_Config($configData1);
         $db      = Zend_Db::factory($config1, $configData2);
-        $this->assertTrue($db instanceof Zend_Db_Adapter_Static);
+        $this->assertInstanceOf(Zend_Db_Adapter_Static::class, $db);
         // second arg should be ignored
         $this->assertEquals('dummy', $db->config['dbname']);
     }
@@ -230,7 +233,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
         $config1 = new Zend_Config($configData1);
         $config2 = new Zend_Config($configData2);
         $db      = Zend_Db::factory($config1, $config2);
-        $this->assertTrue($db instanceof Zend_Db_Adapter_Static);
+        $this->assertInstanceOf(Zend_Db_Adapter_Static::class, $db);
         // second arg should be ignored
         $this->assertEquals('dummy', $db->config['dbname']);
     }
@@ -239,7 +242,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
     {
         $db   = Zend_Db::factory('Static', array('dbname' => 'dummy'));
         $conn = $db->getConnection();
-        $this->assertTrue($conn instanceof Zend_Db_Adapter_Static);
+        $this->assertInstanceOf(Zend_Db_Adapter_Static::class, $conn);
     }
 
     public function testDbGetFetchMode()
@@ -320,7 +323,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit\Framework\TestCase
             return;
         }
 
-        $this->assertFalse($adapter instanceof Test_Mycompany2_Dbadapter);
+        $this->assertInstanceOf(Test_Mycompany2_Dbadapter::class, $adapter);
         set_include_path($oldIncludePath);
     }
 
