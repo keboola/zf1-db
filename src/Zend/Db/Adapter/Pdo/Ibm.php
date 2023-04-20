@@ -114,7 +114,7 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
                         $this->_numericDataTypes['MONEY']      = Zend_Db::FLOAT_TYPE;
 
                         break;
-                    }
+                }
             }
         } catch (PDOException $e) {
             $error = strpos($e->getMessage(), 'driver does not support that attribute');

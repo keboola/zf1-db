@@ -804,7 +804,7 @@ abstract class Zend_Db_Table_Abstract
 
             // Define the cache identifier where the metadata are saved
             $cacheId = md5( // port:host/dbname:schema.table (based on availabilty)
-                    $port . $host . '/' . $dbConfig['dbname'] . ':'
+                $port . $host . '/' . $dbConfig['dbname'] . ':'
                   . $this->_schema . '.' . $this->_name
             );
         }
@@ -924,7 +924,7 @@ abstract class Zend_Db_Table_Abstract
                         }
                         break;
 
-                    // other values are copied as-is
+                        // other values are copied as-is
                     default:
                         $referenceMapNormalized[$rule][$key] = $value;
                         break;
